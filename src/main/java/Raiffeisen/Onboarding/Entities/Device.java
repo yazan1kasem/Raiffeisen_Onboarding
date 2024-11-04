@@ -9,25 +9,30 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name="u_user")
+@Table(name="d_device")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class User {
+public class Device {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")
-    @Column(name="u_id")
+    @Column(name="d_id")
     private String id;
 
-    @Column(name="u_name")
-    private String name;
+    @Column(name="d_gerät")
+    private String gerät;
 
-    @Column(name="u_admin")
-    private boolean admin;
+     @Column(name=" d_administration")
+    private String administration;
 
+     @Column(name="d_software")
+    private String software;
+
+     @Column(name="d_suchbegriff")
+    private String suchbegriff;
 
 }
