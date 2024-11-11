@@ -17,13 +17,13 @@ import org.hibernate.annotations.GenericGenerator;
 @SuperBuilder
 public class Position {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid2")
-        @GenericGenerator(name="uuid2", strategy = "uuid2")
-        @Column(name="p_id")
-        private String id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid2")
+    @GenericGenerator(name = "uuid2", strategy = "uuid2")
+    @Column(name = "p_id")
+    private String id;
 
-        @Column(name="p_bez")
-        private String bez;
+    @Column(name = "p_bez")
+    private String bezeichnung;
 
 }

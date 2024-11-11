@@ -24,9 +24,9 @@ public class Device {
     private String id;
 
     @Column(name="d_gerät")
-    private String gerät;
+    private String geraet;
 
-    @Column(name=" d_administration")
+    @Column(name="d_administration")
     private String administration;
 
     @Column(name="d_software")
@@ -34,5 +34,4 @@ public class Device {
 
     @Column(name="d_suchbegriff")
     private String suchbegriff;
-
 }

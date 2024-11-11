@@ -27,7 +27,5 @@ public class User {
     private String name;
 
     @Column(name="u_admin")
-    private boolean admin;
-
-
+    private boolean isAdmin;
 }
