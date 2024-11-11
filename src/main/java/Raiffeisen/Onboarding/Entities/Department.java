@@ -23,8 +23,8 @@ public class Department {
         @Column(name="d_id")
         private String id;
 
-        @Column(name="d_gerät")
-        private String gerät;
+        @Column(name="d_geraet")
+        private String geraet;
 
         @Column(name="d_administration")
         private String administration;
