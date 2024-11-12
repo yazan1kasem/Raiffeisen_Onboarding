@@ -1,7 +1,6 @@
-# Projektname
+# Raiffeisen-Onboarding-Webapplikation
 
-Dieses Projekt verwendet Spring Boot und verschiedene Abhängigkeiten, um eine REST-API mit JWT-Authentifizierung, Datenbankintegration und Sicherheitsfunktionen bereitzustellen.
-
+Dieses Projekt verwendet Spring Boot für das Backend, MySQL als Datenbank und Angular für das Frontend. Zur Sicherung der Anwendung wird Spring Security in Verbindung mit JWT (JSON Web Token) eingesetzt.
 ## Abhängigkeiten
 
 Hier sind die wichtigsten Abhängigkeiten, die für dieses Projekt verwendet werden. Fügen Sie sie zur `pom.xml` hinzu, um das Projekt korrekt zu konfigurieren.
