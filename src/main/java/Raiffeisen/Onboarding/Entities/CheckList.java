@@ -20,7 +20,7 @@ import java.util.Set;
 public class CheckList {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid2")
+    @GeneratedValue(strategy = GenerationType.UUID, generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")
     @Column(name="c_id")
     private String id;
@@ -37,17 +37,17 @@ public class CheckList {
     private boolean saved;
 
     @Column(name="c_überschrift")
-    private String überschrift;
+    private String ueberschrift;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "d_c_id", referencedColumnName = "d_id")
     private Device device;
 
-    @ManyToOne
-    @JoinColumn(name = "a_c_id", referencedColumnName = "a_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "a_c_id", referencedColumnName = "d_id")
     private Department department;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "p_c_id", referencedColumnName = "p_id")
     private Position position;
 

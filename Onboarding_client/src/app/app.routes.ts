@@ -1,14 +1,14 @@
 import { Routes } from '@angular/router';
 import {ChecklistComponent} from "./checklist/checklist.component";
 
+import { AuthGuard } from './auth.guard';
+import {ProtectedComponent} from "./protected/protected.component";
+import {LoginComponent} from "./login/login.component";
+
 export const routes: Routes = [
-  {
-    path:'',
-    title:"Checklist",
-    component:ChecklistComponent
-  },
-  {
-  path:'checklist',
-  title:"Checklisten",
-  component:ChecklistComponent
-},];
+  { path: 'protected', component: ProtectedComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
+  { path: '', redirectTo: 'checklist', pathMatch: 'full' },
+  { path: 'checklist', title: "Checklisten", component: ChecklistComponent },
+  { path: '**', redirectTo: 'checklist' },
+];
