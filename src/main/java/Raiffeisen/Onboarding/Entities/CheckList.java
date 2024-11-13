@@ -17,7 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class Checklist {
+public class CheckList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid2")

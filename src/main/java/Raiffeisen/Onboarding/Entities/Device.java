@@ -24,15 +24,14 @@ public class Device {
     private String id;
 
     @Column(name="d_gerät")
-    private String gerät;
+    private String geraet;
 
-     @Column(name=" d_administration")
+    @Column(name="d_administration")
     private String administration;
 
-     @Column(name="d_software")
+    @Column(name="d_software")
     private String software;
 
-     @Column(name="d_suchbegriff")
+    @Column(name="d_suchbegriff")
     private String suchbegriff;
-
 }
