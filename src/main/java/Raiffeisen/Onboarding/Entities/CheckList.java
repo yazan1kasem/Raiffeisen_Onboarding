@@ -44,13 +44,10 @@ public class CheckList {
     private Device device;
 
     @ManyToOne
-    @JoinColumn(name = "a_c_id", referencedColumnName = "a_id")
+    @JoinColumn(name = "a_c_id", referencedColumnName = "d_id")
     private Department department;
 
     @ManyToOne
     @JoinColumn(name = "p_c_id", referencedColumnName = "p_id")
     private Position position;
-
-
-
 }
