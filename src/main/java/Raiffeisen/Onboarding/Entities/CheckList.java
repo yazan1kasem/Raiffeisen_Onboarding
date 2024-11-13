@@ -39,15 +39,15 @@ public class CheckList {
     @Column(name="c_überschrift")
     private String ueberschrift;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "d_c_id", referencedColumnName = "d_id")
     private Device device;
 
-    @ManyToOne
-    @JoinColumn(name = "a_c_id", referencedColumnName = "a_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "a_c_id", referencedColumnName = "d_id")
     private Department department;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "p_c_id", referencedColumnName = "p_id")
     private Position position;
 

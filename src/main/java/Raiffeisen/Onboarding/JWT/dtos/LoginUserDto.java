@@ -3,7 +3,7 @@ package Raiffeisen.Onboarding.JWT.dtos;
 public class LoginUserDto {
     private String username;
 
-    private String password;
+    private String passwort;
 
     public String getUsername() {
         return username;
@@ -13,11 +13,11 @@ public class LoginUserDto {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasswort() {
+        return passwort;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasswort(String passwort) {
+        this.passwort = passwort;
     }
 }

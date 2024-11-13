@@ -17,19 +17,19 @@ public class AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationService(
-            UserRepository userRepository,
-            AuthenticationManager authenticationManager,
-            PasswordEncoder passwordEncoder
-    ) {
+    public AuthenticationService(UserRepository userRepository,
+                                 AuthenticationManager authenticationManager,
+                                 PasswordEncoder passwordEncoder) {
         this.authenticationManager = authenticationManager;
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
     public User signup(RegisterUserDto input) {
-        User user = new User().builder().name(input.getUsername()).password(passwordEncoder.encode(input.getPassword())).build();
-
+        User user = new User().builder()
+                .username(input.getUsername())
+                .password(passwordEncoder.encode(input.getPasswort()))
+                .build();
         return userRepository.save(user);
     }
 
@@ -37,11 +37,11 @@ public class AuthenticationService {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         input.getUsername(),
-                        input.getPassword()
+                        input.getPasswort()
                 )
         );
 
-        return userRepository.findByName(input.getUsername())
+        return userRepository.findByUsername(input.getUsername())
                 .orElseThrow();
     }
 }

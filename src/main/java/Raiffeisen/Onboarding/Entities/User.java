@@ -31,8 +31,8 @@ public class User implements UserDetails {
     @Column(name="u_id")
     private String id;
 
-    @Column(name="u_name")
-    private String name;
+    @Column(name="u_username")
+    private String username;
 
     @Column(name = "u_password")
     private String password;
@@ -58,7 +58,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return name;
+        return username;
     }
 
     @Override
