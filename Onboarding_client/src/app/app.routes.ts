@@ -10,12 +10,8 @@ export const routes: Routes = [
   { path: 'protected', component: ProtectedComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'checklist', pathMatch: 'full' },
-  { path: 'checklist', title: "Checklisten", component: ChecklistComponent },
+  { path: 'checklist', title: "Checklisten", component: ChecklistComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'checklist' },
 ];
 
-@NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
-})
-export class AppRoutingModule {}
+

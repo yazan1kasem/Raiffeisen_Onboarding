@@ -1,33 +1,37 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import {FormsModule} from "@angular/forms";
-import {CommonModule} from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { CommonModule } from "@angular/common";
+import { ChecklistService } from "../data.service";
+import {AuthService} from "../auth.service";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   standalone: true,
   imports: [
-    FormsModule,CommonModule
+    FormsModule, CommonModule
   ],
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  email: string = '';
+  username: string = '';
   password: string = '';
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private checklistService: ChecklistService,private authService: AuthService) {}
 
   onSubmit(): void {
-
-    if (this.email && this.password) {
-      console.log('Email:', this.email);
-      console.log('Password:', this.password);
-
-      this.router.navigate(['/home']);
-    } else {
-      alert("Please fill in both fields.");
-    }
+    this.authService.login(this.username, this.password).subscribe(
+      (response) => {
+        if (response && response.token) {
+          this.router.navigate(['/checklist']);
+        } else {
+          alert("Invalid username or password.");
+        }
+      },
+      (error) => {
+        alert("Login failed. Please try again.");
+      }
+    );
   }
 }
-

@@ -54,8 +54,6 @@ public class User implements UserDetails {
         return List.of();
     }
 
-
-
     @Override
     public String getUsername() {
         return username;
