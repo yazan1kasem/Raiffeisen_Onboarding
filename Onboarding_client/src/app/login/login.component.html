@@ -1,9 +1,15 @@
 <div class="login-container">
-  <h2>Login</h2>
+  <h2 class="signup-header">Login</h2>
 
+  <!-- Display error messages -->
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Login Form -->
   <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
     <div class="form-group">
-      <label for="email">Email</label>
+      <label for="email">Username</label>
       <input
         type="email"
         id="email"
@@ -11,6 +17,7 @@
         [(ngModel)]="username"
         name="email"
         required
+        placeholder="Enter your username"
       />
     </div>
 
@@ -23,10 +30,14 @@
         [(ngModel)]="password"
         name="password"
         required
+        placeholder="Enter your password"
       />
     </div>
 
-    <button type="submit" class="btn btn-primary btn-block">Login</button>
+    <button type="submit" class="btn btn-raiffeisen btn-block">Login</button>
   </form>
-</div>
 
+  <p class="login-link">
+    Noch kein Konto? <a routerLink="/signup">Sign Up</a>
+  </p>
+</div>

@@ -38,9 +38,7 @@ export class ChecklistService {
 
 
 
-  signup(username: string, password: string): Observable<User> {
-    return this.http.post<User>('http://localhost:8081/auth/signup', { username, password });
-  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(error);

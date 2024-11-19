@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
 import { ChecklistService } from "../data.service";
@@ -10,13 +10,14 @@ import {AuthService} from "../auth.service";
   templateUrl: './login.component.html',
   standalone: true,
   imports: [
-    FormsModule, CommonModule
+    FormsModule, CommonModule, RouterLink
   ],
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
   username: string = '';
   password: string = '';
+  errorMessage: string ='';
 
   constructor(private router: Router, private checklistService: ChecklistService,private authService: AuthService) {}
 
@@ -26,11 +27,11 @@ export class LoginComponent {
         if (response && response.token) {
           this.router.navigate(['/checklist']);
         } else {
-          alert("Invalid username or password.");
+          this.errorMessage="Login failed. Please try again.";
         }
       },
       (error) => {
-        alert("Login failed. Please try again.");
+        this.errorMessage="Invalid username or password.";
       }
     );
   }
