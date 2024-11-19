@@ -48,6 +48,14 @@ public class User implements UserDetails {
     @Column(name = "updated_at")
     private Date updatedAt;
 
+    private enum Role {
+        USER,
+        ADMIN
+    }
+
+    @Enumerated
+    @Column(name = "u_role")
+    private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

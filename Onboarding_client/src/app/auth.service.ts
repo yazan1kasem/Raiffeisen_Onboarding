@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient,HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { CanActivate, Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -30,7 +29,17 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    return !!this.getToken(); // Prüft, ob ein Token vorhanden ist
+    const token = this.getToken();
+    if (token && this.tokenExpired(token)) {
+      this.logout(); // Remove expired token
+      return false;
+    }
+    return !!token && !this.tokenExpired(token);
+  }
+
+  private tokenExpired(token: string): boolean {
+    const expiry = JSON.parse(atob(token.split('.')[1])).exp;
+    return Math.floor(new Date().getTime() / 1000) >= expiry;
   }
 }
 
