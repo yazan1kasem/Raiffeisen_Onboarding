@@ -1,4 +1,5 @@
-FROM ubuntu:latest
-LABEL authors="sinoa"
+FROM openjdk:21-jdk
 
-ENTRYPOINT ["top", "-b"]
+COPY target/Onboarding-0.0.1-SNAPSHOT.jar app.jar
+
+ENTRYPOINT ["java", "-jar", "app.jar"]
