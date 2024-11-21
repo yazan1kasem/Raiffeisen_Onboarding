@@ -1,12 +1,12 @@
 <div class="login-container">
   <h2 class="signup-header">Login</h2>
 
-  <!-- Display error messages -->
+
   <div *ngIf="errorMessage" class="error-message">
     {{ errorMessage }}
   </div>
 
-  <!-- Login Form -->
+
   <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
     <div class="form-group">
       <label for="email">Username</label>

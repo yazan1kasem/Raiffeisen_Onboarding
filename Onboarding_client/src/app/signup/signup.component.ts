@@ -24,13 +24,12 @@ export class SignupComponent {
 
   constructor(private router: Router, private authservice: AuthService) {}
 
-  // Submit handler for form
+
   onSubmit(): void {
-    // Clear previous error or success messages
     this.errorMessage = '';
     this.successMessage = '';
 
-    // Validate form
+
     if (!this.name || !this.password || !this.confirmPassword) {
       this.errorMessage = 'All fields are required.';
       return;
