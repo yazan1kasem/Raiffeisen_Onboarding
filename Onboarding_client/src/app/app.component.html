@@ -1,6 +1,6 @@
-<div id="sidebar">
+<div id="sidebar" *ngIf="shouldShowSidebar()" >
   <app-sidebar></app-sidebar>
 </div>
-<div class="container" id="content">
+<div id="content"  >
   <router-outlet></router-outlet>
 </div>

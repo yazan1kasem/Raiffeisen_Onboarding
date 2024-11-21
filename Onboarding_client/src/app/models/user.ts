@@ -1,11 +1,24 @@
 export class User {
-  id: string;
-  name: string;
-  admin: boolean;
+  id?: string;
+  username: string;
+  password: string;
+  isAdmin: boolean;
+  createdAt?: Date;
+  updatedAt?: Date;
 
-  constructor(id: string, name: string, admin: boolean) {
+  constructor(
+    username: string,
+    password: string,
+    isAdmin: boolean = false,
+    id?: string,
+    createdAt?: Date,
+    updatedAt?: Date
+  ) {
+    this.username = username;
+    this.password = password;
+    this.isAdmin = isAdmin;
     this.id = id;
-    this.name = name;
-    this.admin = admin;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 }
