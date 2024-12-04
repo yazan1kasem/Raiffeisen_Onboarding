@@ -37,9 +37,6 @@ public class User implements UserDetails {
     @Column(name = "u_password")
     private String password;
 
-    @Column(name="u_admin")
-    private boolean isAdmin;
-
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
     private Date createdAt;
@@ -53,7 +50,7 @@ public class User implements UserDetails {
         ADMIN
     }
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(name = "u_role")
     private Role role;
 
