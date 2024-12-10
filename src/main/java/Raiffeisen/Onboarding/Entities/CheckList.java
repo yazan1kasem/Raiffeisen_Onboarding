@@ -8,7 +8,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name="c_checklist")
@@ -25,32 +25,18 @@ public class CheckList {
     @Column(name="c_id")
     private String id;
 
-    @ManyToMany
-    @JoinTable(
-            name = "c_checkliste_has_u_user",
-            joinColumns = @JoinColumn(name = "c_checkliste_c_id"),
-            inverseJoinColumns = @JoinColumn(name = "u_user_u_id")
-    )
-    private Set<User> users;
-
-    @Column(name="c_saved")
-    private boolean saved;
-
     @Column(name="c_überschrift")
     private String ueberschrift;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "d_c_id", referencedColumnName = "d_id")
-    private Device device;
+    @Column(name = "c_abteilungsname")
+    private String abteilungsname;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "a_c_id", referencedColumnName = "d_id")
-    private Department department;
+    @Column(name = "c_Position")
+    private String position;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "p_c_id", referencedColumnName = "p_id")
-    private Position position;
-
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn(name = "c_i_id")
+    private List<Item> items;
 
 
 }
