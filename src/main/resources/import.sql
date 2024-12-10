@@ -1,8 +1,8 @@
-INSERT INTO u_user (u_id, u_username, u_password, u_admin, created_at, updated_at, u_role) VALUES (UUID(), 'user1', 'password1', false, NOW(), NOW(), 'USER');
-INSERT INTO u_user (u_id, u_username, u_password, u_admin, created_at, updated_at, u_role) VALUES (UUID(), 'user2', 'password2', false, NOW(), NOW(), 'USER');
-INSERT INTO u_user (u_id, u_username, u_password, u_admin, created_at, updated_at, u_role) VALUES (UUID(), 'admin1', 'adminpass1', true, NOW(), NOW(), 'ADMIN');
-INSERT INTO u_user (u_id, u_username, u_password, u_admin, created_at, updated_at, u_role) VALUES (UUID(), 'admin2', 'adminpass2', true, NOW(), NOW(), 'ADMIN');
-INSERT INTO u_user (u_id, u_username, u_password, u_admin, created_at, updated_at, u_role) VALUES (UUID(), 'user3', 'password3', false, NOW(), NOW(), 'USER');
+INSERT INTO u_user (u_id, u_username, u_password, created_at, updated_at, u_role) VALUES (UUID(), 'user1', 'password1',  NOW(), NOW(), 'USER');
+INSERT INTO u_user (u_id, u_username, u_password, created_at, updated_at, u_role) VALUES (UUID(), 'user2', 'password2',  NOW(), NOW(), 'USER');
+INSERT INTO u_user (u_id, u_username, u_password, created_at, updated_at, u_role) VALUES (UUID(), 'admin1', 'adminpass1',  NOW(), NOW(), 'ADMIN');
+INSERT INTO u_user (u_id, u_username, u_password, created_at, updated_at, u_role) VALUES (UUID(), 'admin2', 'adminpass2',  NOW(), NOW(), 'ADMIN');
+INSERT INTO u_user (u_id, u_username, u_password, created_at, updated_at, u_role) VALUES (UUID(), 'user3', 'password3', NOW(), NOW(), 'USER');
 
 INSERT INTO p_position (p_id, p_bez) VALUES (UUID(), 'Manager');
 INSERT INTO p_position (p_id, p_bez) VALUES (UUID(), 'Team Lead');
