@@ -1,19 +1,33 @@
 <div class="checklist-container">
-  <h2>Checklisten</h2>
+  <!-- Topbar -->
+  <div class="topbar">
+    <select
+      class="dropdown"
+      [(ngModel)]="selectedDepartment"
+      (change)="onFilterChange()">
+      <option value="">Alle Abteilungen</option>
+      <option *ngFor="let abteilung of abteilungen" [value]="abteilung">
+        {{ abteilung }}
+      </option>
+    </select>
 
-  <form class="checklist-form" (ngSubmit)="onSubmit()">
-    <input class="form-input" [(ngModel)]="checklistName" name="name" placeholder="Checklisten Name" required />
-    <input class="form-input" [(ngModel)]="checklistDepartment" name="department" placeholder="Abteilung" required />
-    <input class="form-input" [(ngModel)]="checklistPosition" name="position" placeholder="Position" required />
-    <button class="form-button submit-button" type="submit">{{ editingChecklist ? 'Aktualisieren' : 'Hinzufügen' }}</button>
-    <button class="form-button reset-button" type="button" (click)="resetForm()">Zurücksetzen</button>
-  </form>
+    <select class="dropdown" [(ngModel)]="selectedPosition" (change)="onFilterChange()" >
+      <option value="">Alle Positionen</option>
+      <option *ngFor="let position of positions" [value]="position">
+        {{ position }}
+      </option>
+    </select>
 
+
+  </div>
+
+  <!-- Checklisten -->
   <ul class="checklist-list">
-    <li *ngFor="let checklist of checklists" class="checklist-item">
-      <span class="checklist-text">{{ checklist.ueberschrift }} - {{ checklist.department }} - {{ checklist.position }}</span>
-      <button class="item-button edit-button" (click)="editChecklist(checklist)">Bearbeiten</button>
-      <button class="item-button delete-button" (click)="deleteChecklist(checklist.id)">Löschen</button>
+    <li *ngFor="let checklist of filteredChecklists" class="checklist-item">
+      <span class="checklist-text">
+        {{ checklist.ueberschrift }} - {{ checklist.abteilungsname }} - {{ checklist.position }}
+      </span>
+
     </li>
   </ul>
 </div>

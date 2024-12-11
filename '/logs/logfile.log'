@@ -1,0 +1,26 @@
+2024-12-05T11:02:52.226+01:00  INFO 26276 --- [main] R.Onboarding.OnboardingApplication       : Starting OnboardingApplication using Java 21.0.1 with PID 26276 (C:\Users\yazan\Desktop\ordnen\Onboarding\target\classes started by yazan in C:\Users\yazan\Desktop\ordnen\Onboarding)
+2024-12-05T11:02:52.246+01:00  INFO 26276 --- [main] R.Onboarding.OnboardingApplication       : No active profile set, falling back to 1 default profile: "default"
+2024-12-05T11:02:53.108+01:00  INFO 26276 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-12-05T11:02:53.171+01:00  INFO 26276 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 54 ms. Found 2 JPA repository interfaces.
+2024-12-05T11:02:53.851+01:00  INFO 26276 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port 8081 (http)
+2024-12-05T11:02:53.870+01:00  INFO 26276 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2024-12-05T11:02:53.870+01:00  INFO 26276 --- [main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.30]
+2024-12-05T11:02:53.938+01:00  INFO 26276 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2024-12-05T11:02:53.938+01:00  INFO 26276 --- [main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1621 ms
+2024-12-05T11:02:54.681+01:00  INFO 26276 --- [main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-12-05T11:02:54.724+01:00  INFO 26276 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2024-12-05T11:02:55.129+01:00  INFO 26276 --- [main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5d2e6f62
+2024-12-05T11:02:55.131+01:00  INFO 26276 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2024-12-05T11:02:57.634+01:00  INFO 26276 --- [main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-12-05T11:02:58.311+01:00 DEBUG 26276 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 2 @ExceptionHandler, 1 ResponseBodyAdvice
+2024-12-05T11:02:58.372+01:00 DEBUG 26276 --- [main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 2 @ExceptionHandler, 0 ResponseBodyAdvice
+2024-12-05T11:02:58.472+01:00  INFO 26276 --- [main] eAuthenticationProviderManagerConfigurer : Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2024-12-05T11:02:58.472+01:00  WARN 26276 --- [main] r$InitializeUserDetailsManagerConfigurer : Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used for username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider.
+2024-12-05T11:02:58.634+01:00 DEBUG 26276 --- [main] s.w.s.m.m.a.RequestMappingHandlerMapping : 10 mappings in 'requestMappingHandlerMapping'
+2024-12-05T11:02:58.666+01:00 DEBUG 26276 --- [main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2024-12-05T11:02:58.900+01:00 DEBUG 26276 --- [main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 1 RequestBodyAdvice, 1 ResponseBodyAdvice
+2024-12-05T11:02:59.109+01:00  INFO 26276 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port 8081 (http) with context path '/'
+2024-12-05T11:02:59.119+01:00  INFO 26276 --- [main] R.Onboarding.OnboardingApplication       : Started OnboardingApplication in 7.427 seconds (process running for 8.215)
+2024-12-05T11:03:13.050+01:00  INFO 26276 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-12-05T11:03:13.052+01:00  INFO 26276 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2024-12-05T11:03:13.060+01:00  INFO 26276 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.

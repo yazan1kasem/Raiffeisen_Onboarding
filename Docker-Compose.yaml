@@ -23,6 +23,8 @@ services:
     image: mysql:8
     container_name: db
     restart: always
+    volumes:
+      - ./db-data:/var/lib/mysql
     ports:
       - 3306:3306
     environment:
