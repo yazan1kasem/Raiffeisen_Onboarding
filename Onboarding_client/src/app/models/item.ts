@@ -1,4 +1,4 @@
-export class Device {
+export class Item {
   id: string;
   gerät: string;
   administration: string;

@@ -13,8 +13,12 @@ export class ChecklistService {
   constructor(private http: HttpClient) {}
 
   private getAuthHeaders(): HttpHeaders {
-    const token = localStorage.getItem('jwtToken');
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('Kein Token im Local Storage gefunden.');
+    }
     return new HttpHeaders({
+      'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
   }

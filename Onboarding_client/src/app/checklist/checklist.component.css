@@ -1,111 +1,134 @@
-
-.checklist-container {
-  max-width: 600px;
-  margin: auto;
-  padding: 20px;
-  background-color: #1a1a1a;
-  color: #ffd700;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-
-.checklist-container h2 {
-  text-align: center;
-  font-size: 24px;
-  color: #ffd700;
-  margin-bottom: 20px;
-}
-
-
-.checklist-form {
+.topbar {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-bottom: 20px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #212529; /* Dunkelgrau */
+  color: #ffd700; /* Gelb */
+  border-radius: 8px;
+  height: 60px;
+  position: sticky;
+  top: 0;
+  z-index: 101;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+.checklist-container {
+  width: calc(100% - 290px);
+  margin-left: 250px;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
 }
 
-.form-input {
+.dropdown {
   padding: 10px;
   font-size: 16px;
-  border: 1px solid #ffd700;
+  border: 1px solid #ffd700; /* Gelber Rahmen */
   border-radius: 4px;
-  background-color: #2e2e2e;
-  color: #ffffff;
+  background-color: #343a40; /* Dunkelgrauer Hintergrund */
+  color: #ffd700; /* Gelber Text */
+  margin-right: 10px;
+  flex: 1;
+  appearance: none; /* Entfernt den Standard-Pfeil */
+  -webkit-appearance: none; /* Für Safari */
+  -moz-appearance: none; /* Für Firefox */
+  position: relative;
+  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="%23ffd700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"%3E%3Cpath d="M6 9l6 6 6-6"/%3E%3C/svg%3E'); /* Gelber Pfeil */
+  background-repeat: no-repeat;
+  background-position: right 10px center; /* Pfeil rechts positionieren */
+  background-size: 16px 16px; /* Pfeilgröße */
 }
 
-.form-input::placeholder {
-  color: #d3d3d3;
+.dropdown:hover {
+  background-color: #212529; /* Hintergrundfarbe bei Hover */
+  cursor: pointer;
 }
+
+.dropdown:focus {
+  outline: none;
+  box-shadow: 0 0 5px #ffd700; /* Gelber Leuchteffekt */
+}
+
 
 .form-button {
-  padding: 10px;
+  padding: 10px 20px;
   font-size: 16px;
   font-weight: bold;
-  color: #1a1a1a;
   background-color: #ffd700;
   border: none;
   border-radius: 4px;
+  color: #212529;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s ease;
 }
 
 .form-button:hover {
   background-color: #e6b800;
 }
 
-.reset-button {
-  background-color: #444444;
+.checklist-list {
+  list-style-type: none;
+  padding: 0;
+  margin-top: 20px;
+}
+
+.checklist-item {
+  padding: 15px;
+  margin-bottom: 10px;
+  background-color: #343a40;
+  border-radius: 4px;
   color: #ffd700;
+  font-weight: bold;
 }
 
-.reset-button:hover {
-  background-color: #555555;
+.form-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #ffd700;
+  border: none;
+  border-radius: 4px;
+  color: #212529;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
+.form-button:hover {
+  background-color: #e6b800;
+}
 
 .checklist-list {
   list-style-type: none;
   padding: 0;
+  margin-top: 20px;
 }
 
 .checklist-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
+  padding: 15px;
   margin-bottom: 10px;
-  background-color: #333333;
+  background-color: #343a40;
   border-radius: 4px;
-}
-
-.checklist-text {
   color: #ffd700;
   font-weight: bold;
-}
+  transition: transform 0.5s ease, box-shadow 0.3s ease;
 
-.item-button {
-  padding: 5px 10px;
-  font-size: 14px;
-  font-weight: bold;
-  color: #1a1a1a;
-  background-color: #ffd700;
-  border: none;
-  border-radius: 4px;
+}
+.checklist-item:hover {
+  background-color: #101213;
   cursor: pointer;
-  margin-left: 5px;
-  transition: background-color 0.3s;
+  transform: scale(1.01); /* Leichtes Vergrößern */
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3); /* Stärkerer Schatten */
+}
+/* Responsive Design for Smaller Screens */
+@media (max-width: 768px) {
+  .checklist-container {
+    width: calc(100% - 100px);
+    margin-left: 0;
+  }
 }
 
-.item-button:hover {
-  background-color: #e6b800;
-}
-
-.delete-button {
-  background-color: #d9534f;
-  color: #ffffff;
-}
-
-.delete-button:hover {
-  background-color: #c9302c;
+@media (max-width: 576px) {
+  .checklist-container {
+    margin-left: 0;
+    width: calc(100% - 290px);
+  }
 }

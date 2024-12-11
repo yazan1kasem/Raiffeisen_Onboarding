@@ -74,22 +74,18 @@
 }
 
 /* Content Area */
-#content {
-  width: calc(100% - 250px);
-  margin-left: 250px;
-  padding: 20px;
-  transition: margin-left 0.3s ease;
-}
+
 
 /* Responsive Design for Smaller Screens */
 @media (max-width: 768px) {
   #sidebar {
-    width: 200px;
+    width: 180px;
+    visibility: collapse;
   }
 
   #content {
-    width: calc(100% - 200px);
-    margin-left: 200px;
+    width: calc(100% - 100px);
+    margin-left: 0;
   }
 }
 
@@ -98,13 +94,8 @@
     width: 100%;
     height: auto;
     position: relative;
+    visibility: collapse;
   }
-
-  #content {
-    margin-left: 0;
-    width: 100%;
-  }
-
   #sidebar ul.components {
     flex-grow: 0;
   }

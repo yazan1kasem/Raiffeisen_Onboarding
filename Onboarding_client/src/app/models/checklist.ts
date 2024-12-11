@@ -1,32 +1,24 @@
-import {User} from "./user";
-import {Device} from "./device";
-import {Department} from "./department";
-import {Position} from "./position";
+import {Item} from "./item";
+
 
 export class Checklist {
   id: string;
-  users: User[];
-  saved: boolean;
   ueberschrift: string;
-  device: Device;
-  department: Department;
-  position: Position;
+  abteilungsname: string;
+  position: string;
+  items: Item[];
 
   constructor(
     id: string,
-    users: User[],
-    saved: boolean,
     ueberschrift: string,
-    device: Device,
-    department: Department,
-    position: Position
+    abteilungsname: string,
+    position: string,
+    items: Item[]
   ) {
     this.id = id;
-    this.users = users;
-    this.saved = saved;
     this.ueberschrift = ueberschrift;
-    this.device = device;
-    this.department = department;
+    this.abteilungsname = abteilungsname;
     this.position = position;
+    this.items = items;
   }
 }
