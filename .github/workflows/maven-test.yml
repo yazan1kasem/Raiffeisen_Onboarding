@@ -1,0 +1,56 @@
+name: Build, Test and Deploy
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Install Dependencies und Run Tests (Server)
+        run: |
+          cd server
+          mvn clean install
+          mvn test
+        # Kopiere Test-Reports in ein Verzeichnis
+      - name: Collect Server Test Reports
+        run: |
+          mkdir -p server-test-results
+          cp server/target/surefire-reports/*.xml server-test-results/
+
+      - name: Install Dependencies und Run Tests (Client)
+        run: |
+          cd client
+          npm install
+          npm test -- --watch=false --browsers=ChromeHeadless --reporters junit --outputPath=test-results
+        # Kopiere Client-Test-Reports in ein Verzeichnis
+      - name: Collect Client Test Reports
+        run: |
+          mkdir -p client-test-results
+          cp client/test-results/*.xml client-test-results/
+
+      - name: Upload Test Reports
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-reports
+          path: |
+            server-test-results/
+            client-test-results/
+
+      - name: Build Docker Images
+        run: |
+          docker build -t my-server-image ./server
+          docker build -t my-client-image ./client
+
+      - name: List Docker Images
+        run: docker images

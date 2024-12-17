@@ -7,6 +7,7 @@ import {LoginComponent} from "./login/login.component";
 import {NgModule} from "@angular/core";
 import {SignupComponent} from "./signup/signup.component";
 
+
 export const routes: Routes = [
   { path: 'protected', component: ProtectedComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
@@ -14,7 +15,6 @@ export const routes: Routes = [
   { path: '', redirectTo: 'checklist', pathMatch: 'full' },
   { path: 'checklist', title: "Checklisten", component: ChecklistComponent, canActivate: [AuthGuard] },
   { path: '**', redirectTo: 'checklist' },
-
 ];
 
 

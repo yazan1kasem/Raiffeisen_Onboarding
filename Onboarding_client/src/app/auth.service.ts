@@ -46,6 +46,28 @@ export class AuthService {
     const expiry = JSON.parse(atob(token.split('.')[1])).exp;
     return Math.floor(new Date().getTime() / 1000) >= expiry;
   }
+
+  // New Method: Get User Role
+  getRole(): string | null {
+    const token = this.getToken();
+    if (token) {
+      const payload = JSON.parse(atob(token.split('.')[1])); // Decode JWT payload
+      return payload.role; // Assumes role is stored in token payload
+    }
+    return null;
+  }
+
+  // New Method: Check if user has a specific role
+  hasRole(requiredRole: string): boolean {
+    const role = this.getRole();
+    return role === requiredRole;
+  }
+
+  // New Method: Check if user has any role in a list of roles
+  hasAnyRole(requiredRoles: string[]): boolean {
+    const role = this.getRole();
+    return requiredRoles.includes(role || '');
+  }
 }
 
 

@@ -45,7 +45,7 @@ public class User implements UserDetails {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    private enum Role {
+    public enum Role {
         USER,
         ADMIN
     }
