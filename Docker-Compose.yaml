@@ -1,5 +1,6 @@
-services:
+version: '3.8'
 
+services:
   app:
     image: 'docker-spring-boot-postgres:latest'
     build:
@@ -8,7 +9,8 @@ services:
     ports:
       - "8081:8081"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/db_Raiffeisen
       - SPRING_DATASOURCE_USERNAME=root
@@ -17,8 +19,16 @@ services:
   angular-app:
     build:
       context: ./Onboarding_client
+    container_name: angular-app
     ports:
       - "4200:4200"
+    depends_on:
+      - app
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4200"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
   db:
     image: mysql:8
     container_name: db
@@ -31,3 +41,8 @@ services:
       MYSQL_DATABASE: db_Raiffeisen
       MYSQL_PASSWORD: root
       MYSQL_ROOT_PASSWORD: root
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-uroot", "-proot"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
