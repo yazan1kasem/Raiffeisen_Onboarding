@@ -20,6 +20,7 @@ jobs:
       - name: Install Dependencies und Run Tests (Server)
         run: |
           cd ..
+          ls
           mvn clean install
           mvn test
 
