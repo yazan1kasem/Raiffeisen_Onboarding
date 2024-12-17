@@ -22,22 +22,22 @@ jobs:
           cd Raiffeisen.Onboarding
           mvn clean install
           mvn test
-        # Kopiere Test-Reports in ein Verzeichnis
+
       - name: Collect Server Test Reports
         run: |
           mkdir -p server-test-results
-          cp server/target/surefire-reports/*.xml server-test-results/
+          cp Raiffeisen.Onboarding/target/surefire-reports/*.xml server-test-results/
 
       - name: Install Dependencies und Run Tests (Client)
         run: |
           cd Onboarding_client
           npm install
           npm test -- --watch=false --browsers=ChromeHeadless --reporters junit --outputPath=test-results
-        # Kopiere Client-Test-Reports in ein Verzeichnis
+
       - name: Collect Client Test Reports
         run: |
           mkdir -p client-test-results
-          cp client/test-results/*.xml client-test-results/
+          cp Onboarding_client/test-results/*.xml client-test-results/
 
       - name: Upload Test Reports
         uses: actions/upload-artifact@v3
@@ -49,8 +49,8 @@ jobs:
 
       - name: Build Docker Images
         run: |
-          docker build -t my-server-image ./server
-          docker build -t my-client-image ./client
+          docker build -t my-server-image ./Raiffeisen.Onboarding
+          docker build -t my-client-image ./Onboarding_client
 
       - name: List Docker Images
         run: docker images
