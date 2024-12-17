@@ -19,7 +19,6 @@ jobs:
 
       - name: Install Dependencies und Run Tests (Server)
         run: |
-          cd .. 
           cd Onboarding
           mvn clean install
           mvn test
@@ -27,7 +26,7 @@ jobs:
       - name: Collect Server Test Reports
         run: |
           mkdir -p server-test-results
-          cp Raiffeisen.Onboarding/target/surefire-reports/*.xml server-test-results/
+          cp Onboarding/target/surefire-reports/*.xml server-test-results/
 
       - name: Install Dependencies und Run Tests (Client)
         run: |
@@ -50,7 +49,7 @@ jobs:
 
       - name: Build Docker Images
         run: |
-          docker build -t my-server-image ./Raiffeisen.Onboarding
+          docker build -t my-server-image ./Onboarding
           docker build -t my-client-image ./Onboarding_client
 
       - name: List Docker Images
