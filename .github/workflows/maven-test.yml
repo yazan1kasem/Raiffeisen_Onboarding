@@ -20,8 +20,9 @@ jobs:
       - name: Install Dependencies und Run Tests (Server)
         run: |
           cd ..
-          ls
-          
+          cd Raiffeisen_Onboarding
+          mvn clean install
+          mvn test
 
       - name: Collect Server Test Reports
         run: |
