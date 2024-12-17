@@ -19,7 +19,7 @@ jobs:
 
       - name: Install Dependencies und Run Tests (Server)
         run: |
-          cd Raiffeisen.Onboarding
+          cd Onboarding
           mvn clean install
           mvn test
 
