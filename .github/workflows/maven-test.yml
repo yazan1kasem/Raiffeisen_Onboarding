@@ -19,7 +19,7 @@ jobs:
 
       - name: Install Dependencies und Run Tests (Server)
         run: |
-          cd server
+          cd Raiffeisen.Onboarding
           mvn clean install
           mvn test
         # Kopiere Test-Reports in ein Verzeichnis
@@ -30,7 +30,7 @@ jobs:
 
       - name: Install Dependencies und Run Tests (Client)
         run: |
-          cd client
+          cd Onboarding_client
           npm install
           npm test -- --watch=false --browsers=ChromeHeadless --reporters junit --outputPath=test-results
         # Kopiere Client-Test-Reports in ein Verzeichnis
