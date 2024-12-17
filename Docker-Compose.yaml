@@ -11,6 +11,7 @@ services:
       - db
     environment:
       - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/db_Raiffeisen
+      - SPRING_DATASOURCE_USERNAME=root
       - SPRING_DATASOURCE_PASSWORD=root
       - SPRING_JPA_HIBERNATE_DDL_AUTO=create
   angular-app:
@@ -20,13 +21,13 @@ services:
       - "4200:4200"
   db:
     image: mysql:8
+    container_name: db
     restart: always
     volumes:
-      - ./dbdata:/var/lib/mysql
+      - ./db-data:/var/lib/mysql
     ports:
       - 3306:3306
     environment:
       MYSQL_DATABASE: db_Raiffeisen
       MYSQL_PASSWORD: root
       MYSQL_ROOT_PASSWORD: root
-

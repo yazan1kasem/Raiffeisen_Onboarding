@@ -20,27 +20,36 @@ public class CheckListenController {
     }
 
     @GetMapping("/{id}")
-    public CheckList getCheckListen(@PathVariable String id) {
-        return checkListenRepository.findById(id).orElse(null);
+    public ResponseEntity<CheckList> getCheckListen(@PathVariable String id) {
+        return checkListenRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping()
-    public CheckList createCheckListen(@RequestBody CheckList checkList) {
-        checkListenRepository.save(checkList);
-        return checkList;
+    @PostMapping("")
+    public ResponseEntity<CheckList> createCheckListen(@RequestBody CheckList checkList) {
+        CheckList savedCheckList = checkListenRepository.save(checkList);
+        return ResponseEntity.ok(savedCheckList);
     }
 
-    @PutMapping("{id}")
-    public CheckList updateCheckListen(@PathVariable(value = "id") String checkListenId, @RequestBody CheckList checkListenDetails) {
-        return ResponseEntity.ok(checkListenRepository.save(new CheckList().builder()
-                .id(checkListenId)
-                .ueberschrift(checkListenDetails.getUeberschrift())
-                .device(checkListenDetails.getDevice())
-                .department(checkListenDetails.getDepartment())
-                .position(checkListenDetails.getPosition())
-                .users(checkListenDetails.getUsers())
-                .saved(checkListenDetails.isSaved())
-                .build())).getBody();
+    @PutMapping("/{id}")
+    public ResponseEntity<CheckList> updateCheckListen(
+            @PathVariable String id,
+            @RequestBody CheckList checkListenDetails) {
+        return checkListenRepository.findById(id).map(existingCheckList -> {
+            existingCheckList.setUeberschrift(checkListenDetails.getUeberschrift());
+            existingCheckList.setItems(checkListenDetails.getItems());
+            CheckList updatedCheckList = checkListenRepository.save(existingCheckList);
+            return ResponseEntity.ok(updatedCheckList);
+        }).orElse(ResponseEntity.notFound().build());
+    }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCheckListen(@PathVariable String id) {
+        if (checkListenRepository.existsById(id)) {
+            checkListenRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 }

@@ -1,24 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ChecklistService } from '../data.service';
 import { Checklist } from '../models/checklist';
-import { CommonModule } from "@angular/common";
+import { ChecklistService } from '../data.service';
+import { FormsModule } from "@angular/forms";
+import {CommonModule} from "@angular/common";
 
 @Component({
   selector: 'app-checklist',
-  standalone: true,
   templateUrl: './checklist.component.html',
   styleUrls: ['./checklist.component.css'],
-  imports: [CommonModule, FormsModule],
+  imports: [
+    FormsModule,
+    CommonModule
+  ],
+  standalone: true
 })
 export class ChecklistComponent implements OnInit {
   checklists: Checklist[] = [];
-  editingChecklist: Checklist | null = null;
-
-
-  checklistName: string = '';
-  checklistDepartment: string = '';
-  checklistPosition: string = '';
+  filteredChecklists: Checklist[] = [];
+  abteilungen: string[] = [];
+  positions: string[] = [];
+  selectedDepartment: string = '';
+  selectedPosition: string = '';
 
   constructor(private checklistService: ChecklistService) {}
 
@@ -27,37 +29,35 @@ export class ChecklistComponent implements OnInit {
   }
 
   loadChecklists(): void {
-    this.checklistService.getChecklists().subscribe(data => {
+    this.checklistService.getChecklists().subscribe((data: Checklist[]) => {
       this.checklists = data;
+      this.filteredChecklists = data;
+
+      // Extrahiere Abteilungen und Positionen ohne Duplikate
+      this.abteilungen = [...new Set(data.map((checklist) => checklist.abteilungsname))];
+      this.positions = [...new Set(data.map((checklist) => checklist.position))];
     });
   }
 
-  onSubmit(): void {
-    const newChecklist = {
-      name: this.checklistName,
-      department: this.checklistDepartment,
-      position: this.checklistPosition
-    };
-
-
+  onFilterChange(): void {
+    this.filterChecklists();
   }
 
-  editChecklist(checklist: Checklist): void {
-    this.editingChecklist = checklist;
+  filterChecklists(): void {
+    this.filteredChecklists = this.checklists.filter((checklist) => {
+      const matchesDepartment = this.selectedDepartment
+        ? checklist.abteilungsname === this.selectedDepartment
+        : true;
 
+      const matchesPosition = this.selectedPosition
+        ? checklist.position === this.selectedPosition
+        : true;
 
-  }
-
-  deleteChecklist(checklistId: string): void {
-    this.checklistService.deleteChecklist(checklistId).subscribe(() => {
-      this.loadChecklists();
+      return matchesDepartment && matchesPosition;
     });
   }
 
-  resetForm(): void {
-    this.editingChecklist = null;
-    this.checklistName = '';
-    this.checklistDepartment = '';
-    this.checklistPosition = '';
+  openChecklist(checklist: Checklist) {
+
   }
 }

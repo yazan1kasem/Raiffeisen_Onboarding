@@ -1,4 +1,4 @@
-export class Department {
+export class Item {
   id: string;
   gerät: string;
   administration: string;
