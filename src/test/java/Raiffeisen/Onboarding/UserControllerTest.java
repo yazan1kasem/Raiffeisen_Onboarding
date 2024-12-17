@@ -3,6 +3,7 @@ package Raiffeisen.Onboarding;
 import Raiffeisen.Onboarding.Controller.UserController;
 import Raiffeisen.Onboarding.Entities.User;
 import Raiffeisen.Onboarding.JWT.dtos.UserService;
+import Raiffeisen.Onboarding.JWT.services.JwtService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,9 @@ class UserControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @MockBean
+    private JwtService jwtService;
 
     @MockBean
     private UserService userService;

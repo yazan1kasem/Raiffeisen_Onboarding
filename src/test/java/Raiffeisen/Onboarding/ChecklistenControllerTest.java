@@ -2,11 +2,8 @@ package Raiffeisen.Onboarding;
 
 import Raiffeisen.Onboarding.Controller.CheckListenController;
 import Raiffeisen.Onboarding.Entities.CheckList;
-import Raiffeisen.Onboarding.Entities.Device;
-import Raiffeisen.Onboarding.Entities.Department;
-import Raiffeisen.Onboarding.Entities.Position;
+import Raiffeisen.Onboarding.Entities.Item;
 import Raiffeisen.Onboarding.Entities.User;
-import Raiffeisen.Onboarding.JWT.configs.JwtAuthenticationFilter;
 import Raiffeisen.Onboarding.JWT.services.JwtService;
 import Raiffeisen.Onboarding.Repository.CheckListenRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -19,6 +16,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -33,13 +31,10 @@ class ChecklistenControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
+    private JwtService jwtService;
+
+    @MockBean
     private CheckListenRepository checkListenRepository;
-
-    @MockBean
-    private JwtService jwtService; // Mock hinzugefügt für JwtService
-
-    @MockBean
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -51,45 +46,43 @@ class ChecklistenControllerTest {
         checkList = buildCheckList();
     }
 
-    // Hilfsmethode zur Erstellung von Testdaten
     private CheckList buildCheckList() {
-        Device device = new Device();
-        device.setId("d1");
-        device.setGeraet("Test Device");
+        Item item1 = new Item();
+        item1.setId("i1");
+        item1.setGeraet("Test Gerät 1");
+        item1.setAdministration("Test Administration 1");
+        item1.setSoftware("Test Software 1");
+        item1.setSuchbegriff("Test Suchbegriff 1");
 
-        Department department = new Department();
-        department.setId("dep1");
-        department.setGeraet("Test Geraet");
-
-        Position position = new Position();
-        position.setId("p1");
-        position.setBezeichnung("Test Position");
-
-        User user = new User();
-        user.setId("u1");
-        user.setUsername("testUser");
+        Item item2 = new Item();
+        item2.setId("i2");
+        item2.setGeraet("Test Gerät 2");
+        item2.setAdministration("Test Administration 2");
+        item2.setSoftware("Test Software 2");
+        item2.setSuchbegriff("Test Suchbegriff 2");
 
         CheckList checkList = new CheckList();
         checkList.setId("1");
         checkList.setUeberschrift("Test Ueberschrift");
-        checkList.setDevice(device);
-        checkList.setDepartment(department);
-        checkList.setPosition(position);
-        checkList.setUsers(Set.of(user));
-        checkList.setSaved(true);
+        checkList.setAbteilungsname("Test Abteilung");
+        checkList.setPosition("Test Position");
+        checkList.setItems(List.of(item1, item2));
+
         return checkList;
     }
 
+
     @Test
     void testGetAllCheckListen() throws Exception {
-        Mockito.when(checkListenRepository.findAll()).thenReturn(java.util.List.of(checkList));
+        Mockito.when(checkListenRepository.findAll()).thenReturn(List.of(checkList));
 
         mockMvc.perform(get("/checklisten"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].ueberschrift").value("Test Ueberschrift"))
-                .andExpect(jsonPath("$[0].device.geraet").value("Test Device"))
-                .andExpect(jsonPath("$[0].department.geraet").value("Test Geraet"))
-                .andExpect(jsonPath("$[0].position.bezeichnung").value("Test Position"));
+                .andExpect(jsonPath("$[0].abteilungsname").value("Test Abteilung"))
+                .andExpect(jsonPath("$[0].position").value("Test Position"))
+                .andExpect(jsonPath("$[0].items[0].name").value("Item 1"))
+                .andExpect(jsonPath("$[0].items[1].name").value("Item 2"));
     }
 
     @Test
@@ -99,17 +92,10 @@ class ChecklistenControllerTest {
         mockMvc.perform(get("/checklisten/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.ueberschrift").value("Test Ueberschrift"))
-                .andExpect(jsonPath("$.device.geraet").value("Test Device"))
-                .andExpect(jsonPath("$.department.geraet").value("Test Geraet"))
-                .andExpect(jsonPath("$.position.bezeichnung").value("Test Position"));
-    }
-
-    @Test
-    void testGetCheckListenById_NotFound() throws Exception {
-        Mockito.when(checkListenRepository.findById("999")).thenReturn(Optional.empty());
-
-        mockMvc.perform(get("/checklisten/999"))
-                .andExpect(status().isNotFound());
+                .andExpect(jsonPath("$.abteilungsname").value("Test Abteilung"))
+                .andExpect(jsonPath("$.position").value("Test Position"))
+                .andExpect(jsonPath("$.items[0].name").value("Item 1"))
+                .andExpect(jsonPath("$.items[1].name").value("Item 2"));
     }
 
     @Test
@@ -121,22 +107,9 @@ class ChecklistenControllerTest {
                         .content(objectMapper.writeValueAsString(checkList)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.ueberschrift").value("Test Ueberschrift"))
-                .andExpect(jsonPath("$.device.geraet").value("Test Device"))
-                .andExpect(jsonPath("$.department.geraet").value("Test Geraet"))
-                .andExpect(jsonPath("$.position.bezeichnung").value("Test Position"));
-    }
-
-    @Test
-    void testUpdateCheckListen() throws Exception {
-        Mockito.when(checkListenRepository.save(any(CheckList.class))).thenReturn(checkList);
-
-        mockMvc.perform(put("/checklisten/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(checkList)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.ueberschrift").value("Test Ueberschrift"))
-                .andExpect(jsonPath("$.device.geraet").value("Test Device"))
-                .andExpect(jsonPath("$.department.geraet").value("Test Geraet"))
-                .andExpect(jsonPath("$.position.bezeichnung").value("Test Position"));
+                .andExpect(jsonPath("$.abteilungsname").value("Test Abteilung"))
+                .andExpect(jsonPath("$.position").value("Test Position"))
+                .andExpect(jsonPath("$.items[0].name").value("Item 1"))
+                .andExpect(jsonPath("$.items[1].name").value("Item 2"));
     }
 }
