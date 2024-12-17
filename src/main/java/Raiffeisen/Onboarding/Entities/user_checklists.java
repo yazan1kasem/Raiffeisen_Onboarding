@@ -30,9 +30,9 @@ public class user_checklists {
     private List<user_checklist_items> User_checklist_items;
 
     private enum status{
-        open,
+        neu,
         in_progress,
-        done
+        done//TODO
     }
 
     @Column(name="uc_status")
