@@ -58,7 +58,7 @@ class AuthenticationControllerTest {
     }
 
     @Test
-    void testRegister() throws Exception {
+    void testRegisterSuccess() throws Exception {
         Mockito.when(authenticationService.signup(any(RegisterUserDto.class))).thenReturn(user);
 
         mockMvc.perform(post("/auth/signup")
@@ -66,11 +66,22 @@ class AuthenticationControllerTest {
                         .content(objectMapper.writeValueAsString(registerUserDto)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.username").value("testUser"))
-                .andExpect(jsonPath("$.role").value("USER"));
+                .andExpect(jsonPath("$.role").value("USER"))
+                .andExpect(jsonPath("$.id").value("1")); // Ensure the ID is also returned
     }
 
     @Test
-    void testAuthenticate() throws Exception {
+    void testRegisterBadRequest() throws Exception {
+        registerUserDto.setPassword(""); // Invalid password
+
+        mockMvc.perform(post("/auth/signup")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(registerUserDto)))
+                .andExpect(status().isBadRequest());
+    }
+
+    @Test
+    void testAuthenticateSuccess() throws Exception {
         String token = "mockedToken123";
         Mockito.when(authenticationService.authenticate(any(LoginUserDto.class))).thenReturn(user);
         Mockito.when(jwtService.generateToken(user)).thenReturn(token);
@@ -82,6 +93,29 @@ class AuthenticationControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.token").value(token))
                 .andExpect(jsonPath("$.expiresIn").value(3600))
-                .andExpect(jsonPath("$.role").value("USER"));
+                .andExpect(jsonPath("$.role").value("USER"))
+                .andExpect(jsonPath("$.username").value("testUser")); // Ensure username is included
+    }
+
+    @Test
+    void testAuthenticateUnauthorized() throws Exception {
+        Mockito.when(authenticationService.authenticate(any(LoginUserDto.class)))
+                .thenThrow(new IllegalArgumentException("Invalid credentials"));
+
+        mockMvc.perform(post("/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(loginUserDto)))
+                .andExpect(status().isUnauthorized())
+                .andExpect(jsonPath("$.error").value("Invalid credentials"));
+    }
+
+    @Test
+    void testAuthenticateBadRequest() throws Exception {
+        loginUserDto.setUsername(""); // Invalid username
+
+        mockMvc.perform(post("/auth/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(loginUserDto)))
+                .andExpect(status().isBadRequest());
     }
 }
