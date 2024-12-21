@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @CrossOrigin("*")
 public class AuthenticationController {
+
     private final JwtService jwtService;
 
     private final AuthenticationService authenticationService;
