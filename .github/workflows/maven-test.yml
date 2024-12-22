@@ -9,10 +9,8 @@ jobs:
       mysql:
         image: mysql:8.0
         env:
-          MYSQL_DATABASE: db_Raiffeisen
-          MYSQL_USER: root
-          MYSQL_PASSWORD: yazan
           MYSQL_ROOT_PASSWORD: yazan
+          MYSQL_DATABASE: db_Raiffeisen
         ports:
           - 3306:3306
         options: >-
