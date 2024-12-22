@@ -19,9 +19,7 @@ jobs:
 
       - name: Install Dependencies und Run Tests (Server)
         env:
-          security:
-            jwt:
-              secret-key: ${{ secrets.SECRET_KEY }}
+          security.jwt.secret-key: ${{ secrets.SECRET_KEY }}
         run: |
           cd ..
           cd Raiffeisen_Onboarding
