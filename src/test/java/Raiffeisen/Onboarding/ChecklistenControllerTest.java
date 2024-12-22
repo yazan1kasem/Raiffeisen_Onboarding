@@ -2,141 +2,156 @@ package Raiffeisen.Onboarding;
 
 import Raiffeisen.Onboarding.Controller.CheckListenController;
 import Raiffeisen.Onboarding.Entities.CheckList;
-import Raiffeisen.Onboarding.Entities.Device;
-import Raiffeisen.Onboarding.Entities.Department;
-import Raiffeisen.Onboarding.Entities.Position;
-import Raiffeisen.Onboarding.Entities.User;
-import Raiffeisen.Onboarding.JWT.configs.JwtAuthenticationFilter;
-import Raiffeisen.Onboarding.JWT.services.JwtService;
+import Raiffeisen.Onboarding.Entities.Item;
 import Raiffeisen.Onboarding.Repository.CheckListenRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import java.util.Arrays;
 import java.util.Optional;
-import java.util.Set;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(CheckListenController.class)
+@ExtendWith(MockitoExtension.class)
 class ChecklistenControllerTest {
 
-    @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @Mock
     private CheckListenRepository checkListenRepository;
 
-    @MockBean
-    private JwtService jwtService; // Mock hinzugefügt für JwtService
+    @InjectMocks
+    private CheckListenController checkListenController;
 
-    @MockBean
-    private JwtAuthenticationFilter jwtAuthenticationFilter;
+    private ObjectMapper objectMapper = new ObjectMapper();
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    private CheckList checkList;
+    private CheckList mockCheckList;
 
     @BeforeEach
     void setUp() {
-        checkList = buildCheckList();
-    }
+        mockMvc = MockMvcBuilders.standaloneSetup(checkListenController).build();
 
-    // Hilfsmethode zur Erstellung von Testdaten
-    private CheckList buildCheckList() {
-        Device device = new Device();
-        device.setId("d1");
-        device.setGeraet("Test Device");
+        mockCheckList = new CheckList();
+        mockCheckList.setId("1");
+        mockCheckList.setUeberschrift("Test CheckList");
 
-        Department department = new Department();
-        department.setId("dep1");
-        department.setGeraet("Test Geraet");
+        Item item1 = new Item();
+        item1.setGeraet("Item1");
+        Item item2 = new Item();
+        item2.setGeraet("Item2");
 
-        Position position = new Position();
-        position.setId("p1");
-        position.setBezeichnung("Test Position");
-
-        User user = new User();
-        user.setId("u1");
-        user.setUsername("testUser");
-
-        CheckList checkList = new CheckList();
-        checkList.setId("1");
-        checkList.setUeberschrift("Test Ueberschrift");
-        checkList.setDevice(device);
-        checkList.setDepartment(department);
-        checkList.setPosition(position);
-        checkList.setUsers(Set.of(user));
-        checkList.setSaved(true);
-        return checkList;
+        mockCheckList.setItems(Arrays.asList(item1, item2));
     }
 
     @Test
-    void testGetAllCheckListen() throws Exception {
-        Mockito.when(checkListenRepository.findAll()).thenReturn(java.util.List.of(checkList));
+    void shouldReturnAllCheckListen() throws Exception {
+        when(checkListenRepository.findAll()).thenReturn(Arrays.asList(mockCheckList));
 
         mockMvc.perform(get("/checklisten"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].ueberschrift").value("Test Ueberschrift"))
-                .andExpect(jsonPath("$[0].device.geraet").value("Test Device"))
-                .andExpect(jsonPath("$[0].department.geraet").value("Test Geraet"))
-                .andExpect(jsonPath("$[0].position.bezeichnung").value("Test Position"));
+                .andExpect(jsonPath("$[0].id").value(mockCheckList.getId()))
+                .andExpect(jsonPath("$[0].ueberschrift").value(mockCheckList.getUeberschrift()));
     }
 
     @Test
-    void testGetCheckListenById() throws Exception {
-        Mockito.when(checkListenRepository.findById("1")).thenReturn(Optional.of(checkList));
+    void shouldReturnCheckListById() throws Exception {
+        when(checkListenRepository.findById("1")).thenReturn(Optional.of(mockCheckList));
 
         mockMvc.perform(get("/checklisten/1"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.ueberschrift").value("Test Ueberschrift"))
-                .andExpect(jsonPath("$.device.geraet").value("Test Device"))
-                .andExpect(jsonPath("$.department.geraet").value("Test Geraet"))
-                .andExpect(jsonPath("$.position.bezeichnung").value("Test Position"));
+                .andExpect(jsonPath("$.id").value(mockCheckList.getId()))
+                .andExpect(jsonPath("$.ueberschrift").value(mockCheckList.getUeberschrift()));
     }
 
     @Test
-    void testGetCheckListenById_NotFound() throws Exception {
-        Mockito.when(checkListenRepository.findById("999")).thenReturn(Optional.empty());
+    void shouldReturnNotFoundForNonExistentCheckList() throws Exception {
+        when(checkListenRepository.findById(anyString())).thenReturn(Optional.empty());
 
         mockMvc.perform(get("/checklisten/999"))
                 .andExpect(status().isNotFound());
     }
 
     @Test
-    void testCreateCheckListen() throws Exception {
-        Mockito.when(checkListenRepository.save(any(CheckList.class))).thenReturn(checkList);
+    void shouldCreateNewCheckList() throws Exception {
+        when(checkListenRepository.save(any(CheckList.class))).thenReturn(mockCheckList);
 
         mockMvc.perform(post("/checklisten")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(checkList)))
+                        .content(objectMapper.writeValueAsString(mockCheckList)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.ueberschrift").value("Test Ueberschrift"))
-                .andExpect(jsonPath("$.device.geraet").value("Test Device"))
-                .andExpect(jsonPath("$.department.geraet").value("Test Geraet"))
-                .andExpect(jsonPath("$.position.bezeichnung").value("Test Position"));
+                .andExpect(jsonPath("$.id").value(mockCheckList.getId()))
+                .andExpect(jsonPath("$.ueberschrift").value(mockCheckList.getUeberschrift()));
     }
 
     @Test
-    void testUpdateCheckListen() throws Exception {
-        Mockito.when(checkListenRepository.save(any(CheckList.class))).thenReturn(checkList);
+    void shouldUpdateExistingCheckList() throws Exception {
+        when(checkListenRepository.findById("1")).thenReturn(Optional.of(mockCheckList));
+        when(checkListenRepository.save(any(CheckList.class))).thenReturn(mockCheckList);
+
+        CheckList updatedCheckList = new CheckList();
+        updatedCheckList.setUeberschrift("Updated CheckList");
+        updatedCheckList.setItems(Arrays.asList(
+                Item.builder().geraet("NewItem1").build(),
+                Item.builder().geraet("NewItem2").build()
+        ));
 
         mockMvc.perform(put("/checklisten/1")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(checkList)))
+                        .content(objectMapper.writeValueAsString(updatedCheckList)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.ueberschrift").value("Test Ueberschrift"))
-                .andExpect(jsonPath("$.device.geraet").value("Test Device"))
-                .andExpect(jsonPath("$.department.geraet").value("Test Geraet"))
-                .andExpect(jsonPath("$.position.bezeichnung").value("Test Position"));
+                .andExpect(jsonPath("$.ueberschrift").value("Updated CheckList"))
+                .andExpect(jsonPath("$.items[0].geraet").value("NewItem1"));
+    }
+
+    @Test
+    void shouldReturnNotFoundWhenUpdatingNonExistentCheckList() throws Exception {
+        when(checkListenRepository.findById(anyString())).thenReturn(Optional.empty());
+
+        CheckList updatedCheckList = new CheckList();
+        updatedCheckList.setUeberschrift("Updated CheckList");
+
+        mockMvc.perform(put("/checklisten/999")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(updatedCheckList)))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void shouldDeleteCheckListById() throws Exception {
+        when(checkListenRepository.existsById("1")).thenReturn(true);
+
+        mockMvc.perform(delete("/checklisten/1"))
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    void shouldReturnNotFoundWhenDeletingNonExistentCheckList() throws Exception {
+        when(checkListenRepository.existsById(anyString())).thenReturn(false);
+
+        mockMvc.perform(delete("/checklisten/999"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    void shouldSearchCheckListByTitle() throws Exception {
+        when(checkListenRepository.findByUeberschriftContaining("Test"))
+                .thenReturn(Arrays.asList(mockCheckList));
+
+        mockMvc.perform(get("/checklisten/checklisten/search")
+                        .param("title", "Test"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[0].ueberschrift").value("Test CheckList"));
     }
 }

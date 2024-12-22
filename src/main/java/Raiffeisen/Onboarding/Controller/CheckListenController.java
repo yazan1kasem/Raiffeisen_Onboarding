@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/checklisten")
 @CrossOrigin("*")
@@ -13,6 +15,11 @@ public class CheckListenController {
 
     @Autowired
     private CheckListenRepository checkListenRepository;
+
+    @GetMapping("/checklisten/search")
+    public List<CheckList> getCheckListenByTitle(@RequestParam String title) {
+        return checkListenRepository.findByUeberschriftContaining(title);
+    }
 
     @GetMapping("")
     public @ResponseBody Iterable<CheckList> getAllCheckListen() {
