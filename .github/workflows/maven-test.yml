@@ -16,10 +16,6 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
-      - name: Check Database Connection
-        run: |
-          echo "Trying to connect to MySQL..."
-          mysql -h localhost -u root -proot -e "SHOW DATABASES;"
 
       - name: Install Dependencies und Run Tests (Server)
         env:
