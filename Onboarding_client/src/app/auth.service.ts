@@ -14,6 +14,7 @@ export class AuthService {
   constructor(private http: HttpClient) {}
 
   signup(username: string, password: string): Observable<any> {
+    console.log("ein neuer Account wird erstellt...")
     return this.http.post(`${this.apiUrl}/signup`, { username, password });
   }
 
@@ -31,6 +32,7 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('token'); // Entferne den Token beim Logout
+    console.log("token wurde entfernt!")
   }
 
   isAuthenticated(): boolean {

@@ -38,7 +38,7 @@
 }
 
 .form-group input {
-  width: 100%;
+  width: 95%;
   padding: 10px;
   font-size: 1rem;
   border: 1px solid #ccc;
@@ -65,7 +65,8 @@
 
 .btn-raiffeisen:hover {
   background-color: #e0a800; /* Darker yellow */
-  transform: scale(1.03); /* Subtle hover effect */
+  transform: scale(1.03);/* Subtle hover effect */
+  cursor: pointer
 }
 
 .btn-block {
