@@ -17,6 +17,14 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
+      - name: Setup Database
+        run: |
+          docker run -d --name mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=db_Raiffeisen -p 3306:3306 mysql:5.7
+      - name: Check Database Connection
+        run: |
+          echo "Trying to connect to MySQL..."
+          mysql -h localhost -u root -proot -e "SHOW DATABASES;"
+
       - name: Install Dependencies und Run Tests (Server)
         env:
           JWT_SECRET: ${{ secrets.SECRET_KEY }}
