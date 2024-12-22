@@ -23,6 +23,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final HandlerExceptionResolver handlerExceptionResolver;
 
     private final JwtService jwtService;
+
     private final UserDetailsService userDetailsService;
 
     public JwtAuthenticationFilter(
