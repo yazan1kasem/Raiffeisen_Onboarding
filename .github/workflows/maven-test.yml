@@ -6,6 +6,16 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
     services:
       mysql:
         image: mysql:8.0
@@ -21,38 +31,16 @@ jobs:
           --health-interval=10s
           --health-timeout=5s
           --health-retries=3
-
-    steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-
-      - name: Setup Java
-        uses: actions/setup-java@v3
-        with:
-          java-version: '21'
-          distribution: 'temurin'
-          cache: maven
-
-      - name: Wait for MySQL
-        run: |
-          for i in {1..10}; do
-            if mysqladmin ping -h 127.0.0.1 --silent; then
-              echo "MySQL is up!"
-              break
-            fi
-            echo "Waiting for MySQL..."
-            sleep 5
-          done
-
       - name: Check Database Connection
         run: |
           echo "Trying to connect to MySQL..."
-          mysql -h 127.0.0.1 -u root -pyazan -e "SHOW DATABASES;"
+          mysql -h localhost -u root -proot -e "SHOW DATABASES;"
 
       - name: Install Dependencies und Run Tests (Server)
         env:
           JWT_SECRET: ${{ secrets.SECRET_KEY }}
         run: |
+          cd ..
           cd Raiffeisen_Onboarding
           mvn clean install
           mvn test
@@ -60,13 +48,26 @@ jobs:
       - name: Collect Server Test Reports
         run: |
           mkdir -p server-test-results
-          cp Raiffeisen_Onboarding/target/surefire-reports/*.xml server-test-results/
+          cp Onboarding/target/surefire-reports/*.xml server-test-results/
+
+      - name: Install Dependencies und Run Tests (Client)
+        run: |
+          cd Onboarding_client
+          npm install
+          npm test -- --watch=false --browsers=ChromeHeadless --reporters junit --outputPath=test-results
+
+      - name: Collect Client Test Reports
+        run: |
+          mkdir -p client-test-results
+          cp Onboarding_client/test-results/*.xml client-test-results/
 
       - name: Upload Test Reports
         uses: actions/upload-artifact@v3
         with:
           name: test-reports
-          path: server-test-results/
+          path: |
+            server-test-results/
+            client-test-results/
 
       - name: Build Docker Images
         run: |
