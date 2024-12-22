@@ -16,8 +16,14 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: maven
+      - name: Check Database Connection
+        run: |
+          echo "Trying to connect to MySQL..."
+          mysql -h localhost -u root -pyazan -e "SHOW DATABASES;"
 
       - name: Install Dependencies und Run Tests (Server)
+        env:
+          JWT_SECRET: ${{ secrets.SECRET_KEY }}
         run: |
           cd ..
           cd Raiffeisen_Onboarding
