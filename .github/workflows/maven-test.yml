@@ -62,6 +62,8 @@ jobs:
         run: |
           cd Onboarding_client
           npm install
+          npm fund
+          npm audit fix
           npm test -- --watch=false --browsers=ChromeHeadless --reporters junit --outputPath=test-results
 
       - name: Collect Client Test Reports
