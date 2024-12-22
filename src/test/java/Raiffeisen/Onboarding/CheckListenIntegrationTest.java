@@ -1,5 +1,5 @@
 package Raiffeisen.Onboarding;
-/*
+
 import Raiffeisen.Onboarding.Entities.CheckList;
 import Raiffeisen.Onboarding.Repository.CheckListenRepository;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -46,7 +46,7 @@ class CheckListenIntegrationTest {
         check2.setUeberschrift("Another Title");
         repository.save(check2);
 
-        String url = "http://localhost:" + port + "/checklisten/search?title=Test";
+        String url = "http://localhost:" + port + "/checklisten/search?title="+check1.getUeberschrift();
         ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
 
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
@@ -55,4 +55,4 @@ class CheckListenIntegrationTest {
         assertThat(result).hasSize(1);
         assertThat(result.get(0).getUeberschrift()).isEqualTo("Test Title 1");
     }
-}*/
+}

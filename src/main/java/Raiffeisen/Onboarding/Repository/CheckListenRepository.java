@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.List;
 
 public interface CheckListenRepository extends CrudRepository<CheckList, String> {
-    List<CheckList> findByUeberschriftContaining(String title);
+    List<CheckList> findCheckListsByUeberschriftContaining(String title);
 }

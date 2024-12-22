@@ -146,10 +146,10 @@ class ChecklistenControllerTest {
 
     @Test
     void shouldSearchCheckListByTitle() throws Exception {
-        when(checkListenRepository.findByUeberschriftContaining("Test"))
+        when(checkListenRepository.findCheckListsByUeberschriftContaining("Test"))
                 .thenReturn(Arrays.asList(mockCheckList));
 
-        mockMvc.perform(get("/checklisten/checklisten/search")
+        mockMvc.perform(get("/checklisten/search")
                         .param("title", "Test"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].ueberschrift").value("Test CheckList"));

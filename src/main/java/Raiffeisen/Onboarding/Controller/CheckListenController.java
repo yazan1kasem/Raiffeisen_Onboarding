@@ -16,9 +16,9 @@ public class CheckListenController {
     @Autowired
     private CheckListenRepository checkListenRepository;
 
-    @GetMapping("/checklisten/search")
+    @GetMapping("/search")
     public List<CheckList> getCheckListenByTitle(@RequestParam String title) {
-        return checkListenRepository.findByUeberschriftContaining(title);
+        return checkListenRepository.findCheckListsByUeberschriftContaining(title);
     }
 
     @GetMapping("")
