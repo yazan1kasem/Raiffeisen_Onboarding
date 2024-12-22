@@ -72,19 +72,13 @@ jobs:
           cd Onboarding_client
           npm install -g @angular/cli@latest
           ng update @angular/core @angular/cli || true
+          npm fund
 
       # Client: Run Angular Tests
       - name: Run Angular Tests
         run: |
           cd Onboarding_client
           npm test -- --watch=false --browsers=ChromeHeadless || true
-
-      # Client: Collect Test Reports
-      - name: Collect Client Test Reports
-        run: |
-          mkdir -p client-test-results
-          cp Onboarding_client/test-results/*.xml client-test-results/
-
       # Upload Test Reports
       - name: Upload Test Reports
         uses: actions/upload-artifact@v3
@@ -93,6 +87,13 @@ jobs:
           path: |
             server-test-results/
             client-test-results/
+      # Client: Collect Test Reports
+      - name: Collect Client Test Reports
+        run: |
+          mkdir -p client-test-results
+          cp test-results/*.xml client-test-results/
+
+      
 
       - name: List Docker Images
         run: docker images
