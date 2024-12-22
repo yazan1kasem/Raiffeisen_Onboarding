@@ -83,6 +83,7 @@ jobs:
       # Client: Collect Test Reports
       - name: Collect Client Test Reports
         run: |
+          ls
           mkdir -p client-test-results
           cp test-results/*.xml client-test-results/
 
