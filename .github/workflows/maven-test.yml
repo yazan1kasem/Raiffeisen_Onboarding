@@ -18,6 +18,8 @@ jobs:
           cache: maven
 
       - name: Install Dependencies und Run Tests (Server)
+        env:
+          JWT_SECRET: ${{ secrets.SECRET_KEY }}
         run: |
           cd ..
           cd Raiffeisen_Onboarding
@@ -30,8 +32,6 @@ jobs:
           cp Onboarding/target/surefire-reports/*.xml server-test-results/
 
       - name: Install Dependencies und Run Tests (Client)
-        env:
-          JWT_SECRET: ${{ secrets.SECRET_KEY }}
         run: |
           cd Onboarding_client
           npm install
