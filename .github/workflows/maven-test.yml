@@ -85,7 +85,7 @@ jobs:
         run: |
           ls
           mkdir -p client-test-results
-          cp test-results/*.xml client-test-results/
+          cp Onboarding_client/test-results/*.xml client-test-results/
 
       # Upload Test Reports
       - name: Upload Test Reports
