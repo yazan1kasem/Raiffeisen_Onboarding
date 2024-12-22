@@ -56,7 +56,7 @@ jobs:
       - name: Collect Server Test Reports
         run: |
           mkdir -p server-test-results
-          cp /target/surefire-reports/*.xml server-test-results/
+          cp target/surefire-reports/*.xml server-test-results/
 
       - name: Install Dependencies und Run Tests (Client)
         run: |
