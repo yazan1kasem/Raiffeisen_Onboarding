@@ -35,6 +35,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/checklisten/**").hasRole("Admin")//TODO
+                        .requestMatchers("/admin/**").hasAuthority("ADMIN")//TODO
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
