@@ -1,4 +1,4 @@
-INSERT INTO db_raiffeisen.u_user values ( "2024-12-04 10:36:09.005000", "2024-12-04 10:36:09.005000", "bd707479-c710-47cc-bd12-41a9f8c83c5a", "$2a$10$BsI/hgcX92LuIS6puiJ9N.M050EQieovnv6gnCqG9hfNS2d/a8jQK", "yazan","admin")
+INSERT INTO db_raiffeisen.u_user values ( "2024-12-04 10:36:09.005000", "2024-12-04 10:36:09.005000", "bd707479-c710-47cc-bd12-41a9f8c83c5a", "$2a$10$BsI/hgcX92LuIS6puiJ9N.M050EQieovnv6gnCqG9hfNS2d/a8jQK", "yazan","admin");
 
 INSERT INTO db_raiffeisen.c_checklist (c_id, c_überschrift, c_abteilungsname, c_position) VALUES ("1", "Safety Checklist", "Facility Management", "Supervisor");
 INSERT INTO db_raiffeisen.c_checklist (c_id, c_überschrift, c_abteilungsname, c_position) VALUES ("2", "IT Equipment Checklist", "IT Support", "Techniker");
