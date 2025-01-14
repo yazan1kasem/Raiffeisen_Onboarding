@@ -35,9 +35,7 @@ public class AdminController {
             @RequestBody Item itemDetails) {
         return itemRepository.findById(id)
                 .map(existingItem -> {
-                    existingItem.setGeraet(itemDetails.getGeraet());
-                    existingItem.setAdministration(itemDetails.getAdministration());
-                    existingItem.setSoftware(itemDetails.getSoftware());
+
                     existingItem.setSuchbegriff(itemDetails.getSuchbegriff());
                     Item updatedItem = itemRepository.save(existingItem);
                     return ResponseEntity.ok(updatedItem);
