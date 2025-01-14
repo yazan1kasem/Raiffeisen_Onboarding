@@ -27,3 +27,4 @@ INSERT INTO db_raiffeisen.I_Item (I_id, I_gerät, I_administration, I_software, 
 INSERT INTO db_raiffeisen.I_Item (I_id, I_gerät, I_administration, I_software, I_suchbegriff, c_i_id) VALUES ("8", "Switch", "Network Management", "HP ProCurve Manager", "switch", "2");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_gerät, I_administration, I_software, I_suchbegriff, c_i_id) VALUES ("9", "Beamer", "Event Management", "Projection Software", "beamer", "2");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_gerät, I_administration, I_software, I_suchbegriff, c_i_id) VALUES ("10", "Keyboard", "IT Administration", "Firmware Update Tool", "keyboard", "2");
+INSERT INTO `db_raiffeisen`.`u_user` (`u_id`, `u_password`, `u_username`) VALUES ('129', 'keck', 'keck');

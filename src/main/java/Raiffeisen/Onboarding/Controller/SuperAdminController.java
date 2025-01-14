@@ -6,16 +6,12 @@ import Raiffeisen.Onboarding.Repository.ItemRepository;
 import Raiffeisen.Onboarding.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
-@RequestMapping(path = "/admin")
+@RequestMapping(path = "/superadmin")
 @CrossOrigin("*")
-public class AdminController {
+public class SuperAdminController {
 
     @Autowired
     private UserRepository userRepository;
@@ -124,20 +120,5 @@ public class AdminController {
                     return ResponseEntity.ok(updatedUser);
                 })
                 .orElse(ResponseEntity.notFound().build());
-    }
-    @GetMapping("/test")
-    public ResponseEntity<String> checkIfAdmin(@AuthenticationPrincipal UserDetails userDetails) {
-        if (userDetails == null) {
-            return ResponseEntity.status(401).body("User is not authenticated");
-        }
-
-        boolean isAdmin = userDetails.getAuthorities().stream()
-                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ADMIN"));
-
-        if (isAdmin) {
-            return ResponseEntity.ok("User is an admin");
-        } else {
-            return ResponseEntity.status(403).body("User is not an admin");
-        }
     }
 }
