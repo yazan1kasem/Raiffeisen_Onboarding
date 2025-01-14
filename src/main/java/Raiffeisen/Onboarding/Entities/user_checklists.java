@@ -29,7 +29,6 @@ public class user_checklists {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "uc_id")
     private String id;
-
     /**
      * The original checklist that this user-specific checklist is based on.
      */
@@ -47,7 +46,8 @@ public class user_checklists {
     /**
      * List of items in this user-specific checklist.
      */
-    @OneToMany(mappedBy = "userChecklist", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_checklist_items")
     private List<user_checklist_items> items;
 
     /**
@@ -58,10 +58,17 @@ public class user_checklists {
     private ChecklistStatus status;
 
     /**
-     * Indicates if the checklist is shared with other users.
+     * which users can view this checklist.
      */
-    @Column(name = "is_shared", nullable = false)
-    private boolean isShared = false;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_checklist_viewers")
+    private List<User> viewers;
+
+    /**
+     * if the shared user can modify the checklist. or just read it.
+     */
+    @Column(name = "is_editable", nullable = false)
+    private boolean isEditableByOthers = false;
 
     /**
      * Indicates if the checklist is locked and cannot be modified.
@@ -82,7 +89,6 @@ public class user_checklists {
      */
     public enum ChecklistStatus {
         IN_PROGRESS,
-        COMPLETED,
-        LOCKED
+        COMPLETED
     }
 }

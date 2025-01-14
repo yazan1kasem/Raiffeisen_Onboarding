@@ -29,13 +29,6 @@ class user_checklist_items {
     private String id;
 
     /**
-     * The checklist this item belongs to.
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_checklist_id", nullable = false)
-    private user_checklists userChecklist;
-
-    /**
      * The original item that this user-specific item is based on.
      */
     @ManyToOne(fetch = FetchType.LAZY)
@@ -47,18 +40,6 @@ class user_checklist_items {
      */
     @Column(name = "is_checked", nullable = false)
     private boolean isChecked = false;
-
-    /**
-     * Additional notes or comments for this item.
-     */
-    @Column(name = "notes")
-    private String notes;
-
-    /**
-     * Position of the item in the checklist.
-     */
-    @Column(name = "position", nullable = false)
-    private int position;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
