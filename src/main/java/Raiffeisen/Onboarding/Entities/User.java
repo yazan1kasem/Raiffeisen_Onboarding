@@ -45,6 +45,12 @@ public class User implements UserDetails {
     @Column(name = "updated_at")
     private Date updatedAt;
 
+    @Column(name = "u_account_non_locked")
+    private boolean accountNonLocked = true;
+
+    @Column(name = "u_enabled")
+    private boolean enabled = true;
+
     public enum Role {
         USER,
         ADMIN

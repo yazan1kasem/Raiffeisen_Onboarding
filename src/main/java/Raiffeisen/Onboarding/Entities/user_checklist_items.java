@@ -5,6 +5,9 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
 
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Entity
 @Table(name="u_user_checklist_items")
 @Getter
@@ -25,4 +28,7 @@ public class user_checklist_items {
 
     @Column(name="uci_checked")
     private boolean checked;
+
+    @Column(name="uci_changedate")
+    private LocalDateTime date;
 }

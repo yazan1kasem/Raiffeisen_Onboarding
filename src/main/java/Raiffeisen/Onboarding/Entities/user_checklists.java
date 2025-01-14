@@ -30,7 +30,6 @@ public class user_checklists {
     private List<user_checklist_items> User_checklist_items;
 
     private enum status{
-        neu,
         in_progress,
         done//TODO
     }
