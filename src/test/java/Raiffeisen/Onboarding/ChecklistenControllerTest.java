@@ -48,9 +48,7 @@ class ChecklistenControllerTest {
         mockCheckList.setUeberschrift("Test CheckList");
 
         Item item1 = new Item();
-        item1.setGeraet("Item1");
         Item item2 = new Item();
-        item2.setGeraet("Item2");
 
         mockCheckList.setItems(Arrays.asList(item1, item2));
     }
@@ -102,10 +100,7 @@ class ChecklistenControllerTest {
 
         CheckList updatedCheckList = new CheckList();
         updatedCheckList.setUeberschrift("Updated CheckList");
-        updatedCheckList.setItems(Arrays.asList(
-                Item.builder().geraet("NewItem1").build(),
-                Item.builder().geraet("NewItem2").build()
-        ));
+
 
         mockMvc.perform(put("/checklisten/1")
                         .contentType(MediaType.APPLICATION_JSON)

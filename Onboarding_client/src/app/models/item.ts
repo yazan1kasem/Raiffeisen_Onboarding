@@ -1,19 +1,19 @@
 export class Item {
   id: string;
-  gerät: string;
+  geraet: string;
   administration: string;
   software: string;
   suchbegriff: string;
 
   constructor(
     id: string,
-    gerät: string,
+    geraet: string,
     administration: string,
     software: string,
     suchbegriff: string
   ) {
     this.id = id;
-    this.gerät = gerät;
+    this.geraet = geraet;
     this.administration = administration;
     this.software = software;
     this.suchbegriff = suchbegriff;

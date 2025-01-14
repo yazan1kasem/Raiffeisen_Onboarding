@@ -1,33 +1,25 @@
 <div class="checklist-container">
-  <!-- Topbar -->
   <div class="topbar">
-    <select
-      class="dropdown"
-      [(ngModel)]="selectedDepartment"
-      (change)="onFilterChange()">
+    <select class="dropdown" [(ngModel)]="selectedDepartment" (change)="onFilterChange()">
       <option value="">Alle Abteilungen</option>
       <option *ngFor="let abteilung of abteilungen" [value]="abteilung">
         {{ abteilung }}
       </option>
     </select>
 
-    <select class="dropdown" [(ngModel)]="selectedPosition" (change)="onFilterChange()" >
+    <select class="dropdown" [(ngModel)]="selectedPosition" (change)="onFilterChange()">
       <option value="">Alle Positionen</option>
       <option *ngFor="let position of positions" [value]="position">
         {{ position }}
       </option>
     </select>
-
-
   </div>
 
-  <!-- Checklisten -->
   <ul class="checklist-list">
-    <li *ngFor="let checklist of filteredChecklists" class="checklist-item">
+    <li *ngFor="let checklist of filteredChecklists" class="checklist-item" (click)="openChecklist(checklist)">
       <span class="checklist-text">
         {{ checklist.ueberschrift }} - {{ checklist.abteilungsname }} - {{ checklist.position }}
       </span>
-
     </li>
   </ul>
 </div>

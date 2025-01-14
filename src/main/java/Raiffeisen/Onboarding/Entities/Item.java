@@ -23,8 +23,8 @@ public class Item {
     @Column(name="I_id")
     private String id;
 
-    @Column(name="I_item")
-    private String item;
+    @Column(name="I_name")
+    private String name;
 
     @Column(name="I_type")
     private String type;
