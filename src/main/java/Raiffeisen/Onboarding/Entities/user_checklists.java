@@ -37,4 +37,6 @@ public class user_checklists {
 
     @Column(name="uc_status")
     private status status;
+
+
 }
