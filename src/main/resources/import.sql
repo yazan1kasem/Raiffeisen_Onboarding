@@ -698,10 +698,21 @@ INSERT INTO db_raiffeisen.I_Item (I_id, I_item, I_type, I_suchbegriff, c_i_id ) 
 INSERT INTO db_raiffeisen.I_Item (I_id, I_item, I_type, I_suchbegriff, c_i_id ) VALUES ("650","Webrahmen KMS read 31000", "Tools", "Windows Webrahmen KMS read access 31000", "13");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_item, I_type, I_suchbegriff, c_i_id ) VALUES ("651","Payment Tracker", "Tools", "Payment Tracker SuperUser (PROD)", "13");
 
-
-
-
-
+INSERT INTO db_raiffeisen.I_Item (I_id, I_item, I_type, I_suchbegriff, c_i_id ) VALUES ("652","extension / TEAMS telephony", "Hardware", "ITSM: Telephone Extension", "14");
+INSERT INTO db_raiffeisen.I_Item (I_id, I_item, I_type, I_suchbegriff, c_i_id ) VALUES ("653","headset", "Hardware", "ITSM: Headsets and SpeakersPoly Voyager Focus 2 for RM and SSM Jabra EVOLVE 30 II Stereo MS for SSK and Intern", "14");
+INSERT INTO db_raiffeisen.I_Item (I_id, I_item, I_type, I_suchbegriff, c_i_id ) VALUES ("654","mobile contact", "Hardware", "ITSM: A1 Voice SIM CardNew Sim, new contract", "14");
+INSERT INTO db_raiffeisen.I_Item (I_id, I_item, I_type, I_suchbegriff, c_i_id ) VALUES ("655","mobile phone", "Hardware", "ITSM: Mobility Device (Smartphone/Tablet)", "14");
+INSERT INTO db_raiffeisen.I_Item (I_id, I_item, I_type, I_suchbegriff, c_i_id ) VALUES ("656","mobile phone accessories", "Hardware", "ITSM: Accessories (Smartphone / Tablet)", "14");
+INSERT INTO db_raiffeisen.I_Item (I_id, I_item, I_type, I_suchbegriff, c_i_id ) VALUES ("657","monitor home office", "Hardware", "ITSM: Request Monitor", "14");
+INSERT INTO db_raiffeisen.I_Item (I_id, I_item, I_type, I_suchbegriff, c_i_id ) VALUES ("658","notebook", "Hardware", "ITSM: RBI Workplace - Windows managed laptop", "14");
+INSERT INTO db_raiffeisen.I_Item (I_id, I_item, I_type, I_suchbegriff, c_i_id ) VALUES ("659","archiv- shared mailbox CCMO", "Office 365", "ITSM: Office 365 Shared Mailbox", "14");
+INSERT INTO db_raiffeisen.I_Item (I_id, I_item, I_type, I_suchbegriff, c_i_id ) VALUES ("660","Teams Channel CCMO", "Office 365", "Teams", "14");
+INSERT INTO db_raiffeisen.I_Item (I_id, I_item, I_type, I_suchbegriff, c_i_id ) VALUES ("661","Teams Channel Corporate Customers", "Office 365", "Teams", "14");
+INSERT INTO db_raiffeisen.I_Item (I_id, I_item, I_type, I_suchbegriff, c_i_id ) VALUES ("662","Teams Channel CCMO", "Organisational", "Teams", "14");
+INSERT INTO db_raiffeisen.I_Item (I_id, I_item, I_type, I_suchbegriff, c_i_id ) VALUES ("663","Teams Channel Corporate Customers", "Organisational", "Teams", "14");
+INSERT INTO db_raiffeisen.I_Item (I_id, I_item, I_type, I_suchbegriff, c_i_id ) VALUES ("664","shared mailbox: AP", "Organisational", "ITSM: Office 365 Shared Mailbox ap@rbinternational.com", "14");
+INSERT INTO db_raiffeisen.I_Item (I_id, I_item, I_type, I_suchbegriff, c_i_id ) VALUES ("665","shared mailbox: Identification", "Organisational", "ITSM: Office 365 Shared Mailbox: identification@rbinternational.com", "14");
+INSERT INTO db_raiffeisen.I_Item (I_id, I_item, I_type, I_suchbegriff, c_i_id ) VALUES ("666","Shared Mailbox: NWU AO", "Organisational", "ITSM: Office 365 Shared Mailbox: nwu-account-opening@rbinternational.com", "14");
 
 
 
