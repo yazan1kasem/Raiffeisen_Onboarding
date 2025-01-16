@@ -8,7 +8,9 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Represents a user-specific version of a checklist.
@@ -36,12 +38,6 @@ public class user_checklists {
     @JoinColumn(name = "original_checklist_id", nullable = false)
     private CheckList originalChecklist;
 
-    /**
-     * The user who owns this checklist.
-     */
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
 
     /**
      * List of items in this user-specific checklist.
@@ -56,21 +52,22 @@ public class user_checklists {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private ChecklistStatus status;
-
+    public enum Permissions {
+        Read_only,
+        Read_and_WRITE,
+        Ersteller
+    }
     /**
-     * which users can view this checklist.
+     * which users can view this checklist and their permissions.
      */
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_checklist_viewers")
-    private List<User> viewers;
+    @ElementCollection
+    @CollectionTable(name = "user_checklist_permissions", joinColumns = @JoinColumn(name = "checklist_id"))
+    @MapKeyJoinColumn(name = "user_id")
+    @Column(name = "can_edit")
+    @Enumerated(EnumType.STRING)
+    private Map<User, Permissions> userPermissions = new HashMap<>();
 
-    /**
-     * if the shared user can modify the checklist. or just read it.
-     */
-    @Column(name = "is_editable", nullable = false)
-    private boolean isEditableByOthers = false;
-
-    /**
+        /**
      * Indicates if the checklist is locked and cannot be modified.
      */
     @Column(name = "is_locked", nullable = false)

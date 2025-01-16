@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/admin")
@@ -148,25 +149,21 @@ public class AdminController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/user_checklists/{id}/grant-read-access")
-    public ResponseEntity<user_checklists> grantReadAccess(@PathVariable String id, @RequestParam List<String> userIds) {
-        return userChecklistRepository.findById(id)
-                .map(userChecklist -> {
-                    List<User> viewers = (List<User>) userRepository.findAllById(userIds);
-                    userChecklist.setViewers(viewers);
-                    user_checklists updatedChecklist = userChecklistRepository.save(userChecklist);
-                    return ResponseEntity.ok(updatedChecklist);
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
+    // Add or update permission for a user
+    @PostMapping("/{checklistId}/permissions")
+    public ResponseEntity<user_checklists> addOrUpdatePermission(
+            @PathVariable String checklistId,
+            @RequestParam String userId,
+            @RequestParam boolean canEdit
+    ) {
+        Optional<User> user = userRepository.findById(userId);
+        if (user.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
 
-    @PutMapping("/user_checklists/{id}/grant-edit-access")
-    public ResponseEntity<user_checklists> grantEditAccess(@PathVariable String id, @RequestParam List<String> userIds) {
-        return userChecklistRepository.findById(id)
+        return userChecklistRepository.findById(checklistId)
                 .map(userChecklist -> {
-                    List<User> viewers = (List<User>) userRepository.findAllById(userIds);
-                    userChecklist.setViewers(viewers);
-                    userChecklist.setEditableByOthers(true);
+                    userChecklist.getUserPermissions().put(user.get(), canEdit ? user_checklists.Permissions.Read_and_WRITE : user_checklists.Permissions.Read_only);
                     user_checklists updatedChecklist = userChecklistRepository.save(userChecklist);
                     return ResponseEntity.ok(updatedChecklist);
                 })

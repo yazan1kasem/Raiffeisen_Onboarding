@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {Router, RouterLink} from '@angular/router';
 import { FormsModule } from "@angular/forms";
 import { CommonModule } from "@angular/common";
-import { ChecklistService } from "../data.service";
+import { Dataservice } from "../data.service";
 import {AuthService} from "../auth.service";
 
 @Component({
@@ -19,7 +19,7 @@ export class LoginComponent {
   password: string = '';
   errorMessage: string ='';
 
-  constructor(private router: Router, private checklistService: ChecklistService,private authService: AuthService) {}
+  constructor(private router: Router, private checklistService: Dataservice, private authService: AuthService) {}
 
   onSubmit(): void {
     this.authService.login(this.username, this.password).subscribe(

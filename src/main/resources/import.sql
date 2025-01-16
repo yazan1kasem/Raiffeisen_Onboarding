@@ -66,7 +66,6 @@ INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) 
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("44", "RMA Risk Monitoring", "Tools", "PROD HO RMA FPT Local Reader (Prod RBI)", "1");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("45", "Sales Performance Report", "Tools", "Power BI Security Group for x Department to access the Sales Performance Report", "1");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("46", "TAT Tool", "Tools", "Power BI Transaction Analysis Tool - App Viewer (PROD RBI) (PROD RBI)", "1");
-
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("47", "extension / TEAMS telephony", "Hardware", "ITSM: Telephone Extension", "2");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("48", "headset", "Hardware", "ITSM: Headsets and SpeakersPoly Voyager Focus 2 for RM and SSM Jabra EVOLVE 30 II Stereo MS for SSK and Intern", "2");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("49", "mobile contact", "Hardware", "ITSM: A1 Voice SIM CardNew Sim, new contract", "2");
@@ -115,7 +114,6 @@ INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) 
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("92", "Sales Performance Report", "Tools", "Power BI Security Group for x Department to access the Sales Performance Report", "2");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("93", "TAT Tool", "Tools", "Power BI Transaction Analysis Tool - App Viewer (PROD RBI) (PROD RBI)", "2");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("94", "Tiger GAMS", "Tools", "Access to Oracle DB Tiger (Prod)", "2");
-
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("95", "extension / TEAMS telephony", "Hardware", "ITSM: Telephone Extension", "3");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("96", "headset", "Hardware", "ITSM: Headsets and SpeakersPoly Voyager Focus 2 for RM and SSM Jabra EVOLVE 30 II Stereo MS for SSK and Intern", "3");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("97", "mobile contact", "Hardware", "ITSM: A1 Voice SIM CardNew Sim, new contract", "3");
@@ -164,7 +162,6 @@ INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) 
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("140", "Sales Performance Report", "Tools", "Power BI Security Group for x Department to access the Sales Performance Report", "3");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("141", "TAT Tool", "Tools", "Power BI Transaction Analysis Tool - App Viewer (PROD RBI) (PROD RBI)", "3");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("142", "Tiger GAMS", "Tools", "Access to Oracle DB Tiger (Prod)", "3");
-
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("143", "extension / TEAMS telephony", "Hardware", "ITSM: Telephone Extension", "4");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("144", "headset", "Hardware", "ITSM: Headsets and SpeakersPoly Voyager Focus 2 for RM and SSM Jabra EVOLVE 30 II Stereo MS for SSK and Intern", "4");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("145", "mobile contact", "Hardware", "ITSM: A1 Voice SIM CardNew Sim, new contract", "4");
@@ -213,7 +210,6 @@ INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) 
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("188", "Sales Performance Report", "Tools", "Power BI Security Group for x Department to access the Sales Performance Report", "4");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("189", "TAT Tool", "Tools", "Power BI Transaction Analysis Tool - App Viewer (PROD RBI) (PROD RBI)", "4");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("190", "Tiger GAMS", "Tools", "Access to Oracle DB Tiger (Prod)", "4");
-
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("191", "extension / TEAMS telephony", "Hardware", "ITSM: Telephone Extension", "5");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("192", "headset", "Hardware", "ITSM: Headsets and SpeakersPoly Voyager Focus 2 for RM and SSM Jabra EVOLVE 30 II Stereo MS for SSK and Intern", "5");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("193", "mobile contact", "Hardware", "ITSM: A1 Voice SIM CardNew Sim, new contract", "5");
@@ -262,7 +258,6 @@ INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) 
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("236", "Sales Performance Report", "Tools", "Power BI Security Group for x Department to access the Sales Performance Report", "5");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("237","TAT Tool", "Tools", "Power BI Transaction Analysis Tool - App Viewer (PROD RBI) (PROD RBI)", "5");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("238", "Tiger GAMS", "Tools", "Access to Oracle DB Tiger (Prod)", "5");
-
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("239", "extension / TEAMS telephony", "Hardware", "ITSM: Telephone Extension", "6");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("240", "headset", "Hardware", "ITSM: Headsets and SpeakersPoly Voyager Focus 2 for RM and SSM Jabra EVOLVE 30 II Stereo MS for SSK and Intern", "6");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("241", "mobile contact", "Hardware", "ITSM: A1 Voice SIM CardNew Sim, new contract", "6");
@@ -311,7 +306,6 @@ INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) 
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("284", "Sales Performance Report", "Tools", "Power BI Security Group for x Department to access the Sales Performance Report", "6");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("285", "TAT Tool", "Tools", "Power BI Transaction Analysis Tool - App Viewer (PROD RBI) (PROD RBI)", "6");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("286", "Tiger GAMS", "Tools", "Access to Oracle DB Tiger (Prod)", "6");
-
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("287", "extension / TEAMS telephony", "Hardware", "ITSM: Telephone Extension", "7");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("288", "headset", "Hardware", "ITSM: Headsets and SpeakersPoly Voyager Focus 2 for RM and SSM Jabra EVOLVE 30 II Stereo MS for SSK and Intern", "7");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("289", "mobile contact", "Hardware", "ITSM: A1 Voice SIM CardNew Sim, new contract", "7");
@@ -360,7 +354,6 @@ INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) 
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("332", "Sales Performance Report", "Tools", "Power BI Security Group for x Department to access the Sales Performance Report", "7");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("333", "TAT Tool", "Tools", "Power BI Transaction Analysis Tool - App Viewer (PROD RBI) (PROD RBI)", "7");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("334", "Tiger GAMS", "Tools", "Access to Oracle DB Tiger (Prod)", "7");
-
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("335", "extension / TEAMS telephony", "Hardware", "ITSM: Telephone Extension", "8");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("336", "headset", "Hardware", "ITSM: Headsets and SpeakersPoly Voyager Focus 2 for RM and SSM Jabra EVOLVE 30 II Stereo MS for SSK and Intern", "8");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("337", "mobile contact", "Hardware", "ITSM: A1 Voice SIM CardNew Sim, new contract", "8");
@@ -409,7 +402,6 @@ INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) 
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("380", "RMA Risk Monitoring", "Tools", "PROD HO RMA FPT Local Reader (Prod RBI)", "8");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("381", "Sales Performance Report", "Tools", "Power BI Security Group for x Department to access the Sales Performance Report", "8");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("382", "TAT Tool", "Tools", "Power BI Transaction Analysis Tool - App Viewer (PROD RBI) (PROD RBI)", "8");
-
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("383", "extension / TEAMS telephony", "Hardware", "ITSM: Telephone Extension", "9");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("384", "headset", "Hardware", "ITSM: Headsets and SpeakersPoly Voyager Focus 2 for RM and SSM Jabra EVOLVE 30 II Stereo MS for SSK and Intern", "9");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("385", "mobile contact", "Hardware", "ITSM: A1 Voice SIM CardNew Sim, new contract", "9");
@@ -465,7 +457,6 @@ INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) 
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("439", "Webrahmen KMS read 31000", "Tools", "Windows Webrahmen KMS read access 31000", "9");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("440", "Webrahmen SMS", "Tools", "W10 Webrahmen - Reader Sicherheitenmanagement (SMS) (Prod RBI)", "9");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("441", "Webrahmen Webgiro Loans Reader", "Tools", "Webrahmen_Webgiro Loans Reader", "9");
-
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("442", "extension / TEAMS telephony", "Hardware", "ITSM: Telephone Extension", "10");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("443", "headset", "Hardware", "ITSM: Headsets and SpeakersPoly Voyager Focus 2 for RM and SSM Jabra EVOLVE 30 II Stereo MS for SSK and Intern", "10");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("444", "mobile contact", "Hardware", "ITSM: A1 Voice SIM CardNew Sim, new contract", "10");
@@ -525,7 +516,6 @@ INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) 
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("499", "Webrahmen SMS", "Tools", "W10 Webrahmen - Reader Sicherheitenmanagement (SMS) (Prod RBI)", "10");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("500", "Webrahmen Webgiro Loans Editor", "Tools", "Webrahmen_Webgiro Loans Editor", "10");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("501", "Webrahmen Webgiro Loans Reader", "Tools", "Webrahmen_Webgiro Loans Reader", "10");
-
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("502", "extension / TEAMS telephony", "Hardware", "ITSM: Telephone Extension", "11");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("503", "headset", "Hardware", "ITSM: Headsets and SpeakersPoly Voyager Focus 2 for RM and SSM Jabra EVOLVE 30 II Stereo MS for SSK and Intern", "11");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("504", "mobile contact", "Hardware", "ITSM: A1 Voice SIM CardNew Sim, new contract", "11");
@@ -564,7 +554,6 @@ INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) 
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("543", "RDB (Tiger) Rating Database", "Tools", "PROD HO BCO ACM Reader (Prod RBI)", "11");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("544", "RMA Risk Monitoring", "Tools", "PROD HO RMA Account Manager (Prod RBI)", "11");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("545", "TAT Tool", "Tools", "Power BI Transaction Analysis Tool - App Viewer (PROD RBI) (PROD RBI)", "11");
-
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("546", "extension / TEAMS telephony", "Hardware", "ITSM: Telephone Extension", "12");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("547", "headset", "Hardware", "ITSM: Headsets and SpeakersPoly Voyager Focus 2 for RM and SSM Jabra EVOLVE 30 II Stereo MS for SSK and Intern", "12");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("548", "mobile contact", "Hardware", "ITSM: A1 Voice SIM CardNew Sim, new contract", "12");
@@ -606,7 +595,6 @@ INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) 
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("589", "RDB (Tiger) Rating Database", "Tools", "PROD HO BCO ACM Reader (Prod RBI)", "12");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("590", "RMA Risk Monitoring", "Tools", "PROD HO RMA Account Manager (Prod RBI)", "12");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("591", "TAT Tool", "Tools", "Power BI Transaction Analysis Tool - App Viewer (PROD RBI) (PROD RBI)", "12");
-
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("592", "extension / TEAMS telephony", "Hardware", "ITSM: Telephone Extension", "13");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("593", "headset", "Hardware", "ITSM: Headsets and SpeakersPoly Voyager Focus 2 for RM and SSM Jabra EVOLVE 30 II Stereo MS for SSK and Intern", "13");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("594", "mobile contact", "Hardware", "ITSM: A1 Voice SIM CardNew Sim, new contract", "13");
