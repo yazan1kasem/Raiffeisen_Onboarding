@@ -53,8 +53,7 @@ public class User implements UserDetails {
 
     public enum Role {
         USER,
-        ADMIN,
-        SuperAdmin
+        ADMIN
     }
 
     @Enumerated(EnumType.STRING)

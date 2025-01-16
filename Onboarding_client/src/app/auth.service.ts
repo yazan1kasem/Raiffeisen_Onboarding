@@ -49,16 +49,6 @@ export class AuthService {
     return Math.floor(new Date().getTime() / 1000) >= expiry;
   }
 
-    // New Method: Get User
-    getUser(): User | null {
-      const token = this.getToken();
-      if (token) {
-        const payload = JSON.parse(atob(token.split('.')[1])); // Decode JWT payload
-        return { username: payload.username, role: payload.role }; // Assumes username is stored in token payload
-      }
-      return null;
-    }
-
   // New Method: Get User Role
   getRole(): string | null {
     const token = this.getToken();

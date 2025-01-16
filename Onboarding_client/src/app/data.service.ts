@@ -2,14 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, of } from 'rxjs';
 import { Checklist } from './models/checklist';
-import {UserChecklist} from "./models/user_checklist";
-import {User} from "./models/user";
-import {tap} from "rxjs/operators";
 
 @Injectable({
   providedIn: 'root'
 })
-export class Dataservice {
+export class ChecklistService {
   private apiUrl = 'http://localhost:8081/checklisten'; // Deine API-URL
 
   constructor(private http: HttpClient) {}
@@ -24,11 +21,6 @@ export class Dataservice {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-  }
-  getChecklistById(id: number): Observable<Checklist> {
-    return this.http.get<Checklist>(`${this.apiUrl}/${id}`, { headers: this.getAuthHeaders() }).pipe(
-      catchError(this.handleError<Checklist>('getChecklistById'))
-    );
   }
 
   // Liste aller Checklisten abrufen
@@ -58,22 +50,8 @@ export class Dataservice {
       catchError(this.handleError<void>('deleteChecklist'))
     );
   }
-  private UserchecklistLink = 'http://localhost:8081/api/user-checklists'; // Deine API-URL
-
-  createUserChecklist(userChecklist:UserChecklist): Observable<UserChecklist> {
-    return this.http.post<UserChecklist>(`${this.UserchecklistLink}`, userChecklist, { headers: this.getAuthHeaders() }).pipe(
-      catchError(this.handleError<UserChecklist>('createUserChecklist'))
-    );
-  }
 
 
-  private UserLink = 'http://localhost:8081/users/me'; // Deine API-URL
-
-  getCurrentuser(): Observable<User> {
-    return this.http.get<User>(this.UserLink, { headers: this.getAuthHeaders() }).pipe(
-      catchError(this.handleError<User>('getCurrentUser'))
-    );
-  }
 
   // Fehlerbehandlungsmethode
   private handleError<T>(operation = 'operation', result?: T) {

@@ -1,18 +1,21 @@
 export class Item {
   id: string;
-  name: string;
-  type: string;
+  geraet: string;
+  administration: string;
+  software: string;
   suchbegriff: string;
 
   constructor(
     id: string,
-    name: string,
-    type: string,
+    geraet: string,
+    administration: string,
+    software: string,
     suchbegriff: string
   ) {
     this.id = id;
-    this.name = name;
-    this.type = type;
+    this.geraet = geraet;
+    this.administration = administration;
+    this.software = software;
     this.suchbegriff = suchbegriff;
   }
 }
