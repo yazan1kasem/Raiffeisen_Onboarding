@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ChecklistService } from '../data.service';
+import { Dataservice } from '../data.service';
 import { Checklist } from '../models/checklist';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -21,7 +21,7 @@ export class ChecklistComponent implements OnInit {
   selectedPosition: string = '';
 
   constructor(
-    private checklistService: ChecklistService,
+    private checklistService: Dataservice,
     private router: Router // Router wird für die Navigation benötigt
   ) {}
 
@@ -34,7 +34,6 @@ export class ChecklistComponent implements OnInit {
       this.checklists = data;
       this.filteredChecklists = data;
 
-      // Extrahiere Abteilungen und Positionen ohne Duplikate
       this.abteilungen = [...new Set(data.map((checklist) => checklist.abteilungsname))];
       this.positions = [...new Set(data.map((checklist) => checklist.position))];
     });
@@ -59,7 +58,6 @@ export class ChecklistComponent implements OnInit {
   }
 
   openChecklist(checklist: Checklist): void {
-    // Navigiere zur Detailansicht der ausgewählten Checkliste
-    this.router.navigate(['/checklist', checklist.id]); // Du kannst hier eine andere ID verwenden, falls du eine hast
+    this.router.navigate(['/checklistdetail', checklist.id]);
   }
 }
