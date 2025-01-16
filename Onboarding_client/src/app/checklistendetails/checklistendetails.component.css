@@ -1,0 +1,159 @@
+/* Allgemeines Styling */
+body {
+  font-family: 'Arial', sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+  color: #333;
+  display: flex; /* Flexbox-Layout für Sidebar */
+}
+
+/* Container für den Inhalt */
+.content {
+  padding: 20px; /* Ausreichender Innenabstand */
+  transition: margin-left 0.3s ease;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Checkliste Details */
+.checklist-details {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Titel */
+.checklist-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #007bff;
+  border-bottom: 2px solid #007bff;
+  padding-bottom: 5px;
+}
+
+/* Informationen zur Checkliste */
+.checklist-info p {
+  font-size: 16px;
+  margin: 5px 0;
+}
+
+/* Kartenliste */
+.items-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Dynamische Spaltenanzahl */
+  gap: 15px; /* Abstand zwischen den Karten */
+}
+
+/* Einzelne Karte */
+.item-card {
+  background-color: #ffffff; /* Weißer Hintergrund */
+  border: 1px solid #ddd; /* Leichte Umrandung */
+  border-radius: 8px; /* Abgerundete Ecken */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Leichter Schatten */
+  padding: 10px 15px; /* Kompakteres Padding */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Hover-Effekt */
+.item-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* Verstärkter Schatten bei Hover */
+  transform: translateY(-5px); /* Leichtes Anheben */
+  cursor: pointer;
+}
+
+/* Inhalte der Karte */
+.item-card p {
+  margin: 5px 0; /* Geringerer Abstand zwischen den Texten */
+  font-size: 14px; /* Kleinere Schriftgröße */
+  color: #555; /* Dezente Schriftfarbe */
+}
+
+/* Titel-Text */
+.item-card p strong {
+  color: #ff0000; /* Blau für Titel-Text */
+}
+
+/* Speichern-Button */
+.save-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.item-card.selected {
+  background-color: #093d73; /* Blau */
+  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+/* Titel-Text */
+.item-card.selected p strong {
+  color: #fbfbfb; /* Blau für Titel-Text */
+}
+.item-card.selected p  {
+  color: #ffffff; /* Blau für Titel-Text */
+}
+
+
+
+/* Speichern-Button */
+.save-button {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.save-button:hover {
+  background-color: #0056b3;
+  transform: scale(1.05); /* Leichte Vergrößerung bei Hover */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .content {
+    margin-left: 0;
+    width: 100%;
+    padding: 15px;
+  }
+
+  .checklist-details {
+    margin: 10px;
+  }
+}
+
+@media (max-width: 576px) {
+  .checklist-title {
+    font-size: 20px;
+  }
+
+  .item-card {
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .save-button {
+    padding: 8px 16px;
+  }
+}
