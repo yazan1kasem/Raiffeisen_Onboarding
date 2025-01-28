@@ -23,14 +23,11 @@ public class Item {
     @Column(name="I_id")
     private String id;
 
-    @Column(name="I_gerät")
-    private String geraet;
+    @Column(name="I_name")
+    private String name;
 
-    @Column(name="I_administration")
-    private String administration;
-
-    @Column(name="I_software")
-    private String software;
+    @Column(name="I_type")
+    private String type;
 
     @Column(name="I_suchbegriff")
     private String suchbegriff;

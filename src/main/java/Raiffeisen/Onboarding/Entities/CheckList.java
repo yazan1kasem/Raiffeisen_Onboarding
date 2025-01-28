@@ -28,11 +28,11 @@ public class CheckList {
     @Column(name="c_überschrift")
     private String ueberschrift;
 
-    @Column(name = "c_abteilungsname")
-    private String abteilungsname;
-
     @Column(name = "c_Position")
     private String position;
+
+    @Column(name = "c_abteilungsname")
+    private String abteilungsname;
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "c_i_id")

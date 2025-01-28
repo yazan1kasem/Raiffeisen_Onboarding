@@ -29,6 +29,7 @@ public class AuthenticationService {
         User user = new User().builder()
                 .username(input.getUsername())
                 .password(passwordEncoder.encode(input.getPassword()))
+                .role(User.Role.USER)
                 .build();
         return userRepository.save(user);
     }
