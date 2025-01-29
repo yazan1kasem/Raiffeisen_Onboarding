@@ -34,10 +34,9 @@ public class SecurityConfiguration {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/checklisten/**").permitAll()//TODO
-                        .requestMatchers("/api/user-checklists/**").permitAll()//TODO
-                        .requestMatchers("/admin/**").hasAuthority("ADMIN")//TODO
-                        .requestMatchers("/users/me").authenticated()
+                        .requestMatchers("/checklisten/**").hasRole("ADMIN")//TODO
+                        .requestMatchers("/admin/**").hasRole("ADMIN")//TODO
+                        .requestMatchers("/superadmin/**").hasRole("SUPER_ADMIN")//TODO
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session
@@ -53,7 +52,7 @@ public class SecurityConfiguration {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of("*"));
-        configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedMethods(List.of("GET", "POST","PUT", "DELETE"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

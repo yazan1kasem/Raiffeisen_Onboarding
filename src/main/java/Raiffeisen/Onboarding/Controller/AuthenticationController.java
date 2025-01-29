@@ -6,6 +6,8 @@ import Raiffeisen.Onboarding.JWT.dtos.*;
 import Raiffeisen.Onboarding.JWT.services.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -39,5 +41,12 @@ public class AuthenticationController {
         loginResponse.setExpiresIn(jwtService.getExpirationTime());
 
         return ResponseEntity.ok(loginResponse);
+    }
+    @GetMapping("/me")
+    public ResponseEntity<UserDetails> getLoggedInUserDetails(@AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            return ResponseEntity.status(401).build();
+        }
+        return ResponseEntity.ok(userDetails);
     }
 }
