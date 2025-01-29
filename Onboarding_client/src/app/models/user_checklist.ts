@@ -5,7 +5,6 @@ import {Checklist} from "./checklist";
 export class UserChecklist {
   id: string;
   originalChecklist: Checklist | null;
-  user: User | null;
   items: user_Items[];
   status: ChecklistStatus;
   userPermissions: { [userId: string]: boolean };
@@ -16,7 +15,6 @@ export class UserChecklist {
   constructor(
     id: string,
     originalChecklist: Checklist | null,
-    user: User | null,
     items: user_Items[],
     status: ChecklistStatus,
     userPermissions: { [userId: string]: boolean },
@@ -26,7 +24,6 @@ export class UserChecklist {
   ) {
     this.id = id;
     this.originalChecklist = originalChecklist;
-    this.user = user;
     this.items = items;
     this.status = status;
     this.userPermissions = userPermissions;

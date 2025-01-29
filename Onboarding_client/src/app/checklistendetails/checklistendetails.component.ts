@@ -70,7 +70,6 @@ export class ChecklistendetailsComponent implements OnInit {
     const userChecklist: UserChecklist = new UserChecklist(
       "",
       this.checklist,
-      this.currentuser,
       Array.from(this.selectedItems).map(item => {
         return new user_Items(
           "",
@@ -84,9 +83,8 @@ export class ChecklistendetailsComponent implements OnInit {
       {},
       false,
       new Date(),
-      new Date()
+      new Date() // Add the updatedAt argument here
     );
-
     console.log("User Checklist to Save:", userChecklist);
 
     this.dataservice.createUserChecklist(userChecklist).subscribe(

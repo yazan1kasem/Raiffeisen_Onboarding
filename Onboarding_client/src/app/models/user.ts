@@ -5,6 +5,7 @@ export class User {
   createdAt?: Date;
   updatedAt?: Date;
   role?:Role;
+  enabled?:boolean;
 
   constructor(
     username: string,
@@ -12,7 +13,8 @@ export class User {
     id?: string,
     createdAt?: Date,
     updatedAt?: Date,
-    role?:Role
+    role?:Role,
+    enabled?:boolean
   ) {
     this.username = username;
     this.password = password;
@@ -20,9 +22,11 @@ export class User {
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.role = role;
+    this.enabled = enabled;
   }
 }
 export enum Role {
   ADMIN = 'ADMIN',
-  USER = 'USER'
+  USER = 'USER',
+  SUPERADMIN = 'SUPERADMIN'
 }
