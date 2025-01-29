@@ -10,6 +10,7 @@ import Raiffeisen.Onboarding.Repository.UserChecklistRepository;
 import Raiffeisen.Onboarding.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/admin")
 @CrossOrigin("*")
+@Secured("ADMIN")
 public class AdminController {
 
     @Autowired
@@ -30,6 +32,7 @@ public class AdminController {
 
     @Autowired
     private CheckListenRepository checklistRepository;
+
     @PostMapping("/items")
     public ResponseEntity<Item> createItem(@RequestBody Item item) {
         Item savedItem = itemRepository.save(item);

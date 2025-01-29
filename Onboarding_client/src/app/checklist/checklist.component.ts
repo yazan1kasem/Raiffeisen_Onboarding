@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ChecklistService } from '../data.service';
+import { DataService } from '../data.service';
 import { Checklist } from '../models/checklist';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -21,7 +21,7 @@ export class ChecklistComponent implements OnInit {
   selectedPosition: string = '';
 
   constructor(
-    private checklistService: ChecklistService,
+    private checklistService: DataService,
     private router: Router // Router wird für die Navigation benötigt
   ) {}
 

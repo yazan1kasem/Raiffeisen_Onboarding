@@ -5,6 +5,16 @@ public class LoginResponse {
 
     private long expiresIn;
 
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public String getToken() {
         return token;
     }

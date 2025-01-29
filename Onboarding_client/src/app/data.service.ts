@@ -6,7 +6,7 @@ import { Checklist } from './models/checklist';
 @Injectable({
   providedIn: 'root'
 })
-export class ChecklistService {
+export class DataService {
   private apiUrl = 'http://localhost:8081/checklisten'; // Deine API-URL
 
   constructor(private http: HttpClient) {}
