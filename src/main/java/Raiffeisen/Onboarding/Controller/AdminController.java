@@ -37,9 +37,7 @@ public class AdminController {
             @RequestBody Item itemDetails) {
         return itemRepository.findById(id)
                 .map(existingItem -> {
-                    existingItem.setGeraet(itemDetails.getGeraet());
-                    existingItem.setAdministration(itemDetails.getAdministration());
-                    existingItem.setSoftware(itemDetails.getSoftware());
+                    existingItem.setType(itemDetails.getType());
                     existingItem.setSuchbegriff(itemDetails.getSuchbegriff());
                     Item updatedItem = itemRepository.save(existingItem);
                     return ResponseEntity.ok(updatedItem);
@@ -56,75 +54,6 @@ public class AdminController {
         return ResponseEntity.notFound().build();
     }
 
-
-
-    @PutMapping("/users/{id}/promote")
-    public ResponseEntity<User> promoteUserToAdmin(@PathVariable String id) {
-        return userRepository.findById(id)
-                .map(user -> {
-                    user.setRole(User.Role.ADMIN);
-                    User updatedUser = userRepository.save(user);
-                    return ResponseEntity.ok(updatedUser);
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @PutMapping("/users/{id}/demote")
-    public ResponseEntity<User> demoteUserToUser(@PathVariable String id) {
-        return userRepository.findById(id)
-                .map(user -> {
-                    user.setRole(User.Role.USER);
-                    User updatedUser = userRepository.save(user);
-                    return ResponseEntity.ok(updatedUser);
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @PutMapping("/users/{id}/status")
-    public ResponseEntity<User> setActiveStatus(
-            @PathVariable String id,
-            @RequestParam boolean isActive) {
-        return userRepository.findById(id)
-                .map(user -> {
-                    user.setEnabled(isActive);
-                    User updatedUser = userRepository.save(user);
-                    return ResponseEntity.ok(updatedUser);
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @DeleteMapping("/users/{id}")
-    public ResponseEntity<Void> deleteUser(@PathVariable String id) {
-        if (userRepository.existsById(id)) {
-            userRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
-    }
-
-
-
-    @PutMapping("/users/{id}/grant-access")
-    public ResponseEntity<User> grantChecklistAccess(@PathVariable String id) {
-        return userRepository.findById(id)
-                .map(user -> {
-                    user.setAccountNonLocked(true);
-                    User updatedUser = userRepository.save(user);
-                    return ResponseEntity.ok(updatedUser);
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @PutMapping("/users/{id}/revoke-access")
-    public ResponseEntity<User> revokeChecklistAccess(@PathVariable String id) {
-        return userRepository.findById(id)
-                .map(user -> {
-                    user.setAccountNonLocked(false);
-                    User updatedUser = userRepository.save(user);
-                    return ResponseEntity.ok(updatedUser);
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
     @GetMapping("/test")
     public ResponseEntity<String> checkIfAdmin(@AuthenticationPrincipal UserDetails userDetails) {
         if (userDetails == null) {

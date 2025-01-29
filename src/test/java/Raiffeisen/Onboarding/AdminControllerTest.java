@@ -71,30 +71,4 @@ public class AdminControllerTest {
         assertEquals(204, response.getStatusCodeValue());
         verify(itemRepository, times(1)).deleteById(itemId);
     }
-
-    @Test
-    void testSetActiveStatus() {
-        String userId = "1";
-        User user = new User();
-        user.setEnabled(false);
-
-        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
-        when(userRepository.save(user)).thenReturn(user);
-
-        ResponseEntity<User> response = adminController.setActiveStatus(userId, true);
-
-        assertEquals(200, response.getStatusCodeValue());
-        assertEquals(true, response.getBody().isEnabled());
-    }
-
-    @Test
-    void testDeleteUser() {
-        String userId = "1";
-        when(userRepository.existsById(userId)).thenReturn(true);
-
-        ResponseEntity<Void> response = adminController.deleteUser(userId);
-
-        assertEquals(204, response.getStatusCodeValue());
-        verify(userRepository, times(1)).deleteById(userId);
-    }
 }
