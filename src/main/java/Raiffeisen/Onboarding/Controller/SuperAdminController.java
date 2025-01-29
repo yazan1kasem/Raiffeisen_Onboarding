@@ -6,6 +6,8 @@ import Raiffeisen.Onboarding.Repository.ItemRepository;
 import Raiffeisen.Onboarding.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,8 +21,6 @@ public class SuperAdminController {
     @Autowired
     private ItemRepository itemRepository;
 
-
-
     @PostMapping("/items")
     public ResponseEntity<Item> createItem(@RequestBody Item item) {
         Item savedItem = itemRepository.save(item);
@@ -33,9 +33,8 @@ public class SuperAdminController {
             @RequestBody Item itemDetails) {
         return itemRepository.findById(id)
                 .map(existingItem -> {
-                    existingItem.setGeraet(itemDetails.getGeraet());
-                    existingItem.setAdministration(itemDetails.getAdministration());
-                    existingItem.setSoftware(itemDetails.getSoftware());
+                    existingItem.setType(itemDetails.getType());
+                    existingItem.setName(itemDetails.getName());
                     existingItem.setSuchbegriff(itemDetails.getSuchbegriff());
                     Item updatedItem = itemRepository.save(existingItem);
                     return ResponseEntity.ok(updatedItem);
@@ -104,7 +103,7 @@ public class SuperAdminController {
     public ResponseEntity<User> grantChecklistAccess(@PathVariable String id) {
         return userRepository.findById(id)
                 .map(user -> {
-                    user.setAccountNonLocked(true);
+                    user.setEnabled(true);
                     User updatedUser = userRepository.save(user);
                     return ResponseEntity.ok(updatedUser);
                 })
@@ -115,10 +114,25 @@ public class SuperAdminController {
     public ResponseEntity<User> revokeChecklistAccess(@PathVariable String id) {
         return userRepository.findById(id)
                 .map(user -> {
-                    user.setAccountNonLocked(false);
+                    user.setEnabled(false);
                     User updatedUser = userRepository.save(user);
                     return ResponseEntity.ok(updatedUser);
                 })
                 .orElse(ResponseEntity.notFound().build());
+    }
+    @GetMapping("/test")
+    public ResponseEntity<String> checkIfSuperAdmin(@AuthenticationPrincipal UserDetails userDetails) {
+        if (userDetails == null) {
+            return ResponseEntity.status(401).body("User is not authenticated");
+        }
+
+        boolean isSuperadmin = userDetails.getAuthorities().stream()
+                .anyMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_SUPER_ADMIN"));
+
+        if (isSuperadmin) {
+            return ResponseEntity.ok("User is an superadmin");
+        } else {
+            return ResponseEntity.status(403).body("User is not an superadmin");
+        }
     }
 }
