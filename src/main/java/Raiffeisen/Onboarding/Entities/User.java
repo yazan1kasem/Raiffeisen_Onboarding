@@ -10,9 +10,11 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -45,15 +47,13 @@ public class User implements UserDetails {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    @Column(name = "u_account_non_locked")
-    private boolean accountNonLocked = true;
-
     @Column(name = "u_enabled")
     private boolean enabled = true;
 
     public enum Role {
         USER,
-        ADMIN
+        ADMIN,
+        SUPER_ADMIN
     }
 
     @Enumerated(EnumType.STRING)
@@ -62,31 +62,23 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
-
+    @PrePersist
+protected void onCreate() {
+    if (this.role == null) {
+        this.role = Role.USER;
+    }
+}
     @Override
     public String getUsername() {
         return username;
     }
 
     @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
     public boolean isEnabled() {
         return true;
     }
+
 }
+

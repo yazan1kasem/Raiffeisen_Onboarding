@@ -10,7 +10,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/checklisten")
-@CrossOrigin("*")
 public class CheckListenController {
 
     @Autowired

@@ -9,6 +9,7 @@ import { Checklist } from './models/checklist';
 export class DataService {
   private apiUrl = 'http://localhost:8081/checklisten'; // Deine API-URL
 
+
   constructor(private http: HttpClient) {}
 
   // Hilfsmethode zum Abrufen der Auth-Header mit Bearer Token
@@ -17,6 +18,7 @@ export class DataService {
     if (!token) {
       throw new Error('Kein Token im Local Storage gefunden.');
     }
+    console.log("hier ist der Token: "+token)
     return new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`

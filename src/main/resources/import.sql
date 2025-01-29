@@ -194,7 +194,7 @@ INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) 
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("169", "GAP (Tiger) LAM HO", "Tools", "GAP - Prod - LAM HO (Prod RBI)", "4");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("170", "GAP (Tiger) Lam Request LAM", "Tools", "GAP - Prod - LAMRequest LAM HO (Prod RBI)", "4");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("171", "GAP (Tiger) Lam Request PAM", "Tools", "GAP - Prod - LAMRequest PAM HO (Prod RBI)", "4");
-INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("172","GAP (Tiger) PAM HO", "Tools", "GAP - Prod - PAM HO (Prod RBI)", "4");
+INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("GAP (Tiger) PAM HO", "Tools", "GAP - Prod - PAM HO (Prod RBI)", "4");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("173", "Group CPA HO(Customer Profitability Assesment)", "Tools", "CPA RBI Corporate Customer Group (Prod RBI)", "4");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("174", "HGCC Reader", "Tools", "PROD HO HGCC Reader (Prod RBI)", "4");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("175", "HO Access to FPT", "Tools", "PROD HO FPT Relationship Manager (Prod RBI)", "4");
@@ -260,7 +260,7 @@ INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) 
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("234", "RMA Risk Monitoring", "Tools", "PROD HO RMA Account Manager (Prod RBI)", "5");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("235", "RMA Risk Monitoring", "Tools", "PROD HO RMA FPT Local Reader (Prod RBI)", "5");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("236", "Sales Performance Report", "Tools", "Power BI Security Group for x Department to access the Sales Performance Report", "5");
-INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("237","TAT Tool", "Tools", "Power BI Transaction Analysis Tool - App Viewer (PROD RBI) (PROD RBI)", "5");
+INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("TAT Tool", "Tools", "Power BI Transaction Analysis Tool - App Viewer (PROD RBI) (PROD RBI)", "5");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("238", "Tiger GAMS", "Tools", "Access to Oracle DB Tiger (Prod)", "5");
 
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("239", "extension / TEAMS telephony", "Hardware", "ITSM: Telephone Extension", "6");
@@ -396,6 +396,7 @@ INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) 
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("367", "Group CPA HO(Customer Profitability Assesment)", "Tools", "CPA RBI Corporate Customer Group (Prod RBI)", "8");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("368", "HGCC Reader", "Tools", "PROD HO HGCC Reader (Prod RBI)", "8");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("369", "HO Access to FPT", "Tools", "PROD HO FPT Relationship Manager (Prod RBI)", "8");
+INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("369", "LEON", "Tools", "RBI-LEON-PROD-SALESSUPPORT", "8");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("370", "Limit Management System", "Tools", "LMS Account Manager (PROD)", "8");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("371", "Lotus Notes", "Tools", "ITSM Ticket", "8");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("372", "MOXIS", "Tools", "Moxis eSignature access for RBI", "8");
@@ -409,6 +410,7 @@ INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) 
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("380", "RMA Risk Monitoring", "Tools", "PROD HO RMA FPT Local Reader (Prod RBI)", "8");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("381", "Sales Performance Report", "Tools", "Power BI Security Group for x Department to access the Sales Performance Report", "8");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("382", "TAT Tool", "Tools", "Power BI Transaction Analysis Tool - App Viewer (PROD RBI) (PROD RBI)", "8");
+INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("Tiger GAMS", "Tools", "Access to Oracle DB Tiger (Prod)", "8");
 
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("383", "extension / TEAMS telephony", "Hardware", "ITSM: Telephone Extension", "9");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("384", "headset", "Hardware", "ITSM: Headsets and SpeakersPoly Voyager Focus 2 for RM and SSM Jabra EVOLVE 30 II Stereo MS for SSK and Intern", "9");
@@ -635,6 +637,7 @@ INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) 
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("620","CMBS My Raiffeisen", "Tools", "CMBS – myRaiffeisen (PRODUCTION)", "13");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("621","Coconut Reader", "Tools", "PROD HO COCUNUT Reader (Prod RBI)", "13");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("622","Coconut Reader FI", "Tools", "PROD HO COCUNUT CAM Reader (Prod RBI)", "13");
+INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("622","Copernicus ", "Tools", "Access to Copernicus (GCRM) Writer – PROD", "13");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("623","CovMon Relationship Manager/Mid Office (Prod)", "Tools", "CovMon Relationship Manager/Mid Office (Prod)", "13");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("624","DOXIS", "Tools", "Windows Doxis WinCube for IDMS", "13");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("625","GAP (Tiger) Acquisition", "Tools", "GAP - Prod - Acquisition & RnB HO (Prod RBI)", "13");
@@ -664,6 +667,6 @@ INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) 
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("649","TAT Tool", "Tools", "Power BI Transaction Analysis Tool - App Viewer (PROD RBI) (PROD RBI)", "13");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("650","Webrahmen KMS read 31000", "Tools", "Windows Webrahmen KMS read access 31000", "13");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("651","Payment Tracker", "Tools", "Payment Tracker SuperUser (PROD)", "13");
-INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("652","Copernicus ", "Tools", "Access to Copernicus (GCRM) Writer – PROD", "13");
-INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("653", "LEON", "Tools", "RBI-LEON-PROD-SALESSUPPORT", "8");
-INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("654","Tiger GAMS", "Tools", "Access to Oracle DB Tiger (Prod)", "8");
+
+
+
