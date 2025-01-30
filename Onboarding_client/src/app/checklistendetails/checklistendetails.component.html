@@ -15,8 +15,8 @@
         [ngClass]="{ 'selected': selectedItems.has(item) }"
         (click)="toggleItemSelection(item)"
       >
-        <p><strong>Name:</strong> {{ item.name }}</p>
-        <p><strong>Type:</strong> {{ item.type }}</p>
+        <p><strong>Name:</strong> {{ item.suchbegriff }}</p>
+        <p><strong>Type:</strong> {{ item.geraet }}</p>
         <p><strong>Suchbegriff:</strong> {{ item.suchbegriff }}</p>
       </li>
     </ul>

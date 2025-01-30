@@ -1,9 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {Dataservice} from '../data.service';
+import {DataService} from '../data.service';
 import {Checklist} from '../models/checklist';
 import {Item} from '../models/item';
-import {user_Items} from '../models/user_Items';
 import {AuthService} from '../auth.service';
 import {CommonModule, NgClass, NgForOf} from "@angular/common";
 import {ChecklistStatus, UserChecklist} from "../models/user_checklist";
@@ -25,26 +24,23 @@ export class ChecklistendetailsComponent implements OnInit {
   checklist!: Checklist;
   selectedItems: Set<Item> = new Set<Item>();
   currentuser!: User; // Typ und Variable deklarieren
-
+  @Input() id: string = "";
   constructor(
     private route: ActivatedRoute,
-    private dataservice: Dataservice,
+    private dataservice: DataService,
     private authService: AuthService
   ) {}
 
   async ngOnInit(): Promise<void> {
-    // Benutzer laden
-    this.currentuser = await this.getUser();
 
-    // Checkliste laden
-    const id = this.route.snapshot.paramMap.get('id');
-    if (id) {
-      this.loadChecklist(parseInt(id, 10));
+
+    if (this.id) {
+      this.loadChecklist(this.id);
     }
   }
 
-  loadChecklist(id: number): void {
-    this.dataservice.getChecklistById(id).subscribe((data: Checklist) => {
+  loadChecklist(id: string): void {
+    this.dataservice.getChecklist(id).subscribe((data: Checklist) => {
       this.checklist = data;
     });
   }
@@ -57,39 +53,9 @@ export class ChecklistendetailsComponent implements OnInit {
     }
   }
 
-  async getUser(): Promise<User> {
-    return firstValueFrom(this.dataservice.getCurrentuser());
-  }
+
 
   saveSelectedItems(): void {
-    if (!this.currentuser) {
-      console.error("Benutzer nicht geladen.");
-      return;
-    }
 
-    const userChecklist: UserChecklist = new UserChecklist(
-      "",
-      this.checklist,
-      Array.from(this.selectedItems).map(item => {
-        return new user_Items(
-          "",
-          item,
-          true,
-          new Date(),
-          new Date()
-        );
-      }),
-      ChecklistStatus.COMPLETED,
-      {},
-      false,
-      new Date(),
-      new Date() // Add the updatedAt argument here
-    );
-    console.log("User Checklist to Save:", userChecklist);
-
-    this.dataservice.createUserChecklist(userChecklist).subscribe(
-      response => console.log(response),
-      error => console.error("Fehler beim Speichern der Checkliste:", error)
-    );
   }
 }

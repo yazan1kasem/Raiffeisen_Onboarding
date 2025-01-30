@@ -32,6 +32,12 @@ export class DataService {
     );
   }
 
+  getChecklist(id:string): Observable<Checklist> {
+    return this.http.get<Checklist>(`${this.apiUrl}/${id}`, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<Checklist>('getChecklists', new Checklist('dummyId', 'dummyUeberschrift', 'dummyAbteilungsname', 'dummyPosition', [])
+      )));
+  }
+
   // Einzelne Checkliste erstellen
   createChecklist(checklist: Checklist): Observable<Checklist> {
     return this.http.post<Checklist>(this.apiUrl, checklist, { headers: this.getAuthHeaders() }).pipe(
