@@ -22,6 +22,7 @@ import {firstValueFrom} from "rxjs";
 })
 export class ChecklistendetailsComponent implements OnInit {
   checklist!: Checklist;
+  userChecklist!: UserChecklist;
   selectedItems: Set<Item> = new Set<Item>();
   currentuser!: User; // Typ und Variable deklarieren
   @Input() id: string = "";
@@ -58,4 +59,6 @@ export class ChecklistendetailsComponent implements OnInit {
   saveSelectedItems(): void {
 
   }
+
+  protected readonly UserChecklist = UserChecklist;
 }

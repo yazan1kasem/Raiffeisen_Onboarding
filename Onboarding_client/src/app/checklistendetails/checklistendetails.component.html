@@ -1,9 +1,9 @@
 <div class="checklist-details">
-  <h2 class="checklist-title">{{ checklist.ueberschrift }}</h2>
+  <h2 class="checklist-title">{{ userChecklist.ueberschrift }}</h2>
 
   <div class="checklist-info">
-    <p><strong>Position:</strong> {{ checklist.position }}</p>
-    <p><strong>Abteilungsname:</strong> {{ checklist.abteilungsname }}</p>
+    <p><strong>Position:</strong> {{ userChecklist.originalChecklist?.position }}</p>
+    <p><strong>Abteilungsname:</strong> {{ userChecklist.originalChecklist?.abteilungsname }}</p>
   </div>
 
   <h3 class="items-title">Items</h3>
