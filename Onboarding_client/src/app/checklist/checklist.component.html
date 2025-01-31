@@ -20,9 +20,10 @@
       <span class="checklist-text">
         {{ checklist.ueberschrift }} - {{ checklist.abteilungsname }} - {{ checklist.position }}
       </span>
+      <app-checklistendetails *ngIf="selectedChecklistId" [id]="selectedChecklistId"></app-checklistendetails>
+
     </li>
   </ul>
 
   <!-- Angezeigte Details, falls eine Checkliste ausgewählt wurde -->
-  <app-checklistendetails *ngIf="selectedChecklistId" [id]="selectedChecklistId"></app-checklistendetails>
 </div>
