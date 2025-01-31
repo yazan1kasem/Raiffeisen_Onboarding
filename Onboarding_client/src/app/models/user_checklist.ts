@@ -3,6 +3,7 @@ import {Checklist} from "./checklist";
 
 export class UserChecklist {
   id: string;
+  ueberschrift: string;
   originalChecklist: Checklist | null;
   status: ChecklistStatus;
   userPermissions: { [userId: string]: boolean };
@@ -14,7 +15,8 @@ export class UserChecklist {
     id: string,
     originalChecklist: Checklist | null,
     status: ChecklistStatus,
-    userPermissions: { [userId: string]: boolean },
+    ueberschrift: string,
+  userPermissions: { [userId: string]: boolean },
     isLocked: boolean,
     createdAt: Date,
     updatedAt: Date
@@ -26,6 +28,7 @@ export class UserChecklist {
     this.isLocked = isLocked;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+    this.ueberschrift = ueberschrift;
   }
 }
 export enum ChecklistStatus {
