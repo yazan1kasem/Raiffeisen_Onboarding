@@ -6,8 +6,9 @@ import { Checklist } from './models/checklist';
 @Injectable({
   providedIn: 'root'
 })
-export class ChecklistService {
+export class DataService {
   private apiUrl = 'http://localhost:8081/checklisten'; // Deine API-URL
+
 
   constructor(private http: HttpClient) {}
 
@@ -17,6 +18,7 @@ export class ChecklistService {
     if (!token) {
       throw new Error('Kein Token im Local Storage gefunden.');
     }
+    console.log("hier ist der Token: "+token)
     return new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
@@ -28,6 +30,12 @@ export class ChecklistService {
     return this.http.get<Checklist[]>(this.apiUrl, { headers: this.getAuthHeaders() }).pipe(
       catchError(this.handleError<Checklist[]>('getChecklists', [])) // Fehlerbehandlung hinzufügen
     );
+  }
+
+  getChecklist(id:string): Observable<Checklist> {
+    return this.http.get<Checklist>(`${this.apiUrl}/${id}`, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<Checklist>('getChecklists', new Checklist('dummyId',  'dummyAbteilungsname', 'dummyPosition', [])
+      )));
   }
 
   // Einzelne Checkliste erstellen

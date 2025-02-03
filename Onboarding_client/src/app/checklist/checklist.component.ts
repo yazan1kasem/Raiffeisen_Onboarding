@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { ChecklistService } from '../data.service';
+import { DataService } from '../data.service';
 import { Checklist } from '../models/checklist';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import {FormsModule} from "@angular/forms";
+import {ChecklistendetailsComponent} from "../checklistendetails/checklistendetails.component";
 
 @Component({
   selector: 'app-checklist',
   templateUrl: './checklist.component.html',
   styleUrls: ['./checklist.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule] // CommonModule importieren für *ngIf und *ngFor
+  imports: [CommonModule, FormsModule, ChecklistendetailsComponent] // CommonModule importieren für *ngIf und *ngFor
 })
 export class ChecklistComponent implements OnInit {
   checklists: Checklist[] = [];
@@ -21,7 +22,7 @@ export class ChecklistComponent implements OnInit {
   selectedPosition: string = '';
 
   constructor(
-    private checklistService: ChecklistService,
+    private checklistService: DataService,
     private router: Router // Router wird für die Navigation benötigt
   ) {}
 
@@ -58,8 +59,9 @@ export class ChecklistComponent implements OnInit {
     });
   }
 
-  openChecklist(checklist: Checklist): void {
-    // Navigiere zur Detailansicht der ausgewählten Checkliste
-    this.router.navigate(['/checklist', checklist.id]); // Du kannst hier eine andere ID verwenden, falls du eine hast
+  selectedChecklistId: string | null = null;
+
+  openChecklist(id: string) {
+    this.selectedChecklistId = id;
   }
 }

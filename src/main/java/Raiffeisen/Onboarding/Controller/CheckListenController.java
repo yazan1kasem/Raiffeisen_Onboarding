@@ -10,16 +10,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/checklisten")
-@CrossOrigin("*")
 public class CheckListenController {
 
     @Autowired
     private CheckListenRepository checkListenRepository;
 
-    @GetMapping("/search")
-    public List<CheckList> getCheckListenByTitle(@RequestParam String title) {
-        return checkListenRepository.findCheckListsByUeberschriftContaining(title);
-    }
+
 
     @GetMapping("")
     public @ResponseBody Iterable<CheckList> getAllCheckListen() {
@@ -44,7 +40,9 @@ public class CheckListenController {
             @PathVariable String id,
             @RequestBody CheckList checkListenDetails) {
         return checkListenRepository.findById(id).map(existingCheckList -> {
-            existingCheckList.setUeberschrift(checkListenDetails.getUeberschrift());
+            existingCheckList.setId(checkListenDetails.getId());
+            existingCheckList.setPosition(checkListenDetails.getPosition());
+            existingCheckList.setAbteilungsname(checkListenDetails.getAbteilungsname());
             existingCheckList.setItems(checkListenDetails.getItems());
             CheckList updatedCheckList = checkListenRepository.save(existingCheckList);
             return ResponseEntity.ok(updatedCheckList);
