@@ -29,6 +29,7 @@ public class user_checklists {
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
     @Column(name = "uc_id")
     private String id;
+
     @Column(name="c_überschrift")
     private String ueberschrift;
     /**

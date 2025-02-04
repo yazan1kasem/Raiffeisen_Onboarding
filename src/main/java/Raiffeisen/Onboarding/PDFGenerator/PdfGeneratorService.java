@@ -46,8 +46,6 @@ public class PdfGeneratorService {
 
         document.add(new Paragraph("Checklisten Report").setBold().setFontSize(18));
 
-        document.add(new Paragraph("\nCheckliste: " + checklist.getUeberschrift())
-                .setBold().setFontSize(14));
         document.add(new Paragraph("Abteilung: " + checklist.getAbteilungsname()));
         document.add(new Paragraph("Position: " + checklist.getPosition()));
 

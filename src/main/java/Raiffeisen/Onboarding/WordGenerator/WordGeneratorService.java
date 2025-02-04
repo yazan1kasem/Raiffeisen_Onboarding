@@ -28,7 +28,7 @@ public class WordGeneratorService {
         // Überschrift der Checkliste
         XWPFParagraph checklistTitle = document.createParagraph();
         XWPFRun checklistRun = checklistTitle.createRun();
-        checklistRun.setText("\nCheckliste: " + checklist.getUeberschrift());
+
         checklistRun.setBold(true);
         checklistRun.setFontSize(14);
 

@@ -25,8 +25,6 @@ public class CheckList {
     @Column(name="c_id")
     private String id;
 
-
-
     @Column(name = "c_Position")
     private String position;
 
@@ -36,6 +34,4 @@ public class CheckList {
     @OneToMany(fetch = FetchType.EAGER)
     @JoinColumn(name = "c_i_id")
     private List<Item> items;
-
-
 }

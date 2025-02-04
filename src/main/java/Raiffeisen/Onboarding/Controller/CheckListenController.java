@@ -2,12 +2,10 @@ package Raiffeisen.Onboarding.Controller;
 
 import Raiffeisen.Onboarding.Entities.CheckList;
 import Raiffeisen.Onboarding.Repository.CheckListenRepository;
-import Raiffeisen.Onboarding.Repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "/checklisten")
@@ -15,14 +13,6 @@ public class CheckListenController {
 
     @Autowired
     private CheckListenRepository checkListenRepository;
-
-
-
-    @GetMapping("/search")
-    public List<CheckList> getCheckListenByTitle(@RequestParam String title) {
-        return checkListenRepository.findCheckListsByUeberschriftContaining(title);
-    }
-
 
     @GetMapping("")
     public @ResponseBody Iterable<CheckList> getAllCheckListen() {
@@ -47,7 +37,6 @@ public class CheckListenController {
             @PathVariable String id,
             @RequestBody CheckList checkListenDetails) {
         return checkListenRepository.findById(id).map(existingCheckList -> {
-            existingCheckList.setUeberschrift(checkListenDetails.getUeberschrift());
             existingCheckList.setItems(checkListenDetails.getItems());
             CheckList updatedCheckList = checkListenRepository.save(existingCheckList);
             return ResponseEntity.ok(updatedCheckList);

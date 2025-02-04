@@ -16,7 +16,6 @@ import org.hibernate.annotations.GenericGenerator;
 @NoArgsConstructor
 @SuperBuilder
 public class Item {
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid2")
     @GenericGenerator(name="uuid2", strategy = "uuid2")
@@ -31,5 +30,4 @@ public class Item {
 
     @Column(name="I_suchbegriff")
     private String suchbegriff;
-
 }
