@@ -22,7 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class user_checklists {
+public class User_Checklists {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid2")
@@ -51,7 +51,7 @@ public class user_checklists {
      */
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_checklist_items")
-    private List<user_checklist_items> items;
+    private List<User_Checklist_Items> items;
 
     /**
      * The status of the checklist (e.g., IN_PROGRESS, COMPLETED, LOCKED).

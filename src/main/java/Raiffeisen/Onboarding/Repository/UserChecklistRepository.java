@@ -3,7 +3,5 @@ package Raiffeisen.Onboarding.Repository;
 import Raiffeisen.Onboarding.Entities.*;
 import org.springframework.data.repository.CrudRepository;
 
-import java.util.List;
-
-public interface UserChecklistRepository extends CrudRepository<user_checklists, String> {
+public interface UserChecklistRepository extends CrudRepository<User_Checklists, String> {
 }

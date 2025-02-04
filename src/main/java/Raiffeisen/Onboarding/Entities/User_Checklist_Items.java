@@ -8,7 +8,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
  * Represents an individual item within a user-specific checklist.
@@ -20,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-class user_checklist_items {
+class User_Checklist_Items {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid2")
