@@ -9,12 +9,10 @@
   <h3 class="items-title">Items</h3>
   <div class="content">
     <ul class="items-list">
-      <li
-        *ngFor="let item of checklist.items"
+      <li *ngFor="let item of checklist.items"
         class="item-card"
         [ngClass]="{ 'selected': selectedItems.has(item) }"
-        (click)="toggleItemSelection(item)"
-      >
+        (click)="toggleItemSelection(item)">
         <p><strong>Name:</strong> {{ item.suchbegriff }}</p>
         <p><strong>Type:</strong> {{ item.geraet }}</p>
         <p><strong>Suchbegriff:</strong> {{ item.suchbegriff }}</p>

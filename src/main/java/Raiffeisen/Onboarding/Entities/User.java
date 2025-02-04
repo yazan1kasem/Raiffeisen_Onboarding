@@ -26,13 +26,7 @@ import java.util.List;
 @NoArgsConstructor
 @SuperBuilder
 public class User implements UserDetails {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid2")
-    @GenericGenerator(name="uuid2", strategy = "uuid2")
-    @Column(name="u_id")
-    private String id;
-
     @Column(name="u_username")
     private String username;
 

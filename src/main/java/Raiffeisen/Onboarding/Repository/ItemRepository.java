@@ -4,7 +4,9 @@ import Raiffeisen.Onboarding.Entities.CheckList;
 import Raiffeisen.Onboarding.Entities.Item;
 import org.springframework.data.repository.CrudRepository;
 
-public interface ItemRepository extends CrudRepository<Item, String> {
+import java.util.List;
 
+public interface ItemRepository extends CrudRepository<Item, String> {
+    Item findByName(String itemname);
     Item findItemBySuchbegriff(String suchbegriff);
 }

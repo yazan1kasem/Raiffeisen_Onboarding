@@ -26,12 +26,17 @@ public class AuthenticationService {
     }
 
     public User signup(RegisterUserDto input) {
-        User user = new User().builder()
-                .username(input.getUsername())
-                .password(passwordEncoder.encode(input.getPassword()))
-                .role(User.Role.USER)
-                .build();
-        return userRepository.save(user);
+        if(userRepository.existsByUsername(input.getUsername())) {
+            throw new IllegalArgumentException("Username already exists");
+        }else {
+            User user = new User().builder()
+                    .username(input.getUsername())
+                    .password(passwordEncoder.encode(input.getPassword()))
+                    .role(User.Role.USER)
+                    .build();
+            return userRepository.save(user);
+        }
+
     }
 
     public User authenticate(LoginUserDto input) {
