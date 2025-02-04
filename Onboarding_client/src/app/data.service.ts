@@ -2,70 +2,89 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, of } from 'rxjs';
 import { Checklist } from './models/checklist';
+import { Item } from './models/item';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataService {
-  private apiUrl = 'http://localhost:8081/checklisten'; // Deine API-URL
-
+  private apiUrl = 'http://localhost:8081/checklisten';
+  private savedItems: Item[] = [];
+  private savedChecklists: Checklist[] = [];
 
   constructor(private http: HttpClient) {}
 
-  // Hilfsmethode zum Abrufen der Auth-Header mit Bearer Token
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
     if (!token) {
       throw new Error('Kein Token im Local Storage gefunden.');
     }
-    console.log("hier ist der Token: "+token)
     return new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
   }
 
-  // Liste aller Checklisten abrufen
-  getChecklists(): Observable<Checklist[]> {
-    return this.http.get<Checklist[]>(this.apiUrl, { headers: this.getAuthHeaders() }).pipe(
-      catchError(this.handleError<Checklist[]>('getChecklists', [])) // Fehlerbehandlung hinzufügen
+  getItems(): Observable<Item[]> {
+    return this.http.get<Item[]>(`${this.apiUrl}/items`, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<Item[]>('getItems', []))
     );
   }
 
-  getChecklist(id:string): Observable<Checklist> {
-    return this.http.get<Checklist>(`${this.apiUrl}/${id}`, { headers: this.getAuthHeaders() }).pipe(
-      catchError(this.handleError<Checklist>('getChecklists', new Checklist('dummyId', 'dummyUeberschrift', 'dummyAbteilungsname', 'dummyPosition', [])
-      )));
+  getChecklists(): Observable<Checklist[]> {
+    return this.http.get<Checklist[]>(this.apiUrl, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<Checklist[]>('getChecklists', []))
+    );
   }
 
-  // Einzelne Checkliste erstellen
+  getChecklist(id: string): Observable<Checklist> {
+    return this.http.get<Checklist>(`${this.apiUrl}/${id}`, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<Checklist>('getChecklists', new Checklist('dummyId', 'dummyAbteilungsname', 'dummyPosition', [])))
+    );
+  }
+
   createChecklist(checklist: Checklist): Observable<Checklist> {
     return this.http.post<Checklist>(this.apiUrl, checklist, { headers: this.getAuthHeaders() }).pipe(
       catchError(this.handleError<Checklist>('createChecklist'))
     );
   }
 
-  // Checkliste aktualisieren
   updateChecklist(checklist: Checklist): Observable<Checklist> {
     return this.http.put<Checklist>(`${this.apiUrl}/${checklist.id}`, checklist, { headers: this.getAuthHeaders() }).pipe(
       catchError(this.handleError<Checklist>('updateChecklist'))
     );
   }
 
-  // Checkliste löschen
   deleteChecklist(checklistId: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${checklistId}`, { headers: this.getAuthHeaders() }).pipe(
       catchError(this.handleError<void>('deleteChecklist'))
     );
   }
 
+  saveSelectedItems(items: Item[]): void {
+    this.savedItems = items;
+  }
 
+  getSavedItems(): Item[] {
+    return this.savedItems;
+  }
 
-  // Fehlerbehandlungsmethode
+  saveChecklist(checklist: Checklist): Observable<void> {
+    return this.http.post<void>(`${this.apiUrl}/saved`, checklist, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<void>('saveChecklist'))
+    );
+  }
+
+  getSavedChecklists(): Observable<Checklist[]> {
+    return this.http.get<Checklist[]>(`${this.apiUrl}/saved`, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<Checklist[]>('getSavedChecklists', []))
+    );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(`${operation} failed: ${error.message}`);
-      return of(result as T); // Rückgabe eines sicheren Ergebnisses
+      return of(result as T);
     };
   }
 }

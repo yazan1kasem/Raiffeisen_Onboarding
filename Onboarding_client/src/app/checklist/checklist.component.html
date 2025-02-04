@@ -18,11 +18,8 @@
   <ul class="checklist-list">
     <li *ngFor="let checklist of filteredChecklists" class="checklist-item" (click)="openChecklist(checklist.id)">
       <span class="checklist-text">
-        {{ checklist.ueberschrift }} - {{ checklist.abteilungsname }} - {{ checklist.position }}
+        {{ checklist.abteilungsname }} - {{ checklist.position }}
       </span>
     </li>
   </ul>
-
-  <!-- Angezeigte Details, falls eine Checkliste ausgewählt wurde -->
-  <app-checklistendetails *ngIf="selectedChecklistId" [id]="selectedChecklistId"></app-checklistendetails>
 </div>

@@ -25,8 +25,7 @@ public class CheckList {
     @Column(name="c_id")
     private String id;
 
-    @Column(name="c_überschrift")
-    private String ueberschrift;
+
 
     @Column(name = "c_Position")
     private String position;

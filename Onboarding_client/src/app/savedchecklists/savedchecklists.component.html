@@ -1,0 +1,12 @@
+<div class="saved-checklists-container">
+  <ul class="checklist-list">
+    <li *ngFor="let checklist of savedChecklists">
+      <h3>{{ checklist.abteilungsname }} - {{ checklist.position }}</h3>
+      <ul>
+        <li *ngFor="let item of checklist.items">
+          {{ item.name }}
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>

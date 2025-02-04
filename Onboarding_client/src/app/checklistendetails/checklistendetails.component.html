@@ -1,24 +1,10 @@
-<div class="checklist-details">
-  <h2 class="checklist-title">{{ checklist.ueberschrift }}</h2>
+<div *ngIf="checklist" class="checklist-details-container">
+  <ul class="item-list">
+    <li *ngFor="let item of filteredItems">
+      <input type="checkbox" [checked]="selectedItems.has(item)" (change)="toggleItemSelection(item)">
+      <span>{{ item.name }}</span>
+    </li>
+  </ul>
 
-  <div class="checklist-info">
-    <p><strong>Position:</strong> {{ checklist.position }}</p>
-    <p><strong>Abteilungsname:</strong> {{ checklist.abteilungsname }}</p>
-  </div>
-
-  <h3 class="items-title">Items</h3>
-  <div class="content">
-    <ul class="items-list">
-      <li *ngFor="let item of checklist.items"
-        class="item-card"
-        [ngClass]="{ 'selected': selectedItems.has(item) }"
-        (click)="toggleItemSelection(item)">
-        <p><strong>Name:</strong> {{ item.suchbegriff }}</p>
-        <p><strong>Type:</strong> {{ item.geraet }}</p>
-        <p><strong>Suchbegriff:</strong> {{ item.suchbegriff }}</p>
-      </li>
-    </ul>
-
-    <button class="save-button" (click)="saveSelectedItems()">Speichern</button>
-  </div>
+  <button class="save-button" (click)="saveChecklist()">Save Checklist</button>
 </div>
