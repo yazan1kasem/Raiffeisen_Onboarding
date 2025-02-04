@@ -1,17 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { Checklist } from '../models/checklist';
-import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import {FormsModule} from "@angular/forms";
-import {ChecklistendetailsComponent} from "../checklistendetails/checklistendetails.component";
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-checklist',
   templateUrl: './checklist.component.html',
   styleUrls: ['./checklist.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule, ChecklistendetailsComponent] // CommonModule importieren für *ngIf und *ngFor
+  imports: [CommonModule, FormsModule]
 })
 export class ChecklistComponent implements OnInit {
   checklists: Checklist[] = [];
@@ -23,7 +22,7 @@ export class ChecklistComponent implements OnInit {
 
   constructor(
     private checklistService: DataService,
-    private router: Router // Router wird für die Navigation benötigt
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -35,7 +34,6 @@ export class ChecklistComponent implements OnInit {
       this.checklists = data;
       this.filteredChecklists = data;
 
-      // Extrahiere Abteilungen und Positionen ohne Duplikate
       this.abteilungen = [...new Set(data.map((checklist) => checklist.abteilungsname))];
       this.positions = [...new Set(data.map((checklist) => checklist.position))];
     });
@@ -59,9 +57,7 @@ export class ChecklistComponent implements OnInit {
     });
   }
 
-  selectedChecklistId: string | null = null;
-
-  openChecklist(id: string) {
-    this.selectedChecklistId = id;
+  openChecklist(id: string): void {
+    this.router.navigate(['/checklistendetails', id]);
   }
 }

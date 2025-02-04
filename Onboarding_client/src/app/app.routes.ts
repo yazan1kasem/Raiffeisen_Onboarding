@@ -5,6 +5,8 @@ import { LoginComponent } from './login/login.component';
 import { SignupComponent } from './signup/signup.component';
 import { ProtectedComponent } from './protected/protected.component';
 import { AuthGuard } from './auth.guard';
+import { ChecklistendetailsComponent } from './checklistendetails/checklistendetails.component';
+import { SavedChecklistsComponent } from './savedchecklists/savedchecklists.component';
 
 export const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -20,7 +22,9 @@ export const routes: Routes = [
     path: '',
     redirectTo: '/checklist',
     pathMatch: 'full'
-  }
+  },
+  { path: 'checklistendetails/:id', component: ChecklistendetailsComponent, canActivate: [AuthGuard] },
+  { path: 'saved-checklists', component: SavedChecklistsComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

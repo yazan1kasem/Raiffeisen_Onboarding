@@ -1,49 +1,40 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {DataService} from '../data.service';
-import {Checklist} from '../models/checklist';
-import {Item} from '../models/item';
-import {AuthService} from '../auth.service';
-import {CommonModule, NgClass, NgForOf} from "@angular/common";
-import {ChecklistStatus, UserChecklist} from "../models/user_checklist";
-import {User} from "../models/user";
-import {firstValueFrom} from "rxjs";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { DataService } from '../data.service';
+import { Checklist } from '../models/checklist';
+import { Item } from '../models/item';
+import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-checklistendetails',
   templateUrl: './checklistendetails.component.html',
-  styleUrls: ['./checklistendetails.component.css'],
   standalone: true,
   imports: [
-    NgForOf,
-    NgClass,
-    CommonModule
-  ]
+    FormsModule, CommonModule
+  ],
+  styleUrls: ['./checklistendetails.component.css'],
 })
 export class ChecklistendetailsComponent implements OnInit {
-  checklist!: Checklist;
-  userChecklist!: UserChecklist;
+  checklist: Checklist | null = null;
+  filteredItems: Item[] = [];
   selectedItems: Set<Item> = new Set<Item>();
-  currentuser!: User; // Typ und Variable deklarieren
-  @Input() id: string = "";
+
   constructor(
     private route: ActivatedRoute,
-    private dataservice: DataService,
-    private authService: AuthService
+    private dataService: DataService,
+    private router: Router
   ) {}
 
-  async ngOnInit(): Promise<void> {
-
-
-    if (this.id) {
-      this.loadChecklist(this.id);
+  ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+    if (id) {
+      this.dataService.getChecklist(id).subscribe((checklist: Checklist) => {
+        this.checklist = checklist;
+        this.filteredItems = checklist.items;
+        this.selectedItems = new Set<Item>();
+      });
     }
-  }
-
-  loadChecklist(id: string): void {
-    this.dataservice.getChecklist(id).subscribe((data: Checklist) => {
-      this.checklist = data;
-    });
   }
 
   toggleItemSelection(item: Item): void {
@@ -54,11 +45,17 @@ export class ChecklistendetailsComponent implements OnInit {
     }
   }
 
-
-
-  saveSelectedItems(): void {
-
+  saveChecklist(): void {
+    if (this.checklist) {
+      const updatedChecklist = new Checklist(
+        this.checklist.id,
+        this.checklist.abteilungsname,
+        this.checklist.position,
+        Array.from(this.selectedItems)
+      );
+      this.dataService.saveChecklist(updatedChecklist).subscribe(() => {
+        this.router.navigate(['/saved-checklists']);
+      });
+    }
   }
-
-  protected readonly UserChecklist = UserChecklist;
 }
