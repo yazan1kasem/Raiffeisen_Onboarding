@@ -7,4 +7,8 @@
   </ul>
 
   <button class="save-button" (click)="saveChecklist()">Save Checklist</button>
+
+  <div *ngIf="showSuccessMessage" class="success-message">
+    Checklist saved successfully!
+  </div>
 </div>

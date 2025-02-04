@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../data.service';
 import { Checklist } from '../models/checklist';
 import { Item } from '../models/item';
@@ -19,11 +19,11 @@ export class ChecklistendetailsComponent implements OnInit {
   checklist: Checklist | null = null;
   filteredItems: Item[] = [];
   selectedItems: Set<Item> = new Set<Item>();
+  showSuccessMessage: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
-    private dataService: DataService,
-    private router: Router
+    private dataService: DataService
   ) {}
 
   ngOnInit(): void {
@@ -54,7 +54,8 @@ export class ChecklistendetailsComponent implements OnInit {
         Array.from(this.selectedItems)
       );
       this.dataService.saveChecklist(updatedChecklist).subscribe(() => {
-        this.router.navigate(['/saved-checklists']);
+        this.showSuccessMessage = true;
+        setTimeout(() => this.showSuccessMessage = false, 3000); // Hide message after 3 seconds
       });
     }
   }
