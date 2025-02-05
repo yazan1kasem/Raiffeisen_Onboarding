@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../data.service';
 import { Checklist } from '../models/checklist';
 import { Item } from '../models/item';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { UserChecklist, ChecklistStatus } from "../models/user_checklist";
+import { User } from "../models/user";
+import { AuthService } from "../auth.service";
+import { UserChecklistItems } from "../models/user_checklist_items";
 
 @Component({
   selector: 'app-checklistendetails',
@@ -19,22 +23,45 @@ export class ChecklistendetailsComponent implements OnInit {
   checklist: Checklist | null = null;
   filteredItems: Item[] = [];
   selectedItems: Set<Item> = new Set<Item>();
-  showSuccessMessage: boolean = false;
+  ueberschrift: string = 'new Checklist';
+  user?: User;
 
   constructor(
     private route: ActivatedRoute,
-    private dataService: DataService
+    private dataService: DataService,
+    private router: Router,
+    private authservice: AuthService
   ) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.dataService.getChecklist(id).subscribe((checklist: Checklist) => {
-        this.checklist = checklist;
-        this.filteredItems = checklist.items;
-        this.selectedItems = new Set<Item>();
+      console.log('Checklist ID:', id);
+      this.dataService.getChecklist(id).subscribe({
+        next: (checklist: Checklist) => {
+          this.checklist = checklist;
+          this.filteredItems = checklist.items;
+          this.selectedItems = new Set<Item>();
+          console.log('Checklist loaded:', this.checklist);
+        },
+        error: (err) => {
+          console.error('Error loading checklist:', err);
+        }
       });
+    } else {
+      console.error('No checklist ID found in route');
     }
+    this.authservice.getUser().subscribe((user: User) => {
+      this.user = user || null;
+      if (this.user) {
+        console.log('User loaded:', this.user);
+      } else {
+        console.error('No user found');
+      }
+    });
+
+
+
   }
 
   toggleItemSelection(item: Item): void {
@@ -45,18 +72,41 @@ export class ChecklistendetailsComponent implements OnInit {
     }
   }
 
-  saveChecklist(): void {
-    if (this.checklist) {
-      const updatedChecklist = new Checklist(
-        this.checklist.id,
-        this.checklist.abteilungsname,
-        this.checklist.position,
-        Array.from(this.selectedItems)
-      );
-      this.dataService.saveChecklist(updatedChecklist).subscribe(() => {
-        this.showSuccessMessage = true;
-        setTimeout(() => this.showSuccessMessage = false, 3000); // Hide message after 3 seconds
-      });
+  createUserChecklist(): void {
+    if (!this.checklist) {
+      console.error('Error: Checklist is null');
+      return;
     }
+    if (!this.user) {
+      console.error('Error: User is null');
+      return;
+    }
+
+    const userChecklistItems: UserChecklistItems[] = this.filteredItems.map((item) => {
+      return new UserChecklistItems(
+        item.id,
+        this.selectedItems.has(item),
+        undefined,
+        new Date(),
+        new Date()
+      );
+    });
+
+    const updatedUserChecklist = new UserChecklist(
+      "",
+      this.checklist,
+      ChecklistStatus.IN_PROGRESS,
+      this.user,
+      this.ueberschrift,
+      false,
+      new Date(),
+      new Date(),
+      userChecklistItems
+    );
+
+    this.dataService.createUserChecklist(updatedUserChecklist).subscribe({
+      next: () => this.router.navigate(['/saved-checklists']),
+      error: (err) => console.error('Error creating user checklist:', err)
+    });
   }
 }

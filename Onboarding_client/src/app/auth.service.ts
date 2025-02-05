@@ -1,6 +1,6 @@
 // auth.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient,HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
+import {HttpClient, HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import {User} from "./models/user";
@@ -10,6 +10,7 @@ import {User} from "./models/user";
 })
 export class AuthService {
   private apiUrl = 'http://localhost:8081/auth'; // Ersetze mit deiner API-URL
+  private api2Url = 'http://localhost:8081/'; // Ersetze mit deiner API-URL
 
   constructor(private http: HttpClient) {}
 
@@ -69,6 +70,21 @@ export class AuthService {
   hasAnyRole(requiredRoles: string[]): boolean {
     const role = this.getRole();
     return requiredRoles.includes(role || '');
+  }
+
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      throw new Error('Kein Token im Local Storage gefunden.');
+    }
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+  }
+
+  getUser(): Observable<User> {
+    return this.http.get<User>(`${this.api2Url}users/me`, { headers: this.getAuthHeaders() });
   }
 }
 

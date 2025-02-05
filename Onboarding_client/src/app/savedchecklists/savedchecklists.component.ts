@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataService } from '../data.service';
 import { Checklist } from '../models/checklist';
 import { CommonModule } from '@angular/common';
+import {UserChecklist} from "../models/user_checklist";
 
 @Component({
   selector: 'app-saved-checklists',
@@ -11,13 +12,13 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule]
 })
 export class SavedChecklistsComponent implements OnInit {
-  savedChecklists: Checklist[] = [];
+  savedChecklists: UserChecklist[] = [];
 
   constructor(private dataService: DataService) {}
 
   ngOnInit(): void {
-    this.dataService.getSavedChecklists().subscribe((checklists: Checklist[]) => {
-      this.savedChecklists = checklists;
+    this.dataService.getUserChecklists().subscribe((userChecklists: UserChecklist[]) => {
+      this.savedChecklists = userChecklists;
     });
   }
 }

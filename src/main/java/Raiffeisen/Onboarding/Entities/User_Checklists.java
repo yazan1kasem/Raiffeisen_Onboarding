@@ -63,9 +63,6 @@ public class User_Checklists {
     /**
      * which users can view this checklist.
      */
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_checklist_viewers")
-    private List<User> viewers;
 
     /**
      * if the shared user can modify the checklist. or just read it.
