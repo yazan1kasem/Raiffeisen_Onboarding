@@ -6,6 +6,10 @@
     </li>
   </ul>
 
-  <button class="save-button" (click)="createUserChecklist()">Save Checklist</button>
+  <button
+    (click)="createUserChecklist()"
+    [disabled]="!user">
+    Create Checklist
+  </button>
 
 </div>

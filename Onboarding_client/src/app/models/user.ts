@@ -1,30 +1,31 @@
 export class User {
-  id?: string;
   username: string;
   password?: string;
   createdAt?: Date;
   updatedAt?: Date;
-  role?:Role;
-  enabled?:boolean;
+  role?: Role;
+  enabled?: boolean;
+  authorities?: string[]; // Accept authorities as strings
 
   constructor(
     username: string,
     password: string,
-    id?: string,
     createdAt?: Date,
     updatedAt?: Date,
-    role?:Role,
-    enabled?:boolean
+    role?: Role,
+    enabled?: boolean,
+    authorities?: string[]
   ) {
     this.username = username;
     this.password = password;
-    this.id = id;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.role = role;
     this.enabled = enabled;
+    this.authorities = authorities || []; // Default to empty array
   }
 }
+
 export enum Role {
   ADMIN = 'ADMIN',
   USER = 'USER',

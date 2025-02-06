@@ -10,7 +10,7 @@ import {UserChecklist} from "./models/user_checklist";
 })
 export class DataService {
   private apiUrl = 'http://localhost:8081/checklisten';
-  private apiUserUrl = 'http://localhost:8081/userchecklists';
+  private apiUserUrl = 'http://localhost:8081/userchecklist';
   private savedItems: Item[] = [];
   private savedChecklists: Checklist[] = [];
 

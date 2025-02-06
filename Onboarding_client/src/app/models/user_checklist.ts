@@ -11,7 +11,7 @@ export class UserChecklist {
   isLocked: boolean;
   createdAt: Date;
   updatedAt: Date;
-  item: UserChecklistItems[];
+  originalItem: UserChecklistItems[];
 
   constructor(
     id: string,
@@ -22,7 +22,7 @@ export class UserChecklist {
     isLocked: boolean,
     createdAt: Date,
     updatedAt: Date,
-    item: UserChecklistItems[]
+    originalItem: UserChecklistItems[]
   ) {
     this.id = id;
     this.originalChecklist = originalChecklist;
@@ -32,7 +32,7 @@ export class UserChecklist {
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.ueberschrift = ueberschrift;
-    this.item = item;
+    this.originalItem = originalItem;
   }
 }
 export enum ChecklistStatus {

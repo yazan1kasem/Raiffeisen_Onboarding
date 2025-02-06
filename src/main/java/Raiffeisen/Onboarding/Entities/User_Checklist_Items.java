@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-class User_Checklist_Items {
+public class User_Checklist_Items {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid2")

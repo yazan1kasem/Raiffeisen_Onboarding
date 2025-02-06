@@ -1,6 +1,8 @@
 package Raiffeisen.Onboarding.Controller;
 
+import Raiffeisen.Onboarding.Entities.User_Checklist_Items;
 import Raiffeisen.Onboarding.Entities.User_Checklists;
+import Raiffeisen.Onboarding.Repository.UserChecklistItemsRepository;
 import Raiffeisen.Onboarding.Repository.UserChecklistRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,11 +12,13 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/userchecklist")
+@CrossOrigin("*")
 public class UserChecklistController {
 
     @Autowired
     private UserChecklistRepository userChecklistRepository;
-
+    @Autowired
+    private UserChecklistItemsRepository userChecklistItemsRepository;
     @GetMapping("")
     public @ResponseBody Iterable<User_Checklists> getAllUser_Checklistss() {
         return userChecklistRepository.findAll();
@@ -29,6 +33,9 @@ public class UserChecklistController {
     @PostMapping("")
     public ResponseEntity<User_Checklists> createUser_Checklists(@RequestBody User_Checklists userChecklist) {
         User_Checklists savedUser_Checklists = userChecklistRepository.save(userChecklist);
+        for(User_Checklist_Items userChecklistItems : userChecklist.getItems()){
+            userChecklistItemsRepository.save(userChecklistItems);
+        }
         return ResponseEntity.ok(savedUser_Checklists);
     }
 
