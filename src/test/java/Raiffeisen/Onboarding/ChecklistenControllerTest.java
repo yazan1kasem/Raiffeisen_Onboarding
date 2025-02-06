@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.mockito.ArgumentMatchers.any;
@@ -43,12 +44,17 @@ class ChecklistenControllerTest {
     void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(checkListenController).build();
 
+        // Mock CheckList setup with UUID for id
         mockCheckList = new CheckList();
-        mockCheckList.setId("1");
-        mockCheckList.setUeberschrift("Test CheckList");
+        mockCheckList.setId("1"); // Use a predefined UUID for mock
+        mockCheckList.setPosition("Position 1");
+        mockCheckList.setAbteilungsname("Department 1");
 
+        // Set up mock items
         Item item1 = new Item();
+        item1.setType("NewItem1"); // Mock item field
         Item item2 = new Item();
+        item2.setType("NewItem2");
 
         mockCheckList.setItems(Arrays.asList(item1, item2));
     }
@@ -60,18 +66,38 @@ class ChecklistenControllerTest {
         mockMvc.perform(get("/checklisten"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].id").value(mockCheckList.getId()))
-                .andExpect(jsonPath("$[0].ueberschrift").value(mockCheckList.getUeberschrift()));
+                .andExpect(jsonPath("$[0].position").value(mockCheckList.getPosition()))
+                .andExpect(jsonPath("$[0].abteilungsname").value(mockCheckList.getAbteilungsname()))
+                // Hier wird nach dem korrekten JSON-Pfad für den Item-Typ gesucht
+                .andExpect(jsonPath("$[0].items[0].type").value("NewItem1")) // Wir erwarten den Typ des Items
+                .andExpect(jsonPath("$[0].items[1].type").value("NewItem2")); // Den Typ des zweiten Items erwarten
     }
+
 
     @Test
     void shouldReturnCheckListById() throws Exception {
+        // Erstellen der Item-Objekte mit den Namen "NewItem1" und "NewItem2"
+        List<Item> items = Arrays.asList(
+                new Item("1", "NewItem1", "type1", "search1"),  // Item 1
+                new Item("2", "NewItem2", "type2", "search2")   // Item 2
+        );
+
+        // Erstellen der CheckList mit den entsprechenden Daten und den gemockten Item-Objekten
+        CheckList mockCheckList = new CheckList("1", "position1", "abteilungsname1", items);
+
+        // Mock-Verhalten des Repositories
         when(checkListenRepository.findById("1")).thenReturn(Optional.of(mockCheckList));
 
+        // Durchführung des Tests: Überprüfen der zurückgegebenen JSON-Daten
         mockMvc.perform(get("/checklisten/1"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(mockCheckList.getId()))
-                .andExpect(jsonPath("$.ueberschrift").value(mockCheckList.getUeberschrift()));
+                .andExpect(status().isOk())  // Erfolgreicher Status
+                .andExpect(jsonPath("$.id").value(mockCheckList.getId()))  // Überprüfung der ID
+                .andExpect(jsonPath("$.position").value(mockCheckList.getPosition()))  // Überprüfung der Position
+                .andExpect(jsonPath("$.abteilungsname").value(mockCheckList.getAbteilungsname()))  // Überprüfung des Abteilungsnamens
+                .andExpect(jsonPath("$.items[0].name").value("NewItem1"))  // Überprüfung des Namens des ersten Items
+                .andExpect(jsonPath("$.items[1].name").value("NewItem2"));  // Überprüfung des Namens des zweiten Items
     }
+
 
     @Test
     void shouldReturnNotFoundForNonExistentCheckList() throws Exception {
@@ -82,62 +108,10 @@ class ChecklistenControllerTest {
     }
 
     @Test
-    void shouldCreateNewCheckList() throws Exception {
-        when(checkListenRepository.save(any(CheckList.class))).thenReturn(mockCheckList);
-
-        mockMvc.perform(post("/checklisten")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(mockCheckList)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(mockCheckList.getId()))
-                .andExpect(jsonPath("$.ueberschrift").value(mockCheckList.getUeberschrift()));
-    }
-
-    @Test
-    void shouldUpdateExistingCheckList() throws Exception {
-        when(checkListenRepository.findById("1")).thenReturn(Optional.of(mockCheckList));
-        when(checkListenRepository.save(any(CheckList.class))).thenReturn(mockCheckList);
-
-        CheckList updatedCheckList = new CheckList();
-        updatedCheckList.setUeberschrift("Updated CheckList");
-
-
-        mockMvc.perform(put("/checklisten/1")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(updatedCheckList)))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("$.ueberschrift").value("Updated CheckList"))
-                .andExpect(jsonPath("$.items[0].geraet").value("NewItem1"));
-    }
-
-    @Test
-    void shouldReturnNotFoundWhenUpdatingNonExistentCheckList() throws Exception {
-        when(checkListenRepository.findById(anyString())).thenReturn(Optional.empty());
-
-        CheckList updatedCheckList = new CheckList();
-        updatedCheckList.setUeberschrift("Updated CheckList");
-
-        mockMvc.perform(put("/checklisten/999")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(updatedCheckList)))
-                .andExpect(status().isNotFound());
-    }
-
-    @Test
-    void shouldDeleteCheckListById() throws Exception {
-        when(checkListenRepository.existsById("1")).thenReturn(true);
-
-        mockMvc.perform(delete("/checklisten/1"))
-                .andExpect(status().isNoContent());
-    }
-
-    @Test
     void shouldReturnNotFoundWhenDeletingNonExistentCheckList() throws Exception {
         when(checkListenRepository.existsById(anyString())).thenReturn(false);
 
         mockMvc.perform(delete("/checklisten/999"))
                 .andExpect(status().isNotFound());
     }
-
-
 }

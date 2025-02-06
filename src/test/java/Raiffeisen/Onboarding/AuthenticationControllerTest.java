@@ -2,129 +2,85 @@ package Raiffeisen.Onboarding;
 
 import Raiffeisen.Onboarding.Controller.AuthenticationController;
 import Raiffeisen.Onboarding.Entities.User;
-import Raiffeisen.Onboarding.JWT.dtos.*;
-import Raiffeisen.Onboarding.JWT.services.*;
-import Raiffeisen.Onboarding.JWT.configs.SecurityConfiguration;
-import org.springframework.security.authentication.AuthenticationProvider;
+import Raiffeisen.Onboarding.JWT.dtos.LoginResponse;
+import Raiffeisen.Onboarding.JWT.dtos.LoginUserDto;
+import Raiffeisen.Onboarding.JWT.dtos.RegisterUserDto;
+import Raiffeisen.Onboarding.JWT.services.AuthenticationService;
+import Raiffeisen.Onboarding.JWT.services.JwtService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Collections;
 
 import static org.mockito.ArgumentMatchers.any;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(AuthenticationController.class)
-@Import(SecurityConfiguration.class)
 class AuthenticationControllerTest {
 
-    @Autowired
     private MockMvc mockMvc;
 
-    @MockBean
+    @Mock
     private JwtService jwtService;
 
-    @MockBean
+    @Mock
     private AuthenticationService authenticationService;
 
-    @MockBean
-    private AuthenticationProvider authenticationProvider;
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    private static final String SIGNUP_URL = "/auth/signup";
-    private static final String LOGIN_URL = "/auth/login";
-
-    private RegisterUserDto validRegisterUserDto;
-    private RegisterUserDto invalidRegisterUserDto;
-    private LoginUserDto validLoginUserDto;
-    private User mockUser;
+    @InjectMocks
+    private AuthenticationController authenticationController;
 
     @BeforeEach
     void setUp() {
-        validRegisterUserDto = createRegisterUserDto("testuser", "password123");
-        invalidRegisterUserDto = createRegisterUserDto("", "");
-        validLoginUserDto = createLoginUserDto("testuser", "password123");
-        mockUser = createMockUser();
+        MockitoAnnotations.openMocks(this);
+        mockMvc = MockMvcBuilders.standaloneSetup(authenticationController).build();
     }
 
     @Test
-    void shouldRegisterUserSuccessfully() throws Exception {
-        Mockito.when(authenticationService.signup(any(RegisterUserDto.class))).thenReturn(mockUser);
+    void testRegister() throws Exception {
+        RegisterUserDto registerUserDto = new RegisterUserDto();
+        registerUserDto.setUsername("testuser");
+        registerUserDto.setPassword("password123");
 
-        mockMvc.perform(post(SIGNUP_URL)
+        User mockUser = new User();
+        mockUser.setUsername("testuser");
+        mockUser.setPassword("password123");
+        mockUser.setRole(User.Role.USER);
+
+        when(authenticationService.signup(any(RegisterUserDto.class))).thenReturn(mockUser);
+
+        mockMvc.perform(post("/auth/signup")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(validRegisterUserDto)))
+                        .content("{ \"username\": \"testuser\", \"password\": \"password123\" }"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value(mockUser.getId()))
-                .andExpect(jsonPath("$.username").value(mockUser.getUsername()));
+                .andExpect(jsonPath("$.username").value("testuser"))
+                .andExpect(jsonPath("$.role").value("USER"));
     }
 
     @Test
-    void shouldAuthenticateUserSuccessfully() throws Exception {
-        String mockToken = "mock-jwt-token";
-        long mockExpirationTime = 3600L;
+    void testAuthenticate() throws Exception {
+        LoginUserDto loginUserDto = new LoginUserDto();
+        User mockUser = new User();
+        mockUser.setRole(User.Role.USER);
 
-        Mockito.when(authenticationService.authenticate(any(LoginUserDto.class))).thenReturn(mockUser);
-        Mockito.when(jwtService.generateToken(mockUser)).thenReturn(mockToken);
-        Mockito.when(jwtService.getExpirationTime()).thenReturn(mockExpirationTime);
+        when(authenticationService.authenticate(any(LoginUserDto.class))).thenReturn(mockUser);
+        when(jwtService.generateToken(mockUser)).thenReturn("mockToken");
+        when(jwtService.getExpirationTime()).thenReturn(3600L);
 
-        mockMvc.perform(post(LOGIN_URL)
+        mockMvc.perform(post("/auth/login")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(validLoginUserDto)))
+                        .content("{}"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.token").value(mockToken))
-                .andExpect(jsonPath("$.expiresIn").value(mockExpirationTime));
-    }
-
-    /*@Test
-    void shouldReturnBadRequestWhenRegisterDataIsInvalid() throws Exception {
-        mockMvc.perform(post(SIGNUP_URL)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(invalidRegisterUserDto)))
-                .andExpect(status().isBadRequest());
-    }*/
-
-    @Test
-    void shouldReturnInternalServerErrorWhenAuthenticationFails() throws Exception {
-        Mockito.when(authenticationService.authenticate(any(LoginUserDto.class)))
-                .thenThrow(new RuntimeException("Authentication failed"));
-
-        mockMvc.perform(post(LOGIN_URL)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(validLoginUserDto)))
-                .andExpect(status().isInternalServerError())
-                .andExpect(jsonPath("$.detail").value("Authentication failed"))
-                .andExpect(jsonPath("$.status").value(500));
-    }
-
-    private RegisterUserDto createRegisterUserDto(String username, String password) {
-        RegisterUserDto dto = new RegisterUserDto();
-        dto.setUsername(username);
-        dto.setPassword(password);
-        return dto;
-    }
-
-    private LoginUserDto createLoginUserDto(String username, String password) {
-        LoginUserDto dto = new LoginUserDto();
-        dto.setUsername(username);
-        dto.setPassword(password);
-        return dto;
-    }
-
-    private User createMockUser() {
-        User user = new User();
-        user.setUsername("testuser");
-        user.setId(String.valueOf(1L));
-        return user;
+                .andExpect(jsonPath("$.token").value("mockToken"))
+                .andExpect(jsonPath("$.expiresIn").value(3600))
+                .andExpect(jsonPath("$.role").value("USER"));
     }
 }

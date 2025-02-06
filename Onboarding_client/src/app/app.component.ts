@@ -28,10 +28,7 @@ export class AppComponent {
 
   shouldShowSidebar(): boolean {
     const currentRoute = this.router.url;
-    if (currentRoute.match('/login') || currentRoute.match('/signup')) {
-      return false;
-    }
-    return true;
+    return !(currentRoute.match('/login') || currentRoute.match('/signup'));
   }
 
 

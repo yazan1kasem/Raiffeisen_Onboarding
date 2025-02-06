@@ -35,55 +35,46 @@ class UserControllerTest {
     @InjectMocks
     private UserController userController;
 
-    private ObjectMapper objectMapper;
+    private User mockUser;
 
     @BeforeEach
     void setUp() {
         mockMvc = MockMvcBuilders.standaloneSetup(userController).build();
-        objectMapper = new ObjectMapper();
+
+        // Mock User setup
+        mockUser = new User();
+        mockUser.setUsername("testuser");
+        mockUser.setPassword("password");
+        mockUser.setEnabled(true);
+        mockUser.setRole(User.Role.USER); // Set role to USER
+
+        // Lenient stubbing für unbenutzte Stubbings
+        Authentication authentication = org.mockito.Mockito.mock(Authentication.class);
+        lenient().when(authentication.getPrincipal()).thenReturn(mockUser);
+        SecurityContext securityContext = org.mockito.Mockito.mock(SecurityContext.class);
+        lenient().when(securityContext.getAuthentication()).thenReturn(authentication);
+        SecurityContextHolder.setContext(securityContext);
     }
 
     @Test
     void shouldReturnAuthenticatedUser() throws Exception {
-        User mockUser = new User();
-        mockUser.setId("1");
-        mockUser.setUsername("testuser");
-
-        Authentication authentication = mock(Authentication.class);
-        SecurityContext securityContext = mock(SecurityContext.class);
-
-        when(authentication.getPrincipal()).thenReturn(mockUser);
-        when(securityContext.getAuthentication()).thenReturn(authentication);
-
-        SecurityContextHolder.setContext(securityContext);
-
-        mockMvc.perform(get("/users/me")
-                        .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/users/me"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.id").value("1"))
-                .andExpect(jsonPath("$.username").value("testuser"));
+                .andExpect(jsonPath("$.username").value(mockUser.getUsername()))
+                .andExpect(jsonPath("$.enabled").value(mockUser.isEnabled()))
+                .andExpect(jsonPath("$.role").value(mockUser.getRole().name()));
     }
 
     @Test
     void shouldReturnAllUsers() throws Exception {
-        User user1 = new User();
-        user1.setId("1");
-        user1.setUsername("user1");
+        // Mocked response from the service layer
+        List<User> users = Arrays.asList(mockUser);
+        when(userService.allUsers()).thenReturn(users);
 
-        User user2 = new User();
-        user2.setId("2");
-        user2.setUsername("user2");
-
-        List<User> mockUsers = Arrays.asList(user1, user2);
-
-        when(userService.allUsers()).thenReturn(mockUsers);
-
-        mockMvc.perform(get("/users/")
-                        .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(get("/users/"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$[0].id").value("1"))
-                .andExpect(jsonPath("$[0].username").value("user1"))
-                .andExpect(jsonPath("$[1].id").value("2"))
-                .andExpect(jsonPath("$[1].username").value("user2"));
+                .andExpect(jsonPath("$[0].username").value(mockUser.getUsername()))
+                .andExpect(jsonPath("$[0].enabled").value(mockUser.isEnabled()))
+                .andExpect(jsonPath("$[0].role").value(mockUser.getRole().name()));
     }
 }
