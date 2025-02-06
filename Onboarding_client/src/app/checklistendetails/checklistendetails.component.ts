@@ -106,7 +106,7 @@ export class ChecklistendetailsComponent implements OnInit {
       new Date(),
       userChecklistItems
     );
-
+    console.log('User Checklist:', updatedUserChecklist);
     this.dataService.createUserChecklist(updatedUserChecklist).subscribe({
       next: () => this.router.navigate(['/saved-checklists']),
       error: (err) => console.error('Error creating user checklist:', err)
