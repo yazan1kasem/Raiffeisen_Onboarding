@@ -35,14 +35,14 @@ public class User_Checklists {
     /**
      * The original checklist that this user-specific checklist is based on.
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "original_checklist_id", nullable = false)
     private CheckList originalChecklist;
 
     /**
      * The user who owns this checklist.
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -59,16 +59,6 @@ public class User_Checklists {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false)
     private ChecklistStatus status;
-
-    /**
-     * which users can view this checklist.
-     */
-
-    /**
-     * if the shared user can modify the checklist. or just read it.
-     */
-    @Column(name = "is_editable", nullable = false)
-    private boolean isEditableByOthers = false;
 
     /**
      * Indicates if the checklist is locked and cannot be modified.

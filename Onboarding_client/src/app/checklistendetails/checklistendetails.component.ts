@@ -34,6 +34,16 @@ export class ChecklistendetailsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.authservice.getUser().subscribe({
+      next: (user: User) => {
+        this.user = user;
+        console.log('User loaded:', this.user);
+      },
+      error: (err) => {
+        console.error('Error fetching user:', err);
+      }
+    });
+
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       console.log('Checklist ID:', id);
@@ -51,18 +61,8 @@ export class ChecklistendetailsComponent implements OnInit {
     } else {
       console.error('No checklist ID found in route');
     }
-    this.authservice.getUser().subscribe((user: User) => {
-      this.user = user || null;
-      if (this.user) {
-        console.log('User loaded:', this.user);
-      } else {
-        console.error('No user found');
-      }
-    });
-
-
-
   }
+
 
   toggleItemSelection(item: Item): void {
     if (this.selectedItems.has(item)) {
@@ -73,14 +73,17 @@ export class ChecklistendetailsComponent implements OnInit {
   }
 
   createUserChecklist(): void {
+    if (!this.user) {
+      console.error('Error: User is still null before saving.');
+      return;
+    }
     if (!this.checklist) {
       console.error('Error: Checklist is null');
       return;
     }
-    if (!this.user) {
-      console.error('Error: User is null');
-      return;
-    }
+
+    console.log('User:', this.user);
+    console.log('Checklist:', this.checklist);
 
     const userChecklistItems: UserChecklistItems[] = this.filteredItems.map((item) => {
       return new UserChecklistItems(

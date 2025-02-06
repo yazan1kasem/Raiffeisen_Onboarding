@@ -1,14 +1,15 @@
 package Raiffeisen.Onboarding.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -41,8 +42,11 @@ public class User implements UserDetails {
     @Column(name = "updated_at")
     private Date updatedAt;
 
+
     @Column(name = "u_enabled")
+    @Builder.Default
     private boolean enabled = true;
+
 
     public enum Role {
         USER,
@@ -55,24 +59,16 @@ public class User implements UserDetails {
     private Role role;
 
     @Override
+    @JsonIgnore // Prevents serialization issues
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
-    @PrePersist
-protected void onCreate() {
-    if (this.role == null) {
-        this.role = Role.USER;
-    }
-}
-    @Override
-    public String getUsername() {
-        return username;
+
+    @JsonProperty("authorities")
+    public List<String> getAuthoritiesAsStrings() {
+        return Collections.singletonList("ROLE_" + role.name());
     }
 
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
 
 }
 
