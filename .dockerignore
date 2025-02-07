@@ -1,12 +1,1 @@
-.git
-node_modules
-*.log
-target
-*.iml
-*.class
-*.jar
-*.war
-*.ear
-.DS_Store
-.idea
-.vscode
+db-data

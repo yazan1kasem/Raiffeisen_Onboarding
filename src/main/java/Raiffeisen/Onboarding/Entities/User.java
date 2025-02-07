@@ -27,6 +27,7 @@ import java.util.List;
 @NoArgsConstructor
 @SuperBuilder
 public class User implements UserDetails {
+
     @Id
     @Column(name="u_username")
     private String username;

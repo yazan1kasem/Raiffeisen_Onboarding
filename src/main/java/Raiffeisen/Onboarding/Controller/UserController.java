@@ -15,6 +15,7 @@ import java.util.List;
 @RestController
 @CrossOrigin("*")
 public class UserController {
+
     private final UserService userService;
 
     public UserController(UserService userService) {
