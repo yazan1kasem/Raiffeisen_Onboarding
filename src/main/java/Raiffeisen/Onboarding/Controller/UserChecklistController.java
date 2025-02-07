@@ -32,10 +32,10 @@ public class UserChecklistController {
 
     @PostMapping("")
     public ResponseEntity<User_Checklists> createUser_Checklists(@RequestBody User_Checklists userChecklist) {
-        User_Checklists savedUser_Checklists = userChecklistRepository.save(userChecklist);
-        for(User_Checklist_Items userChecklistItems : userChecklist.getItems()){
-            userChecklistItemsRepository.save(userChecklistItems);
+        for(int i=0;i<userChecklist.getUseritems().size();i++){
+            System.out.println(userChecklist.getUseritems().get(i).isChecked());
         }
+        User_Checklists savedUser_Checklists = userChecklistRepository.save(userChecklist);
         return ResponseEntity.ok(savedUser_Checklists);
     }
 
@@ -44,7 +44,7 @@ public class UserChecklistController {
             @PathVariable String id,
             @RequestBody User_Checklists userChecklistDetails) {
         return userChecklistRepository.findById(id).map(existingUser_Checklists -> {
-            existingUser_Checklists.setItems(userChecklistDetails.getItems());
+            existingUser_Checklists.setUseritems(userChecklistDetails.getUseritems());
             User_Checklists updatedUser_Checklists = userChecklistRepository.save(existingUser_Checklists);
             return ResponseEntity.ok(updatedUser_Checklists);
         }).orElseGet(() -> ResponseEntity.notFound().build());

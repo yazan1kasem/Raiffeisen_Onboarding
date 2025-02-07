@@ -1,5 +1,6 @@
 package Raiffeisen.Onboarding.Entities;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -37,8 +38,9 @@ public class User_Checklist_Items {
     /**
      * Indicates if the item is checked.
      */
+    @JsonProperty("isChecked")
     @Column(name = "is_checked", nullable = false)
-    private boolean isChecked = false;
+    private boolean isChecked;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)

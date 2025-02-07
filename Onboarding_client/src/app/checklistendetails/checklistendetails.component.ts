@@ -87,7 +87,7 @@ export class ChecklistendetailsComponent implements OnInit {
 
     const userChecklistItems: UserChecklistItems[] = this.filteredItems.map((item) => {
       return new UserChecklistItems(
-        item.id,
+        item,
         this.selectedItems.has(item),
         undefined,
         new Date(),

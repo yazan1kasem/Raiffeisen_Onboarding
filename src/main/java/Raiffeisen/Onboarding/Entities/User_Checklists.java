@@ -51,7 +51,7 @@ public class User_Checklists {
      */
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_checklist_items")
-    private List<User_Checklist_Items> items;
+    private List<User_Checklist_Items> useritems;
 
     /**
      * The status of the checklist (e.g., IN_PROGRESS, COMPLETED, LOCKED).

@@ -84,7 +84,6 @@ export class DataService {
   }
 
   createUserChecklist(userChecklist: UserChecklist): Observable<UserChecklist> {
-    console.log('Creating user checklist:', JSON.stringify(userChecklist, null, 2));
     return this.http.post<UserChecklist>(`${this.apiUserUrl}`, userChecklist, { headers: this.getAuthHeaders() }).pipe(
       catchError(this.handleError<UserChecklist>('createUserChecklist'))
     );
