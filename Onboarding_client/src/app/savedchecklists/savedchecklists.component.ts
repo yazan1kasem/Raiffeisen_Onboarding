@@ -3,6 +3,7 @@ import { DataService } from '../data.service';
 import { Checklist } from '../models/checklist';
 import { CommonModule } from '@angular/common';
 import {UserChecklist} from "../models/user_checklist";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-saved-checklists',
@@ -14,11 +15,14 @@ import {UserChecklist} from "../models/user_checklist";
 export class SavedChecklistsComponent implements OnInit {
   savedChecklists: UserChecklist[] = [];
 
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService, private router: Router) {}
 
   ngOnInit(): void {
     this.dataService.getUserChecklists().subscribe((userChecklists: UserChecklist[]) => {
       this.savedChecklists = userChecklists;
     });
+  }
+  editChecklist(id: string): void {
+    this.router.navigate(['/user-checklist', id]);
   }
 }

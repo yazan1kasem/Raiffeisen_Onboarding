@@ -1,6 +1,6 @@
 <div class="saved-checklists-container">
   <ul class="checklist-list">
-    <li *ngFor="let checklist of savedChecklists" class="checklist-item" >
+    <li *ngFor="let checklist of savedChecklists" class="checklist-item" (click)="editChecklist(checklist.id)">
       <h3>{{ checklist.ueberschrift }}</h3>
     </li>
   </ul>

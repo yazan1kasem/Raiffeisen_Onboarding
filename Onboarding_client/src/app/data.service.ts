@@ -83,6 +83,12 @@ export class DataService {
     );
   }
 
+  getUserChecklist(id: string): Observable<UserChecklist> {
+    return this.http.get<UserChecklist>(`${this.apiUserUrl}/${id}`, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<UserChecklist>('getUserChecklist'))
+    );
+  }
+
   createUserChecklist(userChecklist: UserChecklist): Observable<UserChecklist> {
     return this.http.post<UserChecklist>(`${this.apiUserUrl}`, userChecklist, { headers: this.getAuthHeaders() }).pipe(
       catchError(this.handleError<UserChecklist>('createUserChecklist'))
