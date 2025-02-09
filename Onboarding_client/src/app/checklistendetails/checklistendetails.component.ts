@@ -63,7 +63,6 @@ export class ChecklistendetailsComponent implements OnInit {
     }
   }
 
-
   toggleItemSelection(item: Item): void {
     if (this.selectedItems.has(item)) {
       this.selectedItems.delete(item);

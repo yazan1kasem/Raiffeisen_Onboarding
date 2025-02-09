@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, Observable, of } from 'rxjs';
 import { Checklist } from './models/checklist';
 import { Item } from './models/item';
-import {UserChecklist} from "./models/user_checklist";
+import { UserChecklist } from './models/user_checklist';
 
 @Injectable({
   providedIn: 'root'
@@ -83,9 +83,27 @@ export class DataService {
     );
   }
 
+  getUserChecklist(id: string): Observable<UserChecklist> {
+    return this.http.get<UserChecklist>(`${this.apiUserUrl}/${id}`, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<UserChecklist>('getUserChecklist'))
+    );
+  }
+
   createUserChecklist(userChecklist: UserChecklist): Observable<UserChecklist> {
     return this.http.post<UserChecklist>(`${this.apiUserUrl}`, userChecklist, { headers: this.getAuthHeaders() }).pipe(
       catchError(this.handleError<UserChecklist>('createUserChecklist'))
+    );
+  }
+
+  updateUserChecklist(userChecklist: UserChecklist): Observable<void> {
+    return this.http.put<void>(`${this.apiUserUrl}/${userChecklist.id}`, userChecklist, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<void>('updateUserChecklist'))
+    );
+  }
+
+  deleteUserChecklist(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUserUrl}/${id}`, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<void>('deleteUserChecklist'))
     );
   }
 
