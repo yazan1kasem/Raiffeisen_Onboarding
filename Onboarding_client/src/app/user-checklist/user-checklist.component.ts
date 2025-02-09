@@ -40,4 +40,28 @@ export class UserChecklistComponent implements OnInit {
       this.dataService.generateWord(this.checklist);
     }
   }
+
+  downloadExcel(): void {
+    if (this.userChecklist) {
+      this.dataService.generateExcel(this.userChecklist);
+    } else {
+      console.error('No user checklist available to download');
+    }
+  }
+
+  downloadPdf(): void {
+    if (this.userChecklist) {
+      this.dataService.generatePdf(this.userChecklist);
+    } else {
+      console.error('No user checklist available to download');
+    }
+  }
+
+  downloadWord(): void {
+    if (this.userChecklist) {
+      this.dataService.generateWord(this.userChecklist);
+    } else {
+      console.error('No user checklist available to download');
+    }
+  }
 }

@@ -1,13 +1,22 @@
-<div class="user-checklist-container">
-  <h1>Gespeicherte Checklisten</h1>
-  <ul class="checklist-list">
-    <li *ngFor="let checklist of userChecklists">
-      <h3>{{ checklist.ueberschrift }}</h3>
-      <p>{{ checklist.beschreibung }}</p>
-
-      <button (click)="downloadExcel(checklist)">📊 Download Excel</button>
-      <button (click)="downloadPdf(checklist)">📄 Download PDF</button>
-      <button (click)="downloadWord(checklist)">📝 Download Word</button>
+<div class="checklist-details-container" *ngIf="userChecklist">
+  <h2>
+    <input [(ngModel)]="userChecklist.ueberschrift" placeholder="Enter checklist title" />
+  </h2>
+  <ul class="item-list">
+    <li *ngFor="let item of userChecklist.useritems">
+      <input type="checkbox" [(ngModel)]="item.isChecked" />
+      <div>{{ item.originalItem.name }}</div>
     </li>
   </ul>
+  <button (click)="saveUserChecklist()">Save Changes</button>
+  <button (click)="deleteUserChecklist()">Delete Checklist</button>
+  <hr />
+  <h3>Export Options</h3>
+  <button (click)="downloadExcel()">📊 Download Excel</button>
+  <button (click)="downloadPdf()">📄 Download PDF</button>
+  <button (click)="downloadWord()">📝 Download Word</button>
+</div>
+
+<div *ngIf="!userChecklist">
+  <p>Checkliste wird geladen oder konnte nicht gefunden werden.</p>
 </div>
