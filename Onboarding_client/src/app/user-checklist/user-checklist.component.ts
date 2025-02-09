@@ -48,4 +48,16 @@ export class UserChecklistComponent implements OnInit {
       error: (err) => console.error('Error saving user checklist:', err)
     });
   }
+
+  deleteUserChecklist(): void {
+    if (!this.userChecklist) {
+      console.error('Error: User checklist is null');
+      return;
+    }
+
+    this.dataService.deleteUserChecklist(this.userChecklist.id).subscribe({
+      next: () => this.router.navigate(['/saved-checklists']),
+      error: (err) => console.error('Error deleting user checklist:', err)
+    });
+  }
 }

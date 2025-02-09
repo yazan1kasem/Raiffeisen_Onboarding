@@ -101,6 +101,12 @@ export class DataService {
     );
   }
 
+  deleteUserChecklist(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.apiUserUrl}/${id}`, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<void>('deleteUserChecklist'))
+    );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(`${operation} failed: ${error.message}`);
