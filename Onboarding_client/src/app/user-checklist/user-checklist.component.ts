@@ -1,63 +1,43 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { DataService } from '../data.service';
-import { UserChecklist } from '../models/user_checklist';
-import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { Checklist } from '../models/checklist';
 
 @Component({
   selector: 'app-user-checklist',
   templateUrl: './user-checklist.component.html',
   standalone: true,
-  styleUrls: ['./user-checklist.component.css'],
-  imports: [FormsModule, CommonModule]
+  styleUrls: ['./user-checklist.component.css']
 })
 export class UserChecklistComponent implements OnInit {
-  userChecklist: UserChecklist | null = null;
+  checklist: Checklist | null = null;
 
-  constructor(
-    private route: ActivatedRoute,
-    private dataService: DataService,
-    private router: Router
-  ) {}
+  constructor(private route: ActivatedRoute, private dataService: DataService) {}
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
-      this.dataService.getUserChecklist(id).subscribe({
-        next: (userChecklist: UserChecklist) => {
-          this.userChecklist = userChecklist;
-        },
-        error: (err) => {
-          console.error('Error loading user checklist:', err);
-        }
+      this.dataService.getChecklist(id).subscribe((checklist: Checklist) => {
+        this.checklist = checklist;
       });
-    } else {
-      console.error('No user checklist ID found in route');
     }
   }
 
-  saveUserChecklist(): void {
-    if (!this.userChecklist) {
-      console.error('Error: User checklist is null');
-      return;
+  downloadExcel(): void {
+    if (this.checklist) {
+      this.dataService.generateExcel(this.checklist);
     }
-
-    this.dataService.updateUserChecklist(this.userChecklist).subscribe({
-      next: () => this.router.navigate(['/saved-checklists']),
-      error: (err) => console.error('Error saving user checklist:', err)
-    });
   }
 
-  deleteUserChecklist(): void {
-    if (!this.userChecklist) {
-      console.error('Error: User checklist is null');
-      return;
+  downloadPdf(): void {
+    if (this.checklist) {
+      this.dataService.generatePdf(this.checklist);
     }
+  }
 
-    this.dataService.deleteUserChecklist(this.userChecklist.id).subscribe({
-      next: () => this.router.navigate(['/saved-checklists']),
-      error: (err) => console.error('Error deleting user checklist:', err)
-    });
+  downloadWord(): void {
+    if (this.checklist) {
+      this.dataService.generateWord(this.checklist);
+    }
   }
 }

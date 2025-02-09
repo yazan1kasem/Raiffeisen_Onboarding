@@ -1,7 +1,12 @@
 <div class="saved-checklists-container">
   <ul class="checklist-list">
-    <li *ngFor="let checklist of savedChecklists" class="checklist-item" (click)="editChecklist(checklist.id)">
+    <li *ngFor="let checklist of savedChecklists" class="clickable">
       <h3>{{ checklist.ueberschrift }}</h3>
+
+      <button (click)="downloadExcel(checklist)">📊 Excel</button>
+      <button (click)="downloadPdf(checklist)">📄 PDF</button>
+      <button (click)="downloadWord(checklist)">📝 Word</button>
     </li>
   </ul>
 </div>
+

@@ -113,4 +113,44 @@ export class DataService {
       return of(result as T);
     };
   }
+
+  generateExcel(checklist: UserChecklist): void {
+    const url = 'http://localhost:8081/api/excel/generate';
+    this.http.post(url, checklist, {
+      responseType: 'blob',
+      headers: this.getAuthHeaders()
+    }).subscribe(blob => {
+      this.downloadFile(blob, 'checklist_report.xlsx');
+    });
+  }
+
+  generatePdf(checklist: UserChecklist): void {
+    const url = 'http://localhost:8081/api/pdf/generate';
+    this.http.post(url, checklist, {
+      responseType: 'blob',
+      headers: this.getAuthHeaders()
+    }).subscribe(blob => {
+      this.downloadFile(blob, 'checklist_report.pdf');
+    });
+  }
+
+  generateWord(checklist: UserChecklist): void {
+    const url = 'http://localhost:8081/api/word/generate';
+    this.http.post(url, checklist, {
+      responseType: 'blob',
+      headers: this.getAuthHeaders()
+    }).subscribe(blob => {
+      this.downloadFile(blob, 'checklist_report.docx');
+    });
+  }
+
+  private downloadFile(blob: Blob, filename: string): void {
+    const link = document.createElement('a');
+    const url = window.URL.createObjectURL(blob);
+    link.href = url;
+    link.download = filename;
+    link.click();
+    window.URL.revokeObjectURL(url);
+  }
+
 }
