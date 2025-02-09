@@ -1,6 +1,7 @@
 package Raiffeisen.Onboarding.Controller;
 
 import Raiffeisen.Onboarding.Entities.CheckList;
+import Raiffeisen.Onboarding.Entities.User_Checklists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,7 @@ public class PdfController {
     private Raiffeisen.Onboarding.PDFGenerator.PdfGeneratorService pdfGeneratorService;
 
     @PostMapping("/generate")
-    public ResponseEntity<byte[]> generateChecklistPdf(@RequestBody CheckList checklist) {
+    public ResponseEntity<byte[]> generateChecklistPdf(@RequestBody User_Checklists checklist) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         try {

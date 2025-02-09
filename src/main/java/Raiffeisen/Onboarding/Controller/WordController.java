@@ -1,6 +1,7 @@
 package Raiffeisen.Onboarding.Controller;
 
 import Raiffeisen.Onboarding.Entities.CheckList;
+import Raiffeisen.Onboarding.Entities.User_Checklists;
 import Raiffeisen.Onboarding.WordGenerator.WordGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -21,7 +22,7 @@ public class WordController {
     private WordGeneratorService wordGeneratorService;
 
     @PostMapping("/generate")
-    public ResponseEntity<byte[]> generateChecklistWord(@RequestBody CheckList checklist) {
+    public ResponseEntity<byte[]> generateChecklistWord(@RequestBody User_Checklists checklist) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         try {

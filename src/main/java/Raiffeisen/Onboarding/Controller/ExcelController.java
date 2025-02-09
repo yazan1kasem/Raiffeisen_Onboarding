@@ -1,6 +1,7 @@
 package Raiffeisen.Onboarding.Controller;
 
 import Raiffeisen.Onboarding.Entities.CheckList;
+import Raiffeisen.Onboarding.Entities.User_Checklists;
 import Raiffeisen.Onboarding.ExcelGenerator.ExcelGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -20,7 +21,7 @@ public class ExcelController {
     private ExcelGeneratorService excelGeneratorService;
 
     @PostMapping("/generate")
-    public ResponseEntity<byte[]> generateChecklistExcel(@RequestBody CheckList checklist) {
+    public ResponseEntity<byte[]> generateChecklistExcel(@RequestBody User_Checklists checklist) {
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
         try {
