@@ -1,9 +1,12 @@
 <div class="checklist-details-container" *ngIf="userChecklist">
-  <h2>{{ userChecklist.ueberschrift }}</h2>
+  <h2>
+    <input [(ngModel)]="userChecklist.ueberschrift" placeholder="Enter checklist title" />
+  </h2>
   <ul class="item-list">
     <li *ngFor="let item of userChecklist.useritems">
-      <input type="checkbox" [checked]="item.isChecked" disabled />
+      <input type="checkbox" [(ngModel)]="item.isChecked" />
       <div>{{ item.originalItem.name }}</div>
-      </li>
+    </li>
   </ul>
+  <button (click)="saveUserChecklist()">Save Changes</button>
 </div>
