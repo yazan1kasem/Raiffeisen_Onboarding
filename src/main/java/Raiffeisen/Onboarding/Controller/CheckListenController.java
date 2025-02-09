@@ -26,29 +26,7 @@ public class CheckListenController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping("")
-    public ResponseEntity<CheckList> createCheckListen(@RequestBody CheckList checkList) {
-        CheckList savedCheckList = checkListenRepository.save(checkList);
-        return ResponseEntity.ok(savedCheckList);
-    }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<CheckList> updateCheckListen(
-            @PathVariable String id,
-            @RequestBody CheckList checkListenDetails) {
-        return checkListenRepository.findById(id).map(existingCheckList -> {
-            existingCheckList.setItems(checkListenDetails.getItems());
-            CheckList updatedCheckList = checkListenRepository.save(existingCheckList);
-            return ResponseEntity.ok(updatedCheckList);
-        }).orElse(ResponseEntity.notFound().build());
-    }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCheckListen(@PathVariable String id) {
-        if (checkListenRepository.existsById(id)) {
-            checkListenRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
-    }
+
 }

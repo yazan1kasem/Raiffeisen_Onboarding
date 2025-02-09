@@ -31,7 +31,7 @@ public class User_Checklist_Items {
     /**
      * The original item that this user-specific item is based on.
      */
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "original_item_id", nullable = false)
     private Item originalItem;
 
