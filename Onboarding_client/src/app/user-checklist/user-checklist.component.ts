@@ -29,35 +29,35 @@ export class UserChecklistComponent implements OnInit {
           this.userChecklist = userChecklist;
         },
         error: (err) => {
-          console.error('Error loading user checklist:', err);
+          console.error('Fehler beim Laden der Benutzer-Checkliste:', err);
         }
       });
     } else {
-      console.error('No user checklist ID found in route');
+      console.error('Keine Benutzer-Checklisten-ID in der Route gefunden');
     }
   }
 
   saveUserChecklist(): void {
     if (!this.userChecklist) {
-      console.error('Error: User checklist is null');
+      console.error('Fehler: Benutzer-Checkliste ist null');
       return;
     }
 
     this.dataService.updateUserChecklist(this.userChecklist).subscribe({
       next: () => this.router.navigate(['/saved-checklists']),
-      error: (err) => console.error('Error saving user checklist:', err)
+      error: (err) => console.error('Fehler beim Speichern der Benutzer-Checkliste:', err)
     });
   }
 
   deleteUserChecklist(): void {
     if (!this.userChecklist) {
-      console.error('Error: User checklist is null');
+      console.error('Fehler: Benutzer-Checkliste ist null');
       return;
     }
 
     this.dataService.deleteUserChecklist(this.userChecklist.id).subscribe({
       next: () => this.router.navigate(['/saved-checklists']),
-      error: (err) => console.error('Error deleting user checklist:', err)
+      error: (err) => console.error('Fehler beim Löschen der Benutzer-Checkliste:', err)
     });
   }
 
@@ -65,7 +65,7 @@ export class UserChecklistComponent implements OnInit {
     if (this.userChecklist) {
       this.dataService.generateExcel(this.userChecklist);
     } else {
-      console.error('No user checklist available to download');
+      console.error('Keine Benutzer-Checkliste zum Herunterladen verfügbar');
     }
   }
 
@@ -73,7 +73,7 @@ export class UserChecklistComponent implements OnInit {
     if (this.userChecklist) {
       this.dataService.generatePdf(this.userChecklist);
     } else {
-      console.error('No user checklist available to download');
+      console.error('Keine Benutzer-Checkliste zum Herunterladen verfügbar');
     }
   }
 
@@ -81,7 +81,7 @@ export class UserChecklistComponent implements OnInit {
     if (this.userChecklist) {
       this.dataService.generateWord(this.userChecklist);
     } else {
-      console.error('No user checklist available to download');
+      console.error('Keine Benutzer-Checkliste zum Herunterladen verfügbar');
     }
   }
 }

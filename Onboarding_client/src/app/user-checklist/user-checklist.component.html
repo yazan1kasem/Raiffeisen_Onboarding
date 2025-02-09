@@ -1,6 +1,6 @@
 <div class="checklist-details-container" *ngIf="userChecklist">
   <h2>
-    <input [(ngModel)]="userChecklist.ueberschrift" placeholder="Enter checklist title" />
+    <input [(ngModel)]="userChecklist.ueberschrift" placeholder="Checklisten-Titel eingeben" />
   </h2>
   <ul class="item-list">
     <li *ngFor="let item of userChecklist.useritems">
@@ -8,13 +8,13 @@
       <div>{{ item.originalItem.name }}</div>
     </li>
   </ul>
-  <button (click)="saveUserChecklist()">Save Changes</button>
-  <button (click)="deleteUserChecklist()">Delete Checklist</button>
+  <button (click)="saveUserChecklist()">Änderungen speichern</button>
+  <button (click)="deleteUserChecklist()">Checkliste löschen</button>
   <hr />
-  <h3>Export Options</h3>
-  <button (click)="downloadExcel()">📊 Download Excel</button>
-  <button (click)="downloadPdf()">📄 Download PDF</button>
-  <button (click)="downloadWord()">📝 Download Word</button>
+  <h3>Exportoptionen</h3>
+  <button (click)="downloadExcel()">📊 Excel herunterladen</button>
+  <button (click)="downloadPdf()">📄 PDF herunterladen</button>
+  <button (click)="downloadWord()">📝 Word herunterladen</button>
 </div>
 
 <div *ngIf="!userChecklist">
