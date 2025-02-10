@@ -6,6 +6,10 @@
     <li *ngFor="let item of filteredItems">
       <input type="checkbox" (change)="toggleItemSelection(item)" />
       {{ item.name }}
+      <span class="info-icon" (click)="toggleInfoBox(item)">ℹ️</span>
+      <div class="info-box" *ngIf="selectedItem === item">
+        Suchbegriffe: {{ item.suchbegriff }}
+      </div>
     </li>
   </ul>
   <button class="save-button" (click)="createUserChecklist()">Checkliste speichern</button>

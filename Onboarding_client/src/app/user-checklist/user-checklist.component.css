@@ -76,3 +76,18 @@
   font-size: 1.3rem; /* Größere Schriftgröße */
   cursor: pointer;
 }
+
+.info-icon {
+  margin-left: 10px;
+  cursor: pointer;
+  font-size: 1.2rem;
+}
+
+.info-box {
+  background-color: #212529;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  margin-top: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
