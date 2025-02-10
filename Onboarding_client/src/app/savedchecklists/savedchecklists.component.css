@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f9f9f9;
+  background-color: #ffffff; /* Weißer Hintergrund */
 }
 
 .checklist-list {
@@ -11,24 +11,77 @@
   padding: 0;
   margin: 0;
   width: 80%;
-  max-width: 600px;
-  background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  max-width: 700px; /* Breitere Liste */
+  background-color: #f8f9fa; /* Helles Grau für Kontrast */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Dezenter Schatten */
+  border-radius: 12px; /* Leicht abgerundete Kanten */
   overflow: hidden;
 }
 
 .checklist-item {
-  padding: 16px;
-  border-bottom: 1px solid #ddd;
-}
-
-.checklist-item:last-child {
-  border-bottom: none;
+  padding: 20px; /* Mehr Platz für Inhalte */
+  margin: 12px;
+  background-color: #212529; /* Schwarze Leiste */
+  border-radius: 10px; /* Sanfte Abrundung */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.2em; /* Größere Schrift */
+  border: 2px solid #ffd700; /* Gelber Rand */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .checklist-item h3 {
   margin: 0;
-  font-size: 1.25em;
-  color: #333;
+  font-size: 1.4em; /* Größere Schrift für bessere Lesbarkeit */
+  color: #ffd700; /* Gelber Text */
+}
+
+.checklist-item:hover {
+  background-color: #101213; /* Noch dunklerer Schwarzton beim Hover */
+  cursor: pointer;
+  transform: scale(1.02);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+}
+
+button {
+  background-color: #ffd700; /* Goldgelbe Buttons */
+  color: #212529; /* Dunkle Schrift */
+  border: none;
+  padding: 10px 14px;
+  margin-left: 10px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #e6b800; /* Etwas dunkleres Gelb */
+  transform: scale(1.05);
+}
+
+/* Responsive Anpassungen für kleinere Bildschirme */
+@media (max-width: 768px) {
+  .checklist-list {
+    width: 90%;
+    max-width: 600px;
+  }
+}
+
+@media (max-width: 576px) {
+  .checklist-list {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  .checklist-item {
+    flex-direction: column; /* Items untereinander auf kleinen Screens */
+    text-align: center;
+  }
+
+  button {
+    margin-top: 10px;
+  }
 }

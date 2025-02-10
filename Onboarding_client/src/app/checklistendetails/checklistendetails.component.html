@@ -1,12 +1,12 @@
 <div class="checklist-details-container" *ngIf="checklist">
-  <h2>Checklist Details</h2>
-  <label for="checklist-title">Title:</label>
-  <input id="checklist-title" [(ngModel)]="ueberschrift" placeholder="Enter checklist title" />
+  <h1>Checklisten-Details</h1>
+  <label for="checklist-title">Titel:</label>
+  <input id="checklist-title" [(ngModel)]="ueberschrift" placeholder="Checklisten-Titel eingeben" />
   <ul class="item-list">
     <li *ngFor="let item of filteredItems">
       <input type="checkbox" (change)="toggleItemSelection(item)" />
       {{ item.name }}
     </li>
   </ul>
-  <button (click)="createUserChecklist()">Save Checklist</button>
+  <button class="save-button" (click)="createUserChecklist()">Checkliste speichern</button>
 </div>
