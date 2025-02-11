@@ -10,6 +10,7 @@ import { User } from "../models/user";
 import { AuthService } from "../auth.service";
 import { UserChecklistItems } from "../models/user_checklist_items";
 
+
 @Component({
   selector: 'app-checklistendetails',
   templateUrl: './checklistendetails.component.html',
@@ -25,6 +26,8 @@ export class ChecklistendetailsComponent implements OnInit {
   selectedItems: Set<Item> = new Set<Item>();
   ueberschrift: string = 'new Checklist';
   user?: User;
+  selectedItem: Item | null = null; // Add this line
+
 
   constructor(
     private route: ActivatedRoute,
@@ -69,6 +72,10 @@ export class ChecklistendetailsComponent implements OnInit {
     } else {
       this.selectedItems.add(item);
     }
+  }
+
+  toggleInfoBox(item: Item): void {
+    this.selectedItem = this.selectedItem === item ? null : item;
   }
 
   createUserChecklist(): void {
