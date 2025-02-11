@@ -1,7 +1,6 @@
 package Raiffeisen.Onboarding.Controller;
 
 import Raiffeisen.Onboarding.Entities.CheckList;
-import Raiffeisen.Onboarding.Entities.Item;
 import Raiffeisen.Onboarding.Entities.User;
 import Raiffeisen.Onboarding.Entities.User_Checklists;
 import Raiffeisen.Onboarding.Repository.CheckListenRepository;
@@ -53,35 +52,18 @@ public class AdminController {
         }).orElse(ResponseEntity.notFound().build());
     }
 
-
-    @PostMapping("/items")
-    public ResponseEntity<Item> createItem(@RequestBody Item item) {
-        Item savedItem = itemRepository.save(item);
-        return ResponseEntity.ok(savedItem);
-    }
-
-    @PutMapping("/items/{id}")
-    public ResponseEntity<Item> updateItem(
-            @PathVariable String id,
-            @RequestBody Item itemDetails) {
-        return itemRepository.findById(id)
-                .map(existingItem -> {
-                    existingItem.setType(itemDetails.getType());
-                    existingItem.setSuchbegriff(itemDetails.getSuchbegriff());
-                    Item updatedItem = itemRepository.save(existingItem);
-                    return ResponseEntity.ok(updatedItem);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteUser(@PathVariable String id) {
+        return userRepository.findById(id)
+                .map(user -> {
+                    userRepository.delete(user);
+                    return ResponseEntity.noContent().build();
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/items/{id}")
-    public ResponseEntity<Void> deleteItem(@PathVariable String id) {
-        if (itemRepository.existsById(id)) {
-            itemRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
-    }
+
+
 
     @PutMapping("/users/{id}/password")
     public ResponseEntity<User> changeUserPassword(

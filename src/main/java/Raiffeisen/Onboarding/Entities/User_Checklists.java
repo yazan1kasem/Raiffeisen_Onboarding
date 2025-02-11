@@ -44,7 +44,7 @@ public class User_Checklists {
     /**
      * The user who owns this checklist.
      */
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
