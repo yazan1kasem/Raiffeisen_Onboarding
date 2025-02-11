@@ -3,8 +3,10 @@ package Raiffeisen.Onboarding.Controller;
 import Raiffeisen.Onboarding.Entities.CheckList;
 import Raiffeisen.Onboarding.Entities.Item;
 import Raiffeisen.Onboarding.Entities.User;
+import Raiffeisen.Onboarding.Entities.User_Checklists;
 import Raiffeisen.Onboarding.Repository.CheckListenRepository;
 import Raiffeisen.Onboarding.Repository.ItemRepository;
+import Raiffeisen.Onboarding.Repository.UserChecklistRepository;
 import Raiffeisen.Onboarding.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,23 +14,15 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 
 
 /*
     * This class is responsible for handling requests from the admin.
-    * The admin can update, delete, and create items.
-    * The admin can also only UPDATE checklisten.
-    * The admin can also check user Role.
+    * The admin can also only get and UPDATE checklisten.
     * The admin can change user password.
-    * The admin can lock and unlock user.
-    * The admin can also check if the user is an admin.
-    * The admin can also check if the user is authenticated.
-    * The admin can also enable and disable user_checklisten.
     * The admin can also view all the checklisten.
     * The admin can also view all the items.
     * The admin can also view all the users.
-    * The admin can also view all the user_checklisten.
     * The admin can also view all the user_checklisten of a user.
  */
 @RestController
@@ -42,6 +36,8 @@ public class AdminController {
     @Autowired
     private ItemRepository itemRepository;
 
+    @Autowired
+    private UserChecklistRepository userChecklistRepository;
 
     @Autowired
     private CheckListenRepository checkListenRepository;
@@ -57,14 +53,6 @@ public class AdminController {
         }).orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCheckListen(@PathVariable String id) {
-        if (checkListenRepository.existsById(id)) {
-            checkListenRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
-    }
 
     @PostMapping("/items")
     public ResponseEntity<Item> createItem(@RequestBody Item item) {
@@ -94,6 +82,28 @@ public class AdminController {
         }
         return ResponseEntity.notFound().build();
     }
+
+    @PutMapping("/users/{id}/password")
+    public ResponseEntity<User> changeUserPassword(
+            @PathVariable String id,
+            @RequestParam String password) {
+        return userRepository.findById(id)
+                .map(user -> {
+                    user.setPassword(password);
+                    User updatedUser = userRepository.save(user);
+                    return ResponseEntity.ok(updatedUser);
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+    //The admin can also view all the user_checklisten of a user.
+
+    @GetMapping("/userchecklist")
+    public @ResponseBody Iterable<User_Checklists> getAllUser_Checklistss(@RequestBody User user) {
+        return userChecklistRepository.findByUser(user);
+    }
+
+
+
 
     @GetMapping("/test")
     public ResponseEntity<String> checkIfAdmin(@AuthenticationPrincipal UserDetails userDetails) {

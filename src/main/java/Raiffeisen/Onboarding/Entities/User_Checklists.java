@@ -35,14 +35,14 @@ public class User_Checklists {
     /**
      * The original checklist that this user-specific checklist is based on.
      */
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "original_checklist_id", nullable = false)
     private CheckList originalChecklist;
 
     /**
      * The user who owns this checklist.
      */
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

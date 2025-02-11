@@ -1,3 +1,4 @@
+
 INSERT INTO db_raiffeisen.c_checklist (c_id, c_abteilungsname, c_position) VALUES ("1", "Manager", "Manager");
 INSERT INTO db_raiffeisen.c_checklist (c_id, c_abteilungsname, c_position) VALUES ("2", "RM", "215");
 INSERT INTO db_raiffeisen.c_checklist (c_id, c_abteilungsname, c_position) VALUES ("3", "RM", "DIG");
@@ -1138,3 +1139,6 @@ INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) 
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("1111","Webrahmen Webgiro Loans Editor ", "Tools", "Webrahmen_Webgiro Loans Editor", "22");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("1112","Windows Control-D Web Access ", "Tools", "Windows Control-D Web Access", "22");
 INSERT INTO db_raiffeisen.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("1113","Windows PingID Windows Desktop Application ", "Tools", "Windows PingID Windows Desktop Application", "22");
+
+
+INSERT INTO db_raiffeisen.u_user VALUES(TRUE, '2025-02-11 13:38:33.404000', '2025-02-11 13:38:33.404000', '$2a$10$kbYf7xDx7kQ9izqmP1sspOohgoWSE9E8.AvtUSbojC7Lm57SllWzS', 'yazan', 'ADMIN')

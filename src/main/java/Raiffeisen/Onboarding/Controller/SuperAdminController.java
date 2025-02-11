@@ -19,38 +19,7 @@ public class SuperAdminController {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private ItemRepository itemRepository;
 
-    @PostMapping("/items")
-    public ResponseEntity<Item> createItem(@RequestBody Item item) {
-        Item savedItem = itemRepository.save(item);
-        return ResponseEntity.ok(savedItem);
-    }
-
-    @PutMapping("/items/{id}")
-    public ResponseEntity<Item> updateItem(
-            @PathVariable String id,
-            @RequestBody Item itemDetails) {
-        return itemRepository.findById(id)
-                .map(existingItem -> {
-                    existingItem.setType(itemDetails.getType());
-                    existingItem.setName(itemDetails.getName());
-                    existingItem.setSuchbegriff(itemDetails.getSuchbegriff());
-                    Item updatedItem = itemRepository.save(existingItem);
-                    return ResponseEntity.ok(updatedItem);
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @DeleteMapping("/items/{id}")
-    public ResponseEntity<Void> deleteItem(@PathVariable String id) {
-        if (itemRepository.existsById(id)) {
-            itemRepository.deleteById(id);
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.notFound().build();
-    }
 
 
 

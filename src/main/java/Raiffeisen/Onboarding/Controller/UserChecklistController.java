@@ -32,9 +32,7 @@ public class UserChecklistController {
 
     @PostMapping("")
     public ResponseEntity<User_Checklists> createUser_Checklists(@RequestBody User_Checklists userChecklist) {
-        for(int i=0;i<userChecklist.getUseritems().size();i++){
-            System.out.println(userChecklist.getUseritems().get(i).isChecked());
-        }
+
         User_Checklists savedUser_Checklists = userChecklistRepository.save(userChecklist);
         return ResponseEntity.ok(savedUser_Checklists);
     }

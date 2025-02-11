@@ -31,7 +31,7 @@ public class CheckList {
     @Column(name = "c_abteilungsname")
     private String abteilungsname;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
     @JoinColumn(name = "c_i_id")
     private List<Item> items;
 }
