@@ -1,11 +1,12 @@
 package Raiffeisen.Onboarding.Entities;
 
 import jakarta.persistence.*;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.annotations.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -30,19 +31,20 @@ public class User_Checklists {
     @Column(name = "uc_id")
     private String id;
 
+
     @Column(name="c_überschrift")
     private String ueberschrift;
     /**
      * The original checklist that this user-specific checklist is based on.
      */
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "original_checklist_id", nullable = false)
     private CheckList originalChecklist;
 
     /**
      * The user who owns this checklist.
      */
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

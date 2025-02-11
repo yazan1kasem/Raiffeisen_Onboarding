@@ -14,7 +14,7 @@
 	<name>Onboarding</name>
 	<description>Onboarding-Application for Raiffeisen by Skillbuilders</description>
 	<properties>
-		<java.version>21</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-annotations -->
