@@ -79,8 +79,8 @@ public class AdminController {
     //The admin can also view all the user_checklisten of a user.
 
     @GetMapping("/userchecklist")
-    public @ResponseBody Iterable<User_Checklists> getAllUser_Checklistss(@RequestBody User user) {
-        return userChecklistRepository.findByUser(user);
+    public @ResponseBody Iterable<User_Checklists> getAllUser_Checklists() {
+        return userChecklistRepository.findAll();
     }
 
     @GetMapping("/items")

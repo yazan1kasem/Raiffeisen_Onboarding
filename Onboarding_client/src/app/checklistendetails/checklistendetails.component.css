@@ -2,7 +2,7 @@
 .checklist-details-container {
   max-width: 1000px;
   margin: 20px auto;
-  padding: 20px 20px 20px 270px; /* Adjust padding to account for sidebar */
+  padding: 20px 20px 20px 0; /* Adjust padding to account for sidebar */
   background-color: #ffffff;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

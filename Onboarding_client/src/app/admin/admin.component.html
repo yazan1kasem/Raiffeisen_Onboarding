@@ -1,10 +1,77 @@
 <mat-accordion>
-  <mat-expansion-panel *ngFor="let checklist of checklists">
+  <mat-expansion-panel *ngFor="let checklist of checklists.sort()">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{ checklist.items }}
+        Checklist ID: {{ checklist.id }}
       </mat-panel-title>
     </mat-expansion-panel-header>
-
+    <mat-card class="checklist-card">
+      <mat-list>
+        <mat-list-item *ngFor="let item of checklist.items">
+          <p mat-line>{{ item.name }}</p>
+          <p mat-line class="secondary">{{ item.type }} - {{ item.suchbegriff }}</p>
+        </mat-list-item>
+      </mat-list>
+    </mat-card>
   </mat-expansion-panel>
 </mat-accordion>
+
+<!-- User Management -->
+<div *ngFor="let user of users  " class="user-card">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+       {{ user.username }} ({{ user.role }})
+      </mat-card-title>
+      <mat-card-subtitle>
+        Erstellt: {{ user.createdAt | date:'short' }} | Geändert: {{ user.updatedAt | date:'short' }}
+      </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <mat-button-toggle-group>
+        <mat-button-toggle *ngIf="shouldshow(true)" (click)="promoteUser(user.username)">🔼 Promote</mat-button-toggle>
+        <mat-button-toggle *ngIf="shouldshow(true)" (click)="demoteUser(user.username)">🔽 Demote</mat-button-toggle>
+        <mat-button-toggle *ngIf="shouldshow(true)" (click)="setUserStatus(user.username, !user.enabled)">
+          ⚙️ Status
+        </mat-button-toggle>
+        <mat-button-toggle *ngIf="shouldshow(true)" (click)="deleteUser(user.username)">🗑️ Löschen</mat-button-toggle>
+        <mat-button-toggle *ngIf="shouldshow(true)" (click)="grantuseraccess(user.username, !user.enabled)">
+          🔑 Zugang
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </mat-card-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-expansion-panel *ngFor="let userChecklist of loadUserChecklistsperuser(user)">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+           Checklist: {{ userChecklist.ueberschrift }}
+        </mat-panel-title>
+        <mat-panel-description>Status: {{ userChecklist.status }}</mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-card class="user-checklist-card">
+        <mat-list>
+          <mat-list-item *ngFor="let item of userChecklist.useritems">
+            <mat-checkbox [checked]="item.isChecked">{{ item.originalItem.name }}</mat-checkbox>
+            <p mat-line class="secondary">{{ item.originalItem.type }} - {{ item.originalItem.suchbegriff }}</p>
+          </mat-list-item>
+        </mat-list>
+
+        <mat-card-actions>
+          <button mat-button color="warn" *ngIf="shouldshow(true)" (click)="blockuserchecklist(userChecklist.id)">
+            ❌ Sperren
+          </button>
+          <button mat-button color="primary" *ngIf="shouldshow(true)" (click)="unblockuserchecklist(userChecklist.id)">
+            ✅ Entsperren
+          </button>
+          <button mat-button color="accent" *ngIf="shouldshow(true)" (click)="deleteUserChecklist(userChecklist.id)">
+            🗑️ Löschen
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </mat-expansion-panel>
+  </mat-card>
+</div>
