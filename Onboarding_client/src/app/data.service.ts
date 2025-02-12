@@ -13,7 +13,8 @@ export class DataService {
   private apiUrl = 'http://localhost:8081/checklisten';
   private apiUserChecklistUrl = 'http://localhost:8081/userchecklist';
   private apiUserUrl = 'http://localhost:8081/user';
-
+  private Adminurl='http://localhost:8081/admin';
+  private superAdminurl='http://localhost:8081/superadmin';
 
   constructor(private http: HttpClient) {}
 
@@ -29,12 +30,86 @@ export class DataService {
   }
 
   /*
-  * Items
+  * Admin
    */
 
+  updatechecklist(id: string): Observable<Checklist> {
+    return this.http.put<Checklist>(`${this.Adminurl}/checklist/${id}`, {}, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<Checklist>('updatechecklist'))
+    );
+  }
+
+  changeuserpassword(id: string, password: string): Observable<void> {
+    return this.http.put<void>(`${this.Adminurl}/user/${id}`, {password: password}, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<void>('changeuserpassword'))
+    );
+  }
+  getuserchecklists(): Observable<UserChecklist[]> {
+    return this.http.get<UserChecklist[]>(`${this.Adminurl}/userchecklist`, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<UserChecklist[]>('getuserchecklists', []))
+    );
+  }
   getItems(): Observable<Item[]> {
-    return this.http.get<Item[]>(`${this.apiUrl}/items`, { headers: this.getAuthHeaders() }).pipe(
+    return this.http.get<Item[]>(`${this.Adminurl}/items`, { headers: this.getAuthHeaders() }).pipe(
       catchError(this.handleError<Item[]>('getItems', []))
+    );
+  }
+  getallusers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.Adminurl}/users`, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<User[]>('getallusers', []))
+    );
+  }
+
+  /*
+  * SuperAdmin
+   */
+
+  promoteuser(id: string): Observable<void> {
+    return this.http.put<void>(`${this.superAdminurl}/userpromote/${id}`, {}, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<void>('promoteuser'))
+    );
+  }
+  demoteuser(id: string): Observable<void> {
+    return this.http.put<void>(`${this.superAdminurl}/userdemote/${id}`, {}, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<void>('demoteuser'))
+    );
+  }
+  setuserstatus(id: string, status: boolean): Observable<void> {
+    return this.http.put<void>(`${this.superAdminurl}/userstatus/${id}`, {status: status}, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<void>('setuserstatus'))
+    );
+  }
+
+  deleteuser(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.superAdminurl}/userdelete/${id}`, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<void>('deleteuser'))
+    );
+  }
+
+  deleteuserchecklist(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.superAdminurl}/userchecklistdelete/${id}`, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<void>('deleteuserchecklist'))
+    );
+  }
+  deleteAllUserChecklistFromUser(id: string): Observable<void> {
+    return this.http.delete<void>(`${this.superAdminurl}/userchecklistdeleteall/${id}`, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<void>('deleteAllUserChecklistFromUser'))
+    );
+  }
+  blockUserChecklist(id: string): Observable<void> {
+    return this.http.put<void>(`${this.superAdminurl}/blockuserchecklist/${id}`, {}, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<void>('blockuserchecklist'))
+    );
+  }
+  unblockUserChecklist(id: string): Observable<void> {
+    return this.http.put<void>(`${this.superAdminurl}/unblockuserchecklist/${id}`, {}, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<void>('unblockuserchecklist'))
+    );
+  }
+
+  grantUserAccess(id: string, isActive:boolean): Observable<void> {
+    return this.http.put<void>(`${this.superAdminurl}/useraccess/${id}`, {isActive:isActive}, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<void>('grantuseraccess'))
     );
   }
 

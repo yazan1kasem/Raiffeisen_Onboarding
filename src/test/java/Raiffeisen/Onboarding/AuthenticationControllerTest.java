@@ -67,7 +67,6 @@ class AuthenticationControllerTest {
 
     @Test
     void testAuthenticate() throws Exception {
-        LoginUserDto loginUserDto = new LoginUserDto();
         User mockUser = new User();
         mockUser.setRole(User.Role.USER);
 

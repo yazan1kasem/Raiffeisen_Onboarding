@@ -1,11 +1,15 @@
 package Raiffeisen.Onboarding.Controller;
 
+import Raiffeisen.Onboarding.Entities.User;
 import Raiffeisen.Onboarding.Entities.User_Checklist_Items;
 import Raiffeisen.Onboarding.Entities.User_Checklists;
 import Raiffeisen.Onboarding.Repository.UserChecklistItemsRepository;
 import Raiffeisen.Onboarding.Repository.UserChecklistRepository;
+import Raiffeisen.Onboarding.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -19,9 +23,14 @@ public class UserChecklistController {
     private UserChecklistRepository userChecklistRepository;
     @Autowired
     private UserChecklistItemsRepository userChecklistItemsRepository;
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("")
     public @ResponseBody Iterable<User_Checklists> getAllUser_Checklistss() {
-        return userChecklistRepository.findAll();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
+        return userChecklistRepository.findByUser(user);
     }
 
     @GetMapping("/{id}")
@@ -32,7 +41,6 @@ public class UserChecklistController {
 
     @PostMapping("")
     public ResponseEntity<User_Checklists> createUser_Checklists(@RequestBody User_Checklists userChecklist) {
-
         User_Checklists savedUser_Checklists = userChecklistRepository.save(userChecklist);
         return ResponseEntity.ok(savedUser_Checklists);
     }

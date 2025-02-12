@@ -1,8 +1,10 @@
 package Raiffeisen.Onboarding.Controller;
 
 import Raiffeisen.Onboarding.Entities.CheckList;
+import Raiffeisen.Onboarding.Entities.Item;
 import Raiffeisen.Onboarding.Entities.User;
 import Raiffeisen.Onboarding.Entities.User_Checklists;
+import Raiffeisen.Onboarding.JWT.services.AuthenticationService;
 import Raiffeisen.Onboarding.Repository.CheckListenRepository;
 import Raiffeisen.Onboarding.Repository.ItemRepository;
 import Raiffeisen.Onboarding.Repository.UserChecklistRepository;
@@ -11,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -41,37 +44,33 @@ public class AdminController {
     @Autowired
     private CheckListenRepository checkListenRepository;
 
-    @PutMapping("/{id}")
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    //    UPDATE checklisten.
+    @PutMapping("/checklist/{id}")
     public ResponseEntity<CheckList> updateCheckListen(
             @PathVariable String id,
             @RequestBody CheckList checkListenDetails) {
         return checkListenRepository.findById(id).map(existingCheckList -> {
-            existingCheckList.setItems(checkListenDetails.getItems());
+            existingCheckList= checkListenDetails;
             CheckList updatedCheckList = checkListenRepository.save(existingCheckList);
             return ResponseEntity.ok(updatedCheckList);
         }).orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Object> deleteUser(@PathVariable String id) {
-        return userRepository.findById(id)
-                .map(user -> {
-                    userRepository.delete(user);
-                    return ResponseEntity.noContent().build();
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
 
 
 
 
-    @PutMapping("/users/{id}/password")
+//    user password.
+    @PutMapping("/user/{id}")
     public ResponseEntity<User> changeUserPassword(
             @PathVariable String id,
             @RequestParam String password) {
         return userRepository.findById(id)
                 .map(user -> {
-                    user.setPassword(password);
+                    user.setPassword(passwordEncoder.encode(password));
                     User updatedUser = userRepository.save(user);
                     return ResponseEntity.ok(updatedUser);
                 })
@@ -84,6 +83,15 @@ public class AdminController {
         return userChecklistRepository.findByUser(user);
     }
 
+    @GetMapping("/items")
+    public @ResponseBody Iterable<Item> getAllItems() {
+        return itemRepository.findAll();
+    }
+
+    @GetMapping("/users")
+    public @ResponseBody Iterable<User> getAllUsers() {
+        return userRepository.findAll();
+    }
 
 
 
