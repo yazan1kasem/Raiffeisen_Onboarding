@@ -10,7 +10,7 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: db_Raiffeisen
+          MYSQL_DATABASE: db_raiffeisen
         ports:
           - 3306:3306
         options: >-
@@ -42,7 +42,7 @@ jobs:
       - name: Check Database Connection
         run: |
           echo "Trying to connect to MySQL..."
-          mysql -h 127.0.0.1 -u root -pyazan -e "SHOW DATABASES;"
+          mysql -h 127.0.0.1 -u root -proot -e "SHOW DATABASES;"
 
       - name: Install Dependencies und Run Tests (Server)
         env:
