@@ -30,4 +30,11 @@ public class Item {
 
     @Column(name="I_suchbegriff")
     private String suchbegriff;
+
+    public Item(String name, String type, String suchbegriff) {
+        this.name = name;
+        this.type = type;
+        this.suchbegriff = "";
+    }
+
 }

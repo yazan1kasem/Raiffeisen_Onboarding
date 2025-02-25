@@ -1,5 +1,5 @@
 name: Build, Test and Deploy
-
+#a
 on: [push]
 
 jobs:
@@ -10,7 +10,7 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: db_Raiffeisen
+          MYSQL_DATABASE: db_raiffeisen
         ports:
           - 3306:3306
         options: >-
@@ -25,7 +25,7 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4.6.0
         with:
-          java-version: '21'
+          java-version: '17'
           distribution: 'temurin'
           cache: maven
       - name: Wait for MySQL
@@ -42,7 +42,7 @@ jobs:
       - name: Check Database Connection
         run: |
           echo "Trying to connect to MySQL..."
-          mysql -h 127.0.0.1 -u root -pyazan -e "SHOW DATABASES;"
+          mysql -h 127.0.0.1 -u root -proot -e "SHOW DATABASES;"
 
       - name: Install Dependencies und Run Tests (Server)
         env:
@@ -58,7 +58,18 @@ jobs:
           mkdir -p server-test-results
           cp target/surefire-reports/*.xml server-test-results/      
       
-
+      - name: 'Download a Build Artifact'
+        description: 'Download a build artifact that was previously uploaded in the workflow by the upload-artifact action'
+        author: 'GitHub'
+        inputs:
+          name:
+            description: 'Artifact name'
+            required: true
+          path:
+            description: 'Destination path'
+        runs:
+          # Plugins live on the runner and are only available to a certain set of first party actions.
+          plugin: 'download'
       # Client: Install Dependencies and Fix Vulnerabilities
       - name: Install Dependencies und Fix Vulnerabilities (Client)
         run: |
