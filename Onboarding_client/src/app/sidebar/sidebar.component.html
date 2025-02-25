@@ -1,21 +1,40 @@
-<div class="d-flex">
-  <nav id="sidebar">
-    <div class="sidebar-header">
-      <h3>Onboarding</h3>
-    </div>
-    <ul class="list-unstyled components">
-      <li>
-        <a routerLink="/checklist">Checklisten</a>
-      </li>
-      <li><a routerLink="/saved-checklists">Gespeicherte Checklists</a></li>
-      <li><a routerLink="/admin">Admin</a></li>
-    </ul>
+<!-- Mobile Sidebar Toggle Button -->
+<button class="mobile-sidebar-toggle" (click)="toggleSidebar()">☰</button>
 
-    <div class="logout-container">
-      <button (click)="logout()" id="logoutButton" class="btn btn-warning w-100">
-        Logout
-      </button>
-    </div>
-  </nav>
-</div>
+<nav id="sidebar" [ngClass]="{ 'collapsed': isCollapsed, 'open': isMobileOpen }">
+  <div  class="sidebar-header">
+    <h3 id="headertext" routerLink="/checklist" *ngIf="!isCollapsed">Onboarding</h3>
+    <button class="btn btn-primary toggle-btn" (click)="toggleSidebar()">☰</button>
+  </div>
+  <ul class="list-unstyled components">
+    <li>
+      <a routerLink="/checklist">
+        <img src="assets/Checklistenicon.png" alt="Checklisten" class="sidebar-icon" width="32" height="32">
+        <span *ngIf="!isCollapsed">Checklisten</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/saved-checklists">
+        <img src="assets/UserChecklisticon.png" alt="Gespeicherte Checklisten" class="sidebar-icon" width="32" height="32">
+        <span *ngIf="!isCollapsed">Deine Checklisten</span>
+      </a>
+    </li>
+    <li>
+      <a routerLink="/admin">
+        <img src="assets/AdminIcon.png" alt="Admin" class="sidebar-icon" width="32" height="32">
+        <span *ngIf="isAdmin() && !isCollapsed">Admin</span>
+      </a>
+    </li>
+  </ul>
+  <div class="logout-container">
+    <button (click)="logout()" id="logoutButton" class="btn btn-warning w-100">
+      <img [src]="'assets/logout.png'" class="sidebar-icon" alt="Logout">
+      <span *ngIf="!isCollapsed">Logout</span>
+    </button>
+  </div>
+</nav>
 
+<!-- Floating Logout-Button für Mobile -->
+<button class="floating-logout" (click)="logout()">
+  <img src="assets/logout.png" width="30" height="30" alt="Logout">
+</button>

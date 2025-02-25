@@ -6,6 +6,7 @@ import {AuthInterceptor} from "./app/auth.interceptor";
 import {AppComponent} from "./app/app.component";
 import {bootstrapApplication} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 
 
@@ -20,7 +21,7 @@ export const appConfig: ApplicationConfig = {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true,
-    },
+    }, provideAnimationsAsync(),
   ],
 };
 bootstrapApplication(AppComponent, appConfig)

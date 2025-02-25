@@ -5,6 +5,7 @@ import { Checklist } from './models/checklist';
 import { Item } from './models/item';
 import { UserChecklist } from './models/user_checklist';
 import {User} from "./models/user";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: 'root'
@@ -16,11 +17,12 @@ export class DataService {
   private Adminurl='http://localhost:8081/admin';
   private superAdminurl='http://localhost:8081/superadmin';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
 
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
     if (!token) {
+      this.showError('Es scheint, dass du nicht eingeloggt bist. Bitte melde dich an.');
       throw new Error('Kein Token im Local Storage gefunden.');
     }
     return new HttpHeaders({
@@ -29,18 +31,43 @@ export class DataService {
     });
   }
 
+  private showError(message: string): void {
+    this.snackBar.open(message, 'Schließen', {
+      duration: 4000,
+      panelClass: ['error-snackbar']
+    });
+  }
+
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+      let userFriendlyMessage = `Fehler bei ${operation}`;
+      if (error.status === 403) {
+        userFriendlyMessage = 'Zugriff verweigert! Du hast nicht die notwendigen Rechte.';
+      } else if (error.status === 404) {
+        userFriendlyMessage = 'Die angeforderte Ressource wurde nicht gefunden.';
+      } else if (error.status === 500) {
+        userFriendlyMessage = 'Interner Serverfehler! Bitte versuche es später erneut.';
+      } else if (error.message) {
+        userFriendlyMessage = `Fehler: ${error.message}`;
+      }
+      console.error(`${operation} failed: ${error.message}`);
+      this.showError(userFriendlyMessage);
+      return of(result as T);
+    };
+  }
+
   /*
   * Admin
    */
 
-  updatechecklist(id: string): Observable<Checklist> {
-    return this.http.put<Checklist>(`${this.Adminurl}/checklist/${id}`, {}, { headers: this.getAuthHeaders() }).pipe(
+  updatechecklist(checklist: Checklist): Observable<Checklist> {
+    return this.http.put<Checklist>(`${this.Adminurl}/checklist`, checklist, { headers: this.getAuthHeaders() }).pipe(
       catchError(this.handleError<Checklist>('updatechecklist'))
     );
   }
 
   changeuserpassword(id: string, password: string): Observable<void> {
-    return this.http.put<void>(`${this.Adminurl}/user/${id}`, {password: password}, { headers: this.getAuthHeaders() }).pipe(
+    return this.http.put<void>(`${this.Adminurl}/user/${id}?password=${password}`, { headers: this.getAuthHeaders() }).pipe(
       catchError(this.handleError<void>('changeuserpassword'))
     );
   }
@@ -74,11 +101,8 @@ export class DataService {
       catchError(this.handleError<void>('demoteuser'))
     );
   }
-  setuserstatus(id: string, status: boolean): Observable<void> {
-    return this.http.put<void>(`${this.superAdminurl}/userstatus/${id}`, {status: status}, { headers: this.getAuthHeaders() }).pipe(
-      catchError(this.handleError<void>('setuserstatus'))
-    );
-  }
+
+
 
   deleteuser(id: string): Observable<void> {
     return this.http.delete<void>(`${this.superAdminurl}/userdelete/${id}`, { headers: this.getAuthHeaders() }).pipe(
@@ -108,8 +132,14 @@ export class DataService {
   }
 
   grantUserAccess(id: string, isActive:boolean): Observable<void> {
-    return this.http.put<void>(`${this.superAdminurl}/useraccess/${id}`, {isActive:isActive}, { headers: this.getAuthHeaders() }).pipe(
+    return this.http.put<void>(`${this.superAdminurl}/users/${id}/grant-access?isActive=${isActive}`, {}, { headers: this.getAuthHeaders() }).pipe(
       catchError(this.handleError<void>('grantuseraccess'))
+    );
+  }
+
+  enableuser(id:string, isActive:boolean): Observable<void> {
+    return this.http.put<void>(`${this.superAdminurl}/users/${id}/blockuser/${isActive}`, { headers: this.getAuthHeaders() }).pipe(
+      catchError(this.handleError<void>('enableuser'))
     );
   }
 
@@ -251,15 +281,6 @@ export class DataService {
     );
   }
 
-  /*
-  * Error Handling
-  */
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(`${operation} failed: ${error.message}`);
-      return of(result as T);
-    };
-  }
 
 }

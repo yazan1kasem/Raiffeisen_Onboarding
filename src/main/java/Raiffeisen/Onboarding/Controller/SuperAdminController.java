@@ -12,6 +12,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 /*
 *   This class is responsible for handling requests from the superadmin.
 *  The superadmin can promote a user to admin. true
@@ -66,18 +69,7 @@ public class SuperAdminController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/userstatus/{id}")
-    public ResponseEntity<User> setActiveStatus(
-            @PathVariable String id,
-            @RequestParam boolean isActive) {
-        return userRepository.findById(id)
-                .map(user -> {
-                    user.setEnabled(isActive);
-                    User updatedUser = userRepository.save(user);
-                    return ResponseEntity.ok(updatedUser);
-                })
-                .orElse(ResponseEntity.notFound().build());
-    }
+
 
     @DeleteMapping("/userdelete/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable String id) {
@@ -135,21 +127,45 @@ public class SuperAdminController {
 
 
 
-    @PutMapping("/users/{id}/grant-access")
-    public ResponseEntity<User> grantChecklistAccess(@PathVariable String id,
-    @RequestParam boolean isActive) {
-        return userRepository.findById(id)
-                .map(user -> {
-                    user.setEnabled(isActive);
-                    User updatedUser = userRepository.save(user);
-                    return ResponseEntity.ok(updatedUser);
-                })
-                .orElse(ResponseEntity.notFound().build());
+    @PutMapping("/users/{id}/grant-access/{isActive}")
+    public ResponseEntity<Boolean> grantChecklistAccess(@PathVariable String id, @PathVariable boolean isActive) {
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        if (optionalUser.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        User user = optionalUser.get();
+        List<User_Checklists> userChecklists = userChecklistRepository.findByUser(user);
+
+        if (userChecklists.isEmpty()) {
+            return ResponseEntity.ok(false); // Kein Update notwendig, da keine Checklisten existieren
+        }
+
+        userChecklists.forEach(userChecklist -> userChecklist.setLocked(isActive));
+        userChecklistRepository.saveAll(userChecklists);
+
+        return ResponseEntity.ok(true); // Erfolgreiches Update
     }
 
 
 
 
+    @PutMapping("/users/{id}/blockuser/{isActive}")
+    public ResponseEntity<Boolean> userenable(@PathVariable String id, @PathVariable boolean isActive) {
+        Optional<User> optionalUser = userRepository.findById(id);
+
+        if (optionalUser.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        User user = optionalUser.get();
+
+        user.setEnabled(isActive);
+        userRepository.save(user);
+
+        return ResponseEntity.ok(true); // Erfolgreiches Update
+    }
 
 
 

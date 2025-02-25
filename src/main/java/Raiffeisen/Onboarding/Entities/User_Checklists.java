@@ -66,6 +66,7 @@ public class User_Checklists {
      * Indicates if the checklist is locked and cannot be modified.
      */
     @Column(name = "is_locked", nullable = false)
+    @Builder.Default
     private boolean isLocked = false;
 
     @CreationTimestamp

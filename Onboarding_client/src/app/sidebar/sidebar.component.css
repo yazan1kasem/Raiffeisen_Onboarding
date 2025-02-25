@@ -1,102 +1,181 @@
-/* Sidebar Styling */
+/* 🔝 Sidebar Header */
+#sidebar .sidebar-header {
+  padding: 15px;
+  background: #212529; /* Etwas dunklerer Hintergrund */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  border-bottom: 1px solid #444;
+}
+#sidebar .sidebar-header h3:hover {
+  cursor: pointer;
+}
+
+#sidebar .sidebar-header i {
+  font-size: 1.2rem;
+}
+/* 🎨 Allgemeines Styling für die Sidebar */
 #sidebar {
   width: 250px;
   height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
-  background: #343a40; /* Dark gray background */
-  color: #fff; /* White text color */
-  transition: all 0.3s; /* Smooth transition */
-  z-index: 100;
+  background: #343a40;
+  color: #fff;
+  transition: width 0.4s ease-in-out, left 0.4s ease-in-out;
+  z-index: 1000;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* Space for items and logout button at the bottom */
+  justify-content: space-between;
+  overflow: hidden;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Sidebar Header */
-#sidebar .sidebar-header {
-  padding: 20px;
-  background: #212529; /* Slightly darker background for the header */
-  text-align: center;
-  font-size: 1.5rem; /* Larger text for emphasis */
-  font-weight: bold;
-  border-bottom: 1px solid #444; /* Divider for visual separation */
+/* 🏠 Sidebar eingeklappt */
+#sidebar.collapsed {
+  width: 60px;
 }
 
-/* Sidebar List */
+/* 🚀 Mobile Sidebar - Standardmäßig versteckt */
+@media (max-width: 768px) {
+  #sidebar {
+    left: -250px; /* Versteckt die Sidebar */
+    width: 250px;
+  }
+
+  #sidebar.open {
+    left: 0; /* Sidebar erscheint */
+  }
+
+  /* 🏠 Sidebar-Knopf für Mobile */
+  .mobile-sidebar-toggle {
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: #ffc107;
+    color: #212529;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 50%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    z-index: 1100;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .mobile-sidebar-toggle:hover {
+    transform: scale(1.1);
+  }
+}
+
+/* 📜 Sidebar Navigation */
 #sidebar ul.components {
   padding: 0;
   margin: 0;
   list-style: none;
-  flex-grow: 1; /* Push the list to take up space */
+  flex-grow: 1;
 }
 
 #sidebar ul li {
-  padding: 15px 20px;
+  padding: 12px 20px;
   font-size: 1.1em;
-  display: block;
+  display: flex;
+  align-items: center;
+  transition: background 0.3s ease-in-out;
+}
+
+#sidebar ul li:hover {
+  background: rgba(255, 255, 255, 0.15);
 }
 
 #sidebar ul li a {
-  color: #ddd; /* Light gray */
+  color: #ddd;
   text-decoration: none;
-  display: block;
-  transition: color 0.3s ease;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  transition: color 0.3s ease-in-out;
 }
 
 #sidebar ul li a:hover {
-  color: #ffc107; /* Highlight with yellow on hover */
+  color: #ffc107;
 }
 
-/* Sidebar Logout Button */
+/* 🚪 Logout-Button */
 #sidebar .logout-container {
-  padding: 20px;
-  background: #212529; /* Consistent background with header */
+  padding: 10px;
+  background: #212529;
+  text-align: center;
 }
 
 #sidebar .logout-container button {
-  width: 100%; /* Full width */
+  width: 100%;
   font-size: 1rem;
   font-weight: bold;
-  padding: 10px;
-  border-radius: 5px;
-  background-color: #ffc107; /* Raiffeisen yellow */
+  padding: 12px;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #ffc107, #ffdb4d);
   border: none;
-  color: #212529; /* Dark text on yellow */
+  color: #212529;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  box-shadow: 0 4px 6px rgba(255, 193, 7, 0.3);
+  transition: all 0.3s ease-in-out;
 }
 
 #sidebar .logout-container button:hover {
-  background-color: #e0a800; /* Slightly darker yellow for hover */
-  transform: scale(1.05); /* Hover effect */
+  background: linear-gradient(90deg, #e0a800, #ffcc00);
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(255, 193, 7, 0.4);
 }
 
-/* Content Area */
+/* 🎨 Logout-Icon Styling */
+#sidebar .logout-container img {
+  width: 26px;
+  height: 26px;
+  filter: invert(10%);
+  transition: transform 0.3s ease-in-out;
+}
 
+#sidebar .logout-container button:hover img {
+  transform: rotate(180deg);
+}
 
-/* Responsive Design for Smaller Screens */
+/* 🚀 Floating Logout-Button in der mobilen Ansicht */
 @media (max-width: 768px) {
-  #sidebar {
-    width: 180px;
-    visibility: collapse;
+  #sidebar .logout-container {
+    display: none;
   }
 
-  #content {
-    width: calc(100% - 100px);
-    margin-left: 0;
+  .floating-logout {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #ffc107;
+    color: #212529;
+    padding: 15px;
+    border-radius: 50%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
+    z-index: 1100;
+  }
+
+  .floating-logout:hover {
+    transform: scale(1.1);
   }
 }
-
-@media (max-width: 576px) {
-  #sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-    visibility: collapse;
-  }
-  #sidebar ul.components {
-    flex-grow: 0;
-  }
+.toggle-btn {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
 }

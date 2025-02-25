@@ -1141,4 +1141,6 @@ INSERT INTO `db_raiffeisen`.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id 
 INSERT INTO `db_raiffeisen`.I_Item (I_id, I_name, I_type, I_suchbegriff, c_i_id ) VALUES ("1113","Windows PingID Windows Desktop Application ", "Tools", "Windows PingID Windows Desktop Application", "22");
 
 
-INSERT INTO `db_raiffeisen`.u_user VALUES(TRUE, '2025-02-11 13:38:33.404000', '2025-02-11 13:38:33.404000', '$2a$10$kbYf7xDx7kQ9izqmP1sspOohgoWSE9E8.AvtUSbojC7Lm57SllWzS', 'yazan', 'ADMIN')
+INSERT INTO `db_raiffeisen`.u_user VALUES(TRUE, '2025-02-11 13:38:33.404000', '2025-02-11 13:38:33.404000', '$2a$10$kbYf7xDx7kQ9izqmP1sspOohgoWSE9E8.AvtUSbojC7Lm57SllWzS', 'yazan', 'SUPER_ADMIN')
+INSERT INTO `db_raiffeisen`.u_user VALUES(TRUE, '2025-02-11 13:38:33.404000', '2025-02-11 13:38:33.404000', '$2a$10$kbYf7xDx7kQ9izqmP1sspOohgoWSE9E8.AvtUSbojC7Lm57SllWzS', 'yazan1', 'ADMIN')
+

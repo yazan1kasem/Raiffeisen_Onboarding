@@ -29,5 +29,5 @@ export class User {
 export enum Role {
   ADMIN = 'ADMIN',
   USER = 'USER',
-  SUPERADMIN = 'SUPERADMIN'
+  SUPER_ADMIN = 'SUPER_ADMIN'
 }

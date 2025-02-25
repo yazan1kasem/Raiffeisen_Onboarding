@@ -32,5 +32,9 @@ export class AppComponent {
   }
 
 
+  isCollapsed = false;
 
+  toggleSidebar(collapsed: boolean) {
+    this.isCollapsed = collapsed;
+  }
 }

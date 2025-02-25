@@ -1,2 +1,28 @@
+/* Haupt-Container mit flex */
+.app-container {
+  display: flex;
+  transition: all 0.3s ease;
+}
 
+/* Sidebar-Container */
+#sidebar-container {
+  width: 250px;
+  transition: width 0.3s ease;
+}
 
+/* Wenn die Sidebar eingeklappt ist */
+.app-container.collapsed #sidebar-container {
+  width: 60px;
+}
+
+/* Inhalt soll sich mitverschieben */
+#content {
+  flex-grow: 1;
+  padding-left: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+/* Falls Sidebar eingeklappt ist, soll mehr Platz genutzt werden */
+.app-container.collapsed #content {
+  margin-left: 0;
+}

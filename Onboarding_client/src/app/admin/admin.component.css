@@ -1,72 +1,144 @@
-mat-expansion-panel {
-  margin-bottom: 12px;
-  border-radius: 8px;
-  background: #ffffff;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.15);
+/* 🌟 Benutzer-Karten */
+.user-card {
+  margin-bottom: 20px;
 }
 
-mat-expansion-panel-header {
-  font-weight: bold;
-  font-size: 1.1em;
-  color: #333;
+checklist-text {
+  font-size: 16px;
+  gap: 1px;
 }
 
-.checklist-card, .user-checklist-card {
+/* 🎛 Benutzeraktionen */
+.user-actions {
+  display: flex;
+  flex-direction: column;  /* 🔹 Align buttons vertically */
+  align-items: flex-end;   /* 🔹 Stick to the right */
+  gap: 8px;                /* 🔹 Adds spacing between buttons */
+}
+
+.user-actions button {
+  font-size: 16px;
+  min-width: 150px;       /* 🔹 Uniform button width */
+  text-align: left;       /* 🔹 Align icon and text properly */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* 🎚 Dropdown-Menü */
+
+
+/* 🔍 Suchfeld */
+input[type="text"] {
+  width: 100%;
   padding: 12px;
-  margin: 10px 0;
-  background: #f9f9f9;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+/* 📱 Responsive Anpassung */
+@media (max-width: 768px) {
+  .user-actions {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .user-actions button {
+    min-width: auto;
+    font-size: 14px;
+  }
+}
+
+/* 🎨 Search Input Styling */
+.search-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  margin: 10px auto;
+  position: relative;
+}
+
+.search-container input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease-in-out;
+  background-color: #f9f9f9;
+}
+
+/* 🔵 Smooth focus effect */
+.search-container input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+  background-color: #fff;
+}
+
+/* ✨ Typing Animation Effect */
+@keyframes typing {
+  from { opacity: 0.5; }
+  to { opacity: 1; }
+}
+
+.search-container input:focus::placeholder {
+  opacity: 0.6;
+  transition: opacity 0.3s ease-in-out;
+}
+
+
+
+.user-checklist-card {
+  width: 100%;
+  margin: 20px auto;
+  padding: 15px;
   border-radius: 10px;
-  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-mat-card-title {
-  font-weight: bold;
-  font-size: 1.2em;
-  color: #444;
+.checklist-item {
   display: flex;
   align-items: center;
-  gap: 5px;
-}
-
-mat-list {
   padding: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
-mat-list-item {
+.checklist-checkbox {
+  width: 100%;
   display: flex;
   align-items: center;
-  padding: 6px 0;
 }
 
-.item-title {
-  font-weight: bold;
-  color: #212121;
+.checklist-text {
   margin-left: 10px;
 }
 
-.secondary {
-  font-size: 0.9em;
-  color: #757575;
-  margin-left: auto;
-}
-
-mat-divider {
-  margin: 10px 0;
-}
-
-mat-button-toggle-group {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 10px;
-}
-
-mat-card-actions {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-}
-
-button {
-  border-radius: 6px;
+.item-name {
   font-weight: bold;
+  font-size: 16px;
+  margin-bottom: -17px;
 }
+
+.item-details {
+  font-size: 14px;
+  color: gray;
+}
+.locked {
+  background-color: #e0e0e0 !important; /* Grauer Hintergrund */
+  opacity: 0.6; /* Halbtransparenz */
+}
+
+.locked .checklist-text {
+  color: #757575 !important; /* Grauer Text */
+}
+
+.locked mat-checkbox {
+  opacity: 0.6;
+}
+

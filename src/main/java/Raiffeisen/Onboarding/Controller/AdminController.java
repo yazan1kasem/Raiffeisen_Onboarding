@@ -48,11 +48,10 @@ public class AdminController {
     private PasswordEncoder passwordEncoder;
 
     //    UPDATE checklisten.
-    @PutMapping("/checklist/{id}")
+    @PutMapping("/checklist")
     public ResponseEntity<CheckList> updateCheckListen(
-            @PathVariable String id,
             @RequestBody CheckList checkListenDetails) {
-        return checkListenRepository.findById(id).map(existingCheckList -> {
+        return checkListenRepository.findById(checkListenDetails.getId()).map(existingCheckList -> {
             existingCheckList= checkListenDetails;
             CheckList updatedCheckList = checkListenRepository.save(existingCheckList);
             return ResponseEntity.ok(updatedCheckList);

@@ -10,7 +10,7 @@ import {User} from "./models/user";
 })
 export class AuthService {
   private apiUrl = 'http://localhost:8081/auth'; // Ersetze mit deiner API-URL
-  private api2Url = 'http://localhost:8081/'; // Ersetze mit deiner API-URL
+  private allurl = 'http://localhost:8081/'; // Ersetze mit deiner API-URL
 
   constructor(private http: HttpClient) {}
 
@@ -84,7 +84,7 @@ export class AuthService {
   }
 
   getUser(): Observable<User> {
-    return this.http.get<User>(`${this.api2Url}users/me`, { headers: this.getAuthHeaders() });
+    return this.http.get<User>(`${this.allurl}users/me`, { headers: this.getAuthHeaders() });
   }
 }
 
