@@ -1,0 +1,15 @@
+/* In `Onboarding_client/src/app/passwort-dialog/passwort-dialog.component.css` */
+.cdk-overlay-pane {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none; /* Allows clicking outside to close the dialog */
+}
+:host {
+  display: block;
+  background: #fff;
+  border-radius: 8px;
+  padding: 8px 16px;
+  pointer-events: auto; /* Allows interaction with the dialog */
+  cursor: move; /* Indicates the dialog can be moved */
+}
