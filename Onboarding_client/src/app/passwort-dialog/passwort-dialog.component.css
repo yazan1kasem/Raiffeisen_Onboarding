@@ -11,5 +11,4 @@
   border-radius: 8px;
   padding: 8px 16px;
   pointer-events: auto; /* Allows interaction with the dialog */
-  cursor: move; /* Indicates the dialog can be moved */
 }

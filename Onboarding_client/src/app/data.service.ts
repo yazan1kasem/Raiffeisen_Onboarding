@@ -131,11 +131,11 @@ export class DataService {
     );
   }
 
-  grantUserAccess(id: string, isActive:boolean): Observable<void> {
-    return this.http.put<void>(`${this.superAdminurl}/users/${id}/grant-access?isActive=${isActive}`, {}, { headers: this.getAuthHeaders() }).pipe(
-      catchError(this.handleError<void>('grantuseraccess'))
-    );
+  grantUserAccess(id: string, isActive: boolean): Observable<void> {
+    return this.http.put<void>(`${this.superAdminurl}/users/${id}/grant-access/${isActive}`, { headers: this.getAuthHeaders() })
+      .pipe(catchError(this.handleError<void>('grantuseraccess')));
   }
+
 
   enableuser(id:string, isActive:boolean): Observable<void> {
     return this.http.put<void>(`${this.superAdminurl}/users/${id}/blockuser/${isActive}`, { headers: this.getAuthHeaders() }).pipe(

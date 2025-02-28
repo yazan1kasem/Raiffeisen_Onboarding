@@ -5,9 +5,9 @@ import string
 from faker import Faker
 
 BASE_URL = "http://localhost:8081"
-NUM_SIGNUP = 1000
-NUM_LOGIN = 0
-NUM_CHECKLIST = 0
+NUM_SIGNUP = 10
+NUM_LOGIN = 10
+NUM_CHECKLIST = 10
 
 fake = Faker()
 
@@ -19,7 +19,7 @@ async def signup():
     """Registriert einen Benutzer und speichert das Passwort-Hash."""
     # Zufälliger Username erstellen
     username = fake.user_name() + ''.join(random.choices(string.digits, k=3))  # Zufälliger Username
-    password = "Test@1234"
+    password = "root"
 
     async with httpx.AsyncClient() as client:
         response = await client.post(f"{BASE_URL}/auth/signup", json={"username": username, "password": password})

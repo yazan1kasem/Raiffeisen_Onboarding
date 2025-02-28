@@ -34,7 +34,7 @@ import {NgIf} from "@angular/common";
 export class PasswortDialogComponent implements OnInit {
   passwordForm!: FormGroup;
   user: User;
-
+  minLength = 10;
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<PasswortDialogComponent>,
@@ -45,7 +45,7 @@ export class PasswortDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.passwordForm = this.fb.group({
-      newPassword: ['', [Validators.required, Validators.minLength(1)]],
+      newPassword: ['', [Validators.required, Validators.minLength(this.minLength)]],
       confirmPassword: ['', Validators.required]
     }, { validators: this.passwordMatchValidator }); // ✅ Use `validators` instead of `validator`
   }
