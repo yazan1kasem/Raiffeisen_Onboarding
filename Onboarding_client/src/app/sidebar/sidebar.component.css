@@ -144,6 +144,10 @@
   transition: transform 0.3s ease-in-out;
 }
 
+.floating-logout{
+  display: none;
+}
+
 #sidebar .logout-container button:hover img {
   transform: rotate(180deg);
 }

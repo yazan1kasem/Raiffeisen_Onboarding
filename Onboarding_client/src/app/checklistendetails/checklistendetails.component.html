@@ -3,7 +3,7 @@
   <label for="checklist-title">Titel:</label>
   <input id="checklist-title" [(ngModel)]="ueberschrift" placeholder="Checklisten-Titel eingeben" />
   <ul class="item-list">
-    <li *ngFor="let item of filteredItems">
+    <li *ngFor="let item of filteredItems" class="item-row">
       <input type="checkbox" (change)="toggleItemSelection(item)" />
       {{ item.name }}
       <span class="info-icon" (click)="toggleInfoBox(item)">ℹ️</span>
@@ -13,4 +13,7 @@
     </li>
   </ul>
   <button class="save-button" (click)="createUserChecklist()">Checkliste speichern</button>
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
 </div>

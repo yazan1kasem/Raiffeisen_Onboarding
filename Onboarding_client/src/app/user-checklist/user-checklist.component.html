@@ -1,12 +1,15 @@
 <div class="checklist-details-container" *ngIf="userChecklist">
   <h2>
-    <input [(ngModel)]="userChecklist.ueberschrift" placeholder="Checklisten-Titel eingeben" />
+    <input [(ngModel)]="userChecklist.ueberschrift" placeholder="Checklisten-Titel eingeben" [disabled]="userChecklist.isLocked" />
   </h2>
   <p>Erstellt am: {{ userChecklist.createdAt | date:'dd.MM.yyyy, HH:mm:ss' }}</p>
   <p>Zuletzt aktualisiert am: {{ userChecklist.updatedAt | date:'dd.MM.yyyy, HH:mm:ss' }}</p>
-  <ul class="item-list">
+  <p [ngClass]="{'status-in-progress': userChecklist.status === ChecklistStatus.IN_PROGRESS, 'status-complete': userChecklist.status === ChecklistStatus.COMPLETED}">
+    Status: {{ userChecklist.status === ChecklistStatus.IN_PROGRESS ? 'In Bearbeitung' : 'Abgeschlossen' }}
+  </p>
+  <ul class="item-list" [ngClass]="{'locked': userChecklist.isLocked}">
     <li *ngFor="let item of userChecklist.useritems">
-      <input type="checkbox" [(ngModel)]="item.isChecked" />
+      <input type="checkbox" [(ngModel)]="item.isChecked" (change)="updateChecklistStatus()" [disabled]="userChecklist.isLocked" />
       <div>{{ item.originalItem.name }}</div>
       <span class="info-icon" (click)="toggleInfoBox(item)">ℹ️</span>
       <div class="info-box" *ngIf="selectedItem === item">
@@ -14,8 +17,8 @@
       </div>
     </li>
   </ul>
-  <button (click)="saveUserChecklist()">Änderungen speichern</button>
-  <button (click)="deleteUserChecklist()">Checkliste löschen</button>
+  <button (click)="saveUserChecklist()" [disabled]="userChecklist.isLocked">Änderungen speichern</button>
+  <button (click)="deleteUserChecklist()" [disabled]="userChecklist.isLocked">Checkliste löschen</button>
   <hr />
   <h3>Exportoptionen</h3>
   <button (click)="downloadExcel()">📊 Excel herunterladen</button>

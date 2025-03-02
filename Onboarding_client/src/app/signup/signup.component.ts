@@ -13,7 +13,7 @@ import { AuthService } from "../auth.service";
     RouterLink
   ],
   templateUrl: './signup.component.html',
-  styleUrl: './signup.component.css'
+  styleUrls: ['./signup.component.css']
 })
 export class SignupComponent {
   name: string = '';
@@ -22,37 +22,41 @@ export class SignupComponent {
   errorMessage: string = '';
   successMessage: string = '';
 
-  constructor(private router: Router, private authservice: AuthService) {}
-
+  constructor(private router: Router, private authService: AuthService) {}
 
   onSubmit(): void {
     this.errorMessage = '';
     this.successMessage = '';
 
+    const usernameRegex = /^[a-zA-Z0-9]+$/;
 
-    if (!this.name || !this.password || !this.confirmPassword) {
-      this.errorMessage = 'All fields are required.';
+    if (!this.name || !usernameRegex.test(this.name)) {
+      this.errorMessage = 'Benutzername ist leer oder enthält unzulässige Zeichen.';
       return;
     }
 
-    if (this.password !== this.confirmPassword) {
-      this.errorMessage = 'Passwords do not match.';
+    if (!this.password) {
+      this.errorMessage = 'Passwort ist leer.';
       return;
     }
 
-    this.authservice.signup(this.name, this.password).subscribe({
+    this.authService.signup(this.name, this.password).subscribe({
       next: () => {
-        this.authservice.login(this.name, this.password).subscribe({
+        this.authService.login(this.name, this.password).subscribe({
           next: () => {
             this.router.navigate(['/checklist']);
           },
           error: (loginError) => {
-            this.errorMessage = 'Login failed: ' + loginError.message;
+            this.errorMessage = 'Technischer/Serverseitiger Fehler: ' + loginError.message;
           }
         });
       },
       error: (signupError) => {
-        this.errorMessage = 'Signup failed: ' + signupError.message;
+        if (signupError.status === 409) {
+          this.errorMessage = 'Benutzername bereits vergeben.';
+        } else {
+          this.errorMessage = 'Benutzername bereits vergeben. ';
+        }
       }
     });
   }
