@@ -14,7 +14,6 @@
 }
 .checklist-container {
   width: calc(100%);
-  padding: 20px;
   transition: margin-left 0.3s ease;
 }
 

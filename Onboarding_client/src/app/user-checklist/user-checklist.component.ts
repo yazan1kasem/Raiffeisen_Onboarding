@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../data.service';
-import { UserChecklist } from '../models/user_checklist';
+import { ChecklistStatus, UserChecklist } from '../models/user_checklist';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { UserChecklistItems } from '../models/user_checklist_items'; // Ensure this import is present
-
-
+import { UserChecklistItems } from '../models/user_checklist_items';
 
 @Component({
   selector: 'app-user-checklist',
@@ -17,7 +15,7 @@ import { UserChecklistItems } from '../models/user_checklist_items'; // Ensure t
 })
 export class UserChecklistComponent implements OnInit {
   userChecklist: UserChecklist | null = null;
-  selectedItem: UserChecklistItems | null = null; // Add this line
+  selectedItem: UserChecklistItems | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -25,13 +23,13 @@ export class UserChecklistComponent implements OnInit {
     private router: Router,
   ) {}
 
-
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
     if (id) {
       this.dataService.getUserChecklist(id).subscribe({
         next: (userChecklist: UserChecklist) => {
           this.userChecklist = userChecklist;
+          this.updateChecklistStatus();
         },
         error: (err) => {
           console.error('Fehler beim Laden der Benutzer-Checkliste:', err);
@@ -43,16 +41,17 @@ export class UserChecklistComponent implements OnInit {
   }
 
   toggleInfoBox(item: UserChecklistItems): void {
-    this.selectedItem = this.selectedItem === item ? null : item;
+    if (!this.userChecklist?.isLocked) {
+      this.selectedItem = this.selectedItem === item ? null : item;
+    }
   }
 
   saveUserChecklist(): void {
-    if (!this.userChecklist) {
-      console.error('Fehler: Benutzer-Checkliste ist null');
+    if (!this.userChecklist || this.userChecklist.isLocked) {
+      console.error('Fehler: Benutzer-Checkliste ist null oder gesperrt');
       return;
     }
 
-    // Update the updatedAt field with the current date and time
     const updatedChecklist = { ...this.userChecklist, updatedAt: new Date() };
 
     this.dataService.updateUserChecklist(updatedChecklist).subscribe({
@@ -61,10 +60,9 @@ export class UserChecklistComponent implements OnInit {
     });
   }
 
-
   deleteUserChecklist(): void {
-    if (!this.userChecklist) {
-      console.error('Fehler: Benutzer-Checkliste ist null');
+    if (!this.userChecklist || this.userChecklist.isLocked) {
+      console.error('Fehler: Benutzer-Checkliste ist null oder gesperrt');
       return;
     }
 
@@ -97,4 +95,13 @@ export class UserChecklistComponent implements OnInit {
       console.error('Keine Benutzer-Checkliste zum Herunterladen verfügbar');
     }
   }
+
+  protected updateChecklistStatus(): void {
+    if (this.userChecklist) {
+      const allItemsChecked = this.userChecklist.useritems.every(item => item.isChecked);
+      this.userChecklist.status = allItemsChecked ? ChecklistStatus.COMPLETED : ChecklistStatus.IN_PROGRESS;
+    }
+  }
+
+  protected readonly ChecklistStatus = ChecklistStatus;
 }

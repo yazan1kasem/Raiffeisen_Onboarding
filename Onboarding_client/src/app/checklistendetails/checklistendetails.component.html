@@ -1,11 +1,19 @@
 <div class="checklist-details-container" *ngIf="checklist">
-  <h1>Checklisten-Details</h1>
+  <h1>{{ checklist.abteilungsname }} - {{ checklist.position }}</h1>
   <label for="checklist-title">Titel:</label>
   <input id="checklist-title" [(ngModel)]="ueberschrift" placeholder="Checklisten-Titel eingeben" />
+
+  <label for="type-filter">Filter by Type:</label>
+  <select id="type-filter" [(ngModel)]="selectedType" (change)="filterItemsByType()">
+    <option value="">All</option>
+    <option *ngFor="let type of itemTypes" [value]="type">{{ type }}</option>
+  </select>
+
   <ul class="item-list">
-    <li *ngFor="let item of filteredItems">
+    <li *ngFor="let item of filteredItems" class="item-row">
       <input type="checkbox" (change)="toggleItemSelection(item)" />
-      {{ item.name }}
+      <div class="item-name">{{ item.name }}</div>
+      <div class="item-type">{{ item.type }}</div>
       <span class="info-icon" (click)="toggleInfoBox(item)">ℹ️</span>
       <div class="info-box" *ngIf="selectedItem === item">
         Suchbegriffe: {{ item.suchbegriff }}
@@ -13,4 +21,7 @@
     </li>
   </ul>
   <button class="save-button" (click)="createUserChecklist()">Checkliste speichern</button>
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
 </div>

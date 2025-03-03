@@ -4,7 +4,6 @@ import { Checklist } from '../models/checklist';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import {writeErrorToLogFile} from "@angular/cli/src/utilities/log-file";
 
 @Component({
   selector: 'app-checklist',
@@ -36,13 +35,25 @@ export class ChecklistComponent implements OnInit {
       this.filteredChecklists = data;
 
       this.abteilungen = [...new Set(data.map((checklist) => checklist.abteilungsname))];
-      this.positions = [...new Set(data.map((checklist) => checklist.position))];
+      this.updatePositions();
     });
-
   }
 
   onFilterChange(): void {
+    this.updatePositions();
     this.filterChecklists();
+  }
+
+  updatePositions(): void {
+    if (this.selectedDepartment) {
+      this.positions = [...new Set(
+        this.checklists
+          .filter((checklist) => checklist.abteilungsname === this.selectedDepartment)
+          .map((checklist) => checklist.position)
+      )];
+    } else {
+      this.positions = [...new Set(this.checklists.map((checklist) => checklist.position))];
+    }
   }
 
   filterChecklists(): void {

@@ -1,13 +1,13 @@
 <div class="signup-container">
-  <h2 class="signup-header">Create Your Account</h2>
+  <h2 class="signup-header">Sign Up</h2>
 
-
-
-
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
 
   <form (ngSubmit)="onSubmit()" #signupForm="ngForm">
     <div class="form-group">
-      <label for="name">Username</label>
+      <label for="name">Benutzername</label>
       <input
         type="text"
         id="name"
@@ -15,11 +15,12 @@
         [(ngModel)]="name"
         name="name"
         required
-        placeholder="Enter your username"
+        placeholder="Geben Sie Ihren Benutzernamen ein"
       />
     </div>
+
     <div class="form-group">
-      <label for="password">Password</label>
+      <label for="password">Passwort</label>
       <input
         type="password"
         id="password"
@@ -27,11 +28,12 @@
         [(ngModel)]="password"
         name="password"
         required
-        placeholder="Enter your password"
+        placeholder="Geben Sie Ihr Passwort ein"
       />
     </div>
+
     <div class="form-group">
-      <label for="confirmPassword">Confirm Password</label>
+      <label for="confirmPassword">Passwort bestätigen</label>
       <input
         type="password"
         id="confirmPassword"
@@ -39,16 +41,14 @@
         [(ngModel)]="confirmPassword"
         name="confirmPassword"
         required
-        placeholder="Re-enter your password"
+        placeholder="Bestätigen Sie Ihr Passwort"
       />
     </div>
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
-    </div>
+
     <button type="submit" class="btn btn-raiffeisen btn-block">Sign Up</button>
   </form>
 
   <p class="login-link">
-    Already have an account? <a routerLink="/login">Log In</a>
+    Haben Sie bereits ein Konto? <a routerLink="/login">Login</a>
   </p>
 </div>

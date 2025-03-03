@@ -1,11 +1,9 @@
 <div class="login-container">
   <h2 class="signup-header">Login</h2>
 
-
   <div *ngIf="errorMessage" class="error-message">
     {{ errorMessage }}
   </div>
-
 
   <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
     <div class="form-group">
@@ -40,4 +38,8 @@
   <p class="login-link">
     Noch kein Konto? <a routerLink="/signup">Sign Up</a>
   </p>
+
+  <div class="info-box">
+    <p>Wenn Sie Ihr Passwort vergessen haben, wenden Sie sich bitte an den SuperAdmin.</p>
+  </div>
 </div>
