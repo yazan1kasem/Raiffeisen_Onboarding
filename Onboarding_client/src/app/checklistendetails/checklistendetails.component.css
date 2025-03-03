@@ -1,99 +1,217 @@
-/* Container für die Checklisten-Details */
-.checklist-details-container {
-  max-width: 1000px;
-  margin: 20px auto;
-  padding: 20px 20px 20px 0; /* Adjust padding to account for sidebar */
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  border: 1px solid #ddd; /* Feine Umrandung */
+/* Grundlayout */
+body {
+  font-family: 'Roboto', Arial, sans-serif;  /* Moderne, gut lesbare Schriftart */
+  background-color: #101820; /* Dunkelblau-Schwarz-Hintergrund für Eleganz */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  height: 100vh;
+  color: #eaeaea; /* Helle Schriftfarbe für guten Kontrast */
 }
 
-/* Filtercontainer */
+/* Überschrift für Position und Abteilung */
+.section-header {
+  font-size: 2.8rem;
+  color: #ffd700; /* Gelb */
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 250px;
+  background-color: #2c3e50; /* Dunkles Blau */
+  color: #f1f1f1; /* Helle Schriftfarbe */
+  padding: 20px;
+  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.25);
+  height: 100%;
+}
+
+/* Hauptbereich */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  overflow-y: auto;
+  background-color: #ecf0f1; /* Helles Grau für den Hauptbereich */
+}
+
+/* Überschrift */
+.main-content h1 {
+  font-size: 2.8rem;
+  color: #ffd700; /* Gelb */
+  text-align: center;
+  margin-bottom: 30px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+/* Titel-Label */
+label {
+  font-size: 1.3rem;
+  font-weight: bold;
+  color: #ffd700;
+  display: block;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Titel-Input */
+#checklist-title, #type-filter {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.1rem;
+  border: 2px solid #ffd700; /* Gelber Rand für Input */
+  border-radius: 8px;
+  outline: none;
+  background-color: #343a40; /* Dunkelgrau für den Hintergrund */
+  color: #ffd700; /* Gelbe Schrift für bessere Lesbarkeit */
+  transition: all 0.3s ease;
+  margin-bottom: 20px; /* Abstand zwischen Dropdown und Items */
+}
+
+#checklist-title:focus, #type-filter:focus {
+  border-color: #f1c40f; /* Hellerer Gelbton beim Fokussieren */
+  box-shadow: 0 0 10px rgba(243, 156, 18, 0.3);
+}
+
+/* Filterfeld */
 .filter-container {
+  text-align: center;
   margin-bottom: 20px;
 }
 
-/* Flexibles Grid-System für die Items */
+.filter-container input {
+  padding: 12px 18px;
+  width: 100%;
+  max-width: 500px;
+  border: 1px solid #bbb;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+/* Checklisten-Items */
 .item-list {
   list-style: none;
-  padding: 0;
-  margin-top: 10px;
-  display: flex;
-  flex-direction: column; /* Display items in a column */
-  gap: 15px; /* Abstand zwischen den Items */
-}
-
-/* Styling für jedes Item */
-.item-list li {
-  background-color: #343a40; /* Dunkler Hintergrund */
-  color: #f8f9fa; /* Helle Schriftfarbe */
-  border: 1px solid #f8f9fa; /* Helle Umrandung */
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 10px 15px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 15px;
+  padding: 0;
+  margin: 0;
 }
 
-/* Hover-Effekt für die Items */
+.item-list li {
+  display: flex;
+  align-items: center;
+  background: #343a40; /* Dunkelgrau für die Items */
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 16px;
+  transition: all 0.3s ease;
+  gap: 15px;
+  font-size: 1.1rem;
+  color: #ffd700; /* Gelber Text */
+  font-weight: 500;
+}
+
 .item-list li:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  transform: translateY(-5px);
+  background-color: #212529; /* Dunkelgrau bei Hover */
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Checkbox */
+input[type="checkbox"] {
+  transform: scale(1.4);
   cursor: pointer;
+  accent-color: #ffd700; /* Gelbe Checkbox */
+}
+
+/* Info-Icon */
+.info-icon {
+  font-size: 1.2rem;
+  color: #888; /* Grauer Farbton */
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.info-icon:hover {
+  color: #ffd700; /* Gelb bei Hover */
 }
 
 /* Speichern-Button */
 .save-button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #ffc107; /* Gelber Hintergrund */
-  color: #212529; /* Dunkle Schriftfarbe */
+  display: block;
+  width: fit-content;
+  margin: 30px auto;
+  padding: 14px 40px;
+  background: linear-gradient(135deg, #ffd700, #f1c40f); /* Gelber Verlauf */
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 30px;
   cursor: pointer;
-  font-weight: bold; /* Fettgedruckter Text */
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(243, 156, 18, 0.25);
 }
 
-/* Hover-Effekt für den Speichern-Button */
 .save-button:hover {
-  background-color: #e0a800; /* Etwas dunklerer Gelbton */
-  color: #ffffff; /* Weiße Schriftfarbe bei Hover */
-  transform: scale(1.05); /* Leichte Vergrößerung beim Hover */
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, #f1c40f, #ffd700); /* Umgekehrter Verlauf beim Hover */
 }
 
-/* Styling für die Checkboxen */
-.checklist-details-container input[type="checkbox"] {
-  transform: scale(1.7); /* Größere Checkboxen */
-  margin-right: 15px; /* Mehr Abstand zum Text */
-  vertical-align: middle;
-}
-
-/* Styling für das Label (Text neben der Checkbox) */
-.checklist-details-container label {
-  font-size: 1.3rem; /* Größere Schriftgröße */
-  cursor: pointer;
-}
-
-.info-icon {
-  margin-left: 10px;
-  cursor: pointer;
-  font-size: 1.2rem;
-}
-
-.info-box {
-  background-color: #212529;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 10px;
-  margin-top: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
+/* Fehlermeldung */
 .error-message {
-  color: red;
-  margin-top: 10px;
-  margin-bottom: 20px; /* Ensure space below the error message */
+  color: #e74c3c; /* Rotes Fehlerformat */
+  font-weight: bold;
+  text-align: center;
+  margin-top: 15px;
+}
+
+/* Info-Box */
+.info-box {
+  background-color: #ffd700; /* Gelber Hintergrund */
+  border: 1px solid #f39c12;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: #333; /* Dunklere Farbe für den Text */
+  margin-top: 8px;
+}
+
+/* Responsiv für kleine Screens */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #2c3e50;
+    color: white;
+  }
+
+  .main-content {
+    padding: 10px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+}
+
+.item-type {
+  font-style: italic;
+  color: #666;
 }

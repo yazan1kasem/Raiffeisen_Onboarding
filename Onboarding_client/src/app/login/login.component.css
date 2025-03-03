@@ -47,13 +47,13 @@
 }
 
 .form-group input:focus {
-  border-color: #fee600; /* Highlight in Raiffeisen yellow */
+  border-color: #ffc107; /* Highlight in Raiffeisen yellow */
   outline: none;
 }
 
 /* Button Styling */
 .btn-raiffeisen {
-  background-color: #fee600; /* Raiffeisen yellow */
+  background-color: #ffc107; /* Raiffeisen yellow */
   color: #212529; /* Dark text */
   font-size: 1rem;
   font-weight: bold;
@@ -64,7 +64,7 @@
 }
 
 .btn-raiffeisen:hover {
-  background-color: #ffd403; /* Darker yellow */
+  background-color: #e0a800; /* Darker yellow */
   transform: scale(1.03); /* Subtle hover effect */
   cursor: pointer
 }
@@ -82,7 +82,7 @@
 }
 
 .login-link a {
-  color: #FFD403;
+  color: #ffc107;
   text-decoration: none;
   font-weight: bold;
 }

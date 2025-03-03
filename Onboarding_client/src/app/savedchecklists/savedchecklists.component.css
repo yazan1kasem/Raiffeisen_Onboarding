@@ -3,7 +3,7 @@
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #ffffff; /* Weißer Hintergrund */
+  background-color: #1C1C2E; /* Dunkles Blau */
 }
 
 .checklist-list {
@@ -12,7 +12,7 @@
   margin: 0;
   width: 80%;
   max-width: 700px; /* Breitere Liste */
-  background-color: #f8f9fa; /* Helles Grau für Kontrast */
+  background-color: #1C1C2E; /* Helles Grau für Kontrast */
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Dezenter Schatten */
   border-radius: 12px; /* Leicht abgerundete Kanten */
   overflow: hidden;
@@ -62,6 +62,26 @@ button:hover {
   transform: scale(1.05);
 }
 
+/* Titel-Input */
+#checklist-title {
+  width: 100%;
+  padding: 14px;
+  font-size: 2.8rem; /* Große Schriftgröße */
+  border: 2px solid #ffd700; /* Gelber Rand für Input */
+  border-radius: 8px;
+  outline: none;
+  background-color: #343a40; /* Dunkelgrau für den Hintergrund */
+  color: #ffd700; /* Gelbe Schrift für bessere Lesbarkeit */
+  transition: all 0.3s ease;
+  margin-bottom: 20px; /* Abstand zwischen Dropdown und Items */
+  text-align: center; /* Zentriert den Text */
+}
+
+#checklist-title:focus {
+  border-color: #f1c40f; /* Hellerer Gelbton beim Fokussieren */
+  box-shadow: 0 0 10px rgba(243, 156, 18, 0.3);
+}
+
 /* Responsive Anpassungen für kleinere Bildschirme */
 @media (max-width: 768px) {
   .checklist-list {
@@ -85,3 +105,4 @@ button:hover {
     margin-top: 10px;
   }
 }
+

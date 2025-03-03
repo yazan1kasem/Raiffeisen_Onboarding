@@ -27,6 +27,8 @@ export class ChecklistendetailsComponent implements OnInit {
   user?: User;
   selectedItem: Item | null = null;
   errorMessage: string = ''; // Fehlermeldung hinzufügen
+  selectedType: string = '';
+  itemTypes: string[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -54,6 +56,7 @@ export class ChecklistendetailsComponent implements OnInit {
           this.checklist = checklist;
           this.filteredItems = checklist.items;
           this.selectedItems = new Set<Item>();
+          this.itemTypes = [...new Set(checklist.items.map(item => item.type))];
           console.log('Checkliste geladen:', this.checklist);
         },
         error: (err) => {
@@ -75,6 +78,14 @@ export class ChecklistendetailsComponent implements OnInit {
 
   toggleInfoBox(item: Item): void {
     this.selectedItem = this.selectedItem === item ? null : item;
+  }
+
+  filterItemsByType(): void {
+    if (this.selectedType) {
+      this.filteredItems = this.checklist?.items.filter(item => item.type === this.selectedType) || [];
+    } else {
+      this.filteredItems = this.checklist?.items || [];
+    }
   }
 
   createUserChecklist(): void {
