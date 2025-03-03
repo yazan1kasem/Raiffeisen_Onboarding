@@ -23,6 +23,7 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, { username, password }).pipe(
       tap((response: any) => {
         localStorage.setItem('token', response.token);// Speichere den JWT-Token im Local Storage
+        localStorage.setItem('role', response.role);
       })
     );
   }

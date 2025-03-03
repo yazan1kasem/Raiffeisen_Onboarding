@@ -5,9 +5,9 @@ import string
 from faker import Faker
 
 BASE_URL = "http://localhost:8081"
-NUM_SIGNUP = 10
-NUM_LOGIN = 10
-NUM_CHECKLIST = 10
+NUM_SIGNUP = 500
+NUM_LOGIN = 1
+NUM_CHECKLIST = 1
 
 fake = Faker()
 

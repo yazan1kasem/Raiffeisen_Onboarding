@@ -19,10 +19,10 @@
         <span *ngIf="!isCollapsed">Deine Checklisten</span>
       </a>
     </li>
-    <li>
-      <a routerLink="/admin">
+    <li *ngIf="isAdmin()">
+      <a  routerLink="/admin">
         <img src="assets/AdminIcon.png" alt="Admin" class="sidebar-icon" width="32" height="32">
-        <span *ngIf="isAdmin() && !isCollapsed">Admin</span>
+        <span *ngIf=" !isCollapsed">Admin</span>
       </a>
     </li>
   </ul>

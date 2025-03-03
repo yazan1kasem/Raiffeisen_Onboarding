@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 /*
-    * This class is responsible for handling requests from the admin.
+    * This class is responsible for handling requests from the admin and Superadmin.
     * The admin can also only get and UPDATE checklisten.
     * The admin can change user password.
     * The admin can also view all the checklisten.

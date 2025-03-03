@@ -1,15 +1,10 @@
 import {
   Component,
-  ElementRef,
-  importProvidersFrom,
-  inject,
   NgIterable,
   OnInit,
-  TemplateRef,
-  ViewChild,
   HostListener
 } from '@angular/core';
-import {ChecklistStatus, UserChecklist} from "../models/user_checklist";
+import { UserChecklist} from "../models/user_checklist";
 import {Role, User} from "../models/user";
 import {MatExpansionModule} from "@angular/material/expansion";
 import {Checklist} from "../models/checklist";
@@ -17,22 +12,18 @@ import {FormsModule} from "@angular/forms";
 import {CommonModule} from "@angular/common";
 import {DataService} from "../data.service";
 import {Item} from "../models/item";
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatListModule} from "@angular/material/list";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatCardModule} from "@angular/material/card";
-import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import {MatIconModule} from "@angular/material/icon";
-import {MatLineModule} from "@angular/material/core";
 import {MatButtonModule} from "@angular/material/button";
-import {BehaviorSubject, merge} from 'rxjs';
-import { tap } from 'rxjs/operators';
-import {MatDialog, MatDialogActions, MatDialogClose, MatDialogContent, MatDialogModule} from '@angular/material/dialog';
+import {forkJoin} from 'rxjs';
+import {MatDialog, MatDialogActions, MatDialogClose, MatDialogContent} from '@angular/material/dialog';
 import {PasswortDialogComponent} from "../passwort-dialog/passwort-dialog.component";
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatTooltip} from "@angular/material/tooltip";
+
 /*
 *  ng add @angular/material must be installed to use the MatExpansionModule
 * */
@@ -46,17 +37,16 @@ import {MatFormFieldModule} from '@angular/material/form-field';
     MatListModule,
     MatCheckboxModule,
     MatCardModule,
-    MatButtonToggleModule,
     MatIconModule,
-    MatLineModule,
     MatButtonModule,
-    MatInputModule,
     MatDialogClose,
     MatDialogContent,
     MatDialogActions,
     MatMenu,
     MatMenuTrigger,
-    MatMenuItem
+    MatMenuItem,
+    MatTooltip,
+
   ],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css',
@@ -69,28 +59,48 @@ export class AdminComponent implements OnInit {
   filteredUsers: User[] = [];
   checklists: Checklist[] = [];
   items: Item[] = [];
-  loadinguser = true;
-  loadingchecklist = true;
+  loadingUser = true;
+  loadingChecklist = true;
   protected readonly Role = Role;
   // Stacks zur Speicherung von Zuständen
   private undoStack: any[] = [];
   private redoStack: any[] = [];
+  showUser: boolean = false;
+  showChecklist: boolean = true;
 
-  @ViewChild('scrollContainer', { static: false }) scrollContainer: ElementRef | undefined;
+  showButtons = true;
+
 
   constructor(
     private dialog: MatDialog,
-    private dataservice: DataService,
+    private dataService: DataService,
     private snackBar: MatSnackBar
   ) {}
 
   filterUsers() {
     const searchTerm = this.search.toLowerCase();
-    this.filteredUsers = this.users.filter(user =>
-      user.username.toLowerCase().includes(searchTerm) ||
-      user.role!.toLowerCase().includes(searchTerm)
-    );
+
+    this.filteredUsers = this.users.filter(user => {
+      // 1) Passt Benutzername oder Rolle?
+      const userMatches = user.username.toLowerCase().includes(searchTerm)
+        || user.role?.toLowerCase().includes(searchTerm);
+
+      // 2) Checklists dieses Nutzers finden
+      const userChecklists = this.user_checklists.filter(
+        uc => uc.user.username === user.username
+      );
+
+      // 3) Stimmt die Überschrift?
+      const checklistsMatch = userChecklists.some(uc =>
+        uc.ueberschrift?.toLowerCase().includes(searchTerm)
+      );
+
+      // 4) User kommt in die gefilterte Liste,
+      //    wenn entweder userMatches ODER checklistsMatch true ist.
+      return userMatches || checklistsMatch;
+    });
   }
+
   @HostListener('window:keydown', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     if (event.ctrlKey && event.key.toLowerCase() === 'z') {
@@ -128,16 +138,40 @@ export class AdminComponent implements OnInit {
 
   // Undo-Funktion: Letzten Zustand wiederherstellen
   undo() {
-    if (this.undoStack.length > 0) {
-      const lastState = this.undoStack.pop();
-      // Aktuellen Zustand für Redo sichern
-      this.redoStack.push(this.getCurrentState());
-      this.restoreState(lastState);
-      this.snackBar.open('Undo durchgeführt', 'Close', { duration: 3000 });
-    } else {
+    if (this.undoStack.length === 0) {
       this.snackBar.open('Keine Aktionen zum Rückgängig machen', 'Close', { duration: 3000 });
+      return;
     }
+
+    const lastAction = this.undoStack.pop();
+
+    if (lastAction.type === 'checklist-update') {
+      // Für Redo vormerken
+      this.redoStack.push({
+        type: 'checklist-update',
+        oldChecklist: JSON.parse(JSON.stringify(
+          this.checklists.find(c => c.id === lastAction.oldChecklist.id)
+        ))
+      });
+
+      // Alte Checklist wieder einsetzen
+      const index = this.checklists.findIndex(c => c.id === lastAction.oldChecklist.id);
+      if (index !== -1) {
+        this.checklists[index] = lastAction.oldChecklist;
+        // Optional: Sofort zum Server syncen
+        this.dataService.updatechecklist(this.checklists[index]).subscribe({
+          next: () => {
+            this.snackBar.open('Undo durchgeführt.', 'Close', { duration: 3000 });
+          },
+          error: () => {
+            this.snackBar.open('Fehler beim Undo-Sync.', 'Close', { duration: 3000 });
+          }
+        });
+      }
+    }
+    // weitere Action-Typen ...
   }
+
 
   // Redo-Funktion: Letzten rückgängig gemachten Zustand wiederherstellen
   redo() {
@@ -151,6 +185,16 @@ export class AdminComponent implements OnInit {
       this.snackBar.open('Keine Aktionen zum Wiederherstellen', 'Close', { duration: 3000 });
     }
   }
+  private recordChecklistState(checklist: Checklist) {
+    // Kopie nur dieser Checkliste machen
+    const checklistClone = JSON.parse(JSON.stringify(checklist));
+    this.undoStack.push({
+      type: 'checklist-update',
+      oldChecklist: checklistClone
+    });
+    this.redoStack = [];
+  }
+
   /**
    * Synchronisiert den aktuellen Zustand mit dem Server.
    * Hier wird beispielhaft jede Checkliste einzeln upgedated.
@@ -160,7 +204,7 @@ export class AdminComponent implements OnInit {
   private syncStateWithServer() {
     // Beispiel: Alle Checklisten synchronisieren
     this.checklists.forEach(checklist => {
-      this.dataservice.updatechecklist(checklist).subscribe({
+      this.dataService.updatechecklist(checklist).subscribe({
         next: () => {
           console.log(`Checkliste "${checklist.abteilungsname}" wurde erfolgreich synchronisiert.`);
         },
@@ -177,40 +221,28 @@ export class AdminComponent implements OnInit {
     this.loadData();
   }
 
-  loadData() {
-    this.loadinguser = true;
-    this.loadingchecklist = true;
+  private loadData() {
+    this.loadingUser = true;
+    this.loadingChecklist = true;
 
-    const users$ = this.dataservice.getallusers().pipe(
-      tap(users => {
-        this.users = users.sort((a, b) => a.username.localeCompare(b.username));
-        this.loadinguser = false;
-        this.filterUsers();
-      })
-    );
-
-    const checklists$ = this.dataservice.getChecklists().pipe(
-      tap(checklists => {
+    forkJoin([
+      this.dataService.getChecklists(),
+      this.dataService.getuserchecklists(),
+      this.dataService.getallusers()
+    ]).subscribe({
+      next: ([checklists, userChecklists, users]) => {
         this.checklists = checklists;
-        this.loadingchecklist = false;
-      })
-    );
-
-    const userChecklists$ = this.dataservice.getuserchecklists().pipe(
-      tap(userChecklists => {
         this.user_checklists = userChecklists;
-      })
-    );
+        this.users = users.sort((a, b) => a.username.localeCompare(b.username));
 
-    const items$ = this.dataservice.getItems().pipe(
-      tap(items => {
-        this.items = items;
-      })
-    );
+        // Filter bei Bedarf
+        this.filterUsers();
 
-    merge(users$, checklists$, userChecklists$, items$).subscribe({
-      error: error => {
-        this.snackBar.open('Fehler beim Laden der Daten: ' + error, 'Close', { duration: 3000 });
+        this.loadingChecklist = false;
+        this.loadingUser = false;
+      },
+      error: (error) => {
+        this.snackBar.open('Fehler beim Laden: ' + error, 'Close', { duration: 3000 });
       }
     });
   }
@@ -225,7 +257,7 @@ export class AdminComponent implements OnInit {
 
   promoteUser(userid: User) {
     this.recordState();
-    this.dataservice.promoteuser(userid.username).subscribe({
+    this.dataService.promoteuser(userid.username).subscribe({
       next: () => {
         userid.role = Role.ADMIN;
         this.snackBar.open(userid.username + ' promoted to Admin', 'Close', { duration: 3000 });
@@ -238,7 +270,7 @@ export class AdminComponent implements OnInit {
 
   demoteUser(userid: User) {
     this.recordState();
-    this.dataservice.demoteuser(userid.username).subscribe({
+    this.dataService.demoteuser(userid.username).subscribe({
       next: () => {
         userid.role = Role.USER;
         this.snackBar.open(userid.username + ' demoted to User', 'Close', { duration: 3000 });
@@ -251,7 +283,7 @@ export class AdminComponent implements OnInit {
 
   deleteUser(userid: User) {
     this.recordState();
-    this.dataservice.deleteuser(userid.username).subscribe({
+    this.dataService.deleteuser(userid.username).subscribe({
       next: () => {
         const index = this.filteredUsers.indexOf(userid);
         if (index > -1) {
@@ -267,7 +299,7 @@ export class AdminComponent implements OnInit {
 
   deleteUserChecklist(checklistid: string) {
     this.recordState();
-    this.dataservice.deleteuserchecklist(checklistid).subscribe({
+    this.dataService.deleteuserchecklist(checklistid).subscribe({
       next: () => {
         this.snackBar.open('User Checklist gelöscht', 'Close', { duration: 3000 });
       },
@@ -279,7 +311,7 @@ export class AdminComponent implements OnInit {
 
   blockuserchecklist(userchecklist: UserChecklist) {
     this.recordState();
-    this.dataservice.blockUserChecklist(userchecklist.id).subscribe({
+    this.dataService.blockUserChecklist(userchecklist.id).subscribe({
       next: () => {
         this.snackBar.open('User Checklist blockiert', 'Close', { duration: 3000 });
         userchecklist.isLocked=true;
@@ -292,7 +324,7 @@ export class AdminComponent implements OnInit {
 
   unblockuserchecklist(userchecklist: UserChecklist) {
     this.recordState();
-    this.dataservice.unblockUserChecklist(userchecklist.id).subscribe({
+    this.dataService.unblockUserChecklist(userchecklist.id).subscribe({
       next: () => {
         this.snackBar.open('User Checklist entblockiert', 'Close', { duration: 3000 });
         userchecklist.isLocked=false;
@@ -305,7 +337,7 @@ export class AdminComponent implements OnInit {
 
   enableuser(userid: User, isblocked: boolean) {
     this.recordState();
-    this.dataservice.enableuser(userid.username, !isblocked).subscribe({
+    this.dataService.enableuser(userid.username, !isblocked).subscribe({
       next: () => {
         this.snackBar.open('User ' + userid.username + ' Status geändert', 'Close', { duration: 3000 });
         userid.enabled = !isblocked;
@@ -319,19 +351,20 @@ export class AdminComponent implements OnInit {
 
 
   addItem(checklist: Checklist) {
-    this.recordState();
+    this.recordChecklistState(checklist);
     checklist.items.push(new Item(Date.now().toString(), '', '', ''));
   }
 
+
   removeItem(checklist: Checklist, index: number) {
-    this.recordState();
+    this.recordChecklistState(checklist);
     checklist.items.splice(index, 1);
   }
 
   saveChecklist(checklist: Checklist) {
     this.recordState();
     console.log('Gespeicherte Checkliste:', checklist);
-    this.dataservice.updatechecklist(checklist).subscribe({
+    this.dataService.updatechecklist(checklist).subscribe({
       next: () => {
         this.snackBar.open('Checkliste gespeichert', 'Close', { duration: 3000 });
       },
@@ -353,7 +386,7 @@ export class AdminComponent implements OnInit {
     dialogRef.afterClosed().subscribe({
       next: result => {
         if (result) {
-          this.dataservice.changeuserpassword(user.username, result.newPassword).subscribe({
+          this.dataService.changeuserpassword(user.username, result.newPassword).subscribe({
             next: () => {
               this.snackBar.open('Passwort geändert', 'Close', { duration: 3000 });
             },
@@ -372,7 +405,7 @@ export class AdminComponent implements OnInit {
 
   grantaccess(user: User, b: boolean) {
     this.recordState();
-    this.dataservice.grantUserAccess(user.username, b).subscribe({
+    this.dataService.grantUserAccess(user.username, b).subscribe({
       next: () => {
         this.snackBar.open(
           user.username + ' Zugriff auf alle seine Checklisten ' + (b ? 'erlaubt': 'blockiert'),
@@ -390,5 +423,14 @@ export class AdminComponent implements OnInit {
   }
 
 
+  Showuser() {
+    this.showChecklist=false;
+    this.showUser=true;
+  }
+
+  ShowChecklists() {
+    this.showChecklist=true;
+    this.showUser=false;
+  }
 }
 

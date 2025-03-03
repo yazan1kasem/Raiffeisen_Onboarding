@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SavedchecklistsComponent } from './savedchecklists.component';
+import { SavedChecklistsComponent } from './savedchecklists.component';
 
 describe('SavedchecklistsComponent', () => {
-  let component: SavedchecklistsComponent;
-  let fixture: ComponentFixture<SavedchecklistsComponent>;
+  let component: SavedChecklistsComponent;
+  let fixture: ComponentFixture<SavedChecklistsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SavedchecklistsComponent]
+      imports: [SavedChecklistsComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SavedchecklistsComponent);
+    fixture = TestBed.createComponent(SavedChecklistsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,29 +1,33 @@
 <div class="wrapper">
+  <!-- Example: place at the bottom of your admin.component.html -->
+  <div class="scroll-buttons" [ngClass]="{ 'hide': !showButtons }">
+    <button   matTooltip="Show Users" aria-label="Show Users" mat-fab color="primary" (click)="Showuser()">
+        <mat-icon style="color: white;">people</mat-icon>
+    </button>
+    <button matTooltip="Show Checklist" aria-label="Show Checklist" mat-fab color="accent" (click)="ShowChecklists()">
+      <mat-icon>checklist</mat-icon>
+    </button>
+  </div>
+
   <!-- Checklisten -->
-  <div class="container">
+  <div *ngIf="showChecklist" id="checklistscontainer" class="container">
     <h2>Checklisten</h2>
-    <div *ngIf="loadingchecklist" class="loader"></div>
-    <div *ngIf="!loadingchecklist">
+    <div >
       <mat-accordion>
-        <mat-expansion-panel *ngFor="let checklist of checklists; let i = index">
+        <mat-expansion-panel *ngFor="let checklist of checklists">
           <mat-expansion-panel-header>
             <mat-panel-title>
-              <input [(ngModel)]="checklist.abteilungsname" placeholder="Abteilungsname" />
-              <input [(ngModel)]="checklist.position" placeholder="Position" />
+              {{checklist.abteilungsname}}-{{checklist.position}}
             </mat-panel-title>
           </mat-expansion-panel-header>
-          <div class="checklist-content">
-            <mat-list>
-              <mat-list-item *ngFor="let item of checklist.items; let j = index">
-                <input [(ngModel)]="item.name" placeholder="Item Name" />
-                <input [(ngModel)]="item.type" placeholder="Typ" />
-                <input [(ngModel)]="item.suchbegriff" placeholder="Suchbegriff" />
-                <button mat-icon-button color="warn" (click)="removeItem(checklist, j)">🗑</button>
-              </mat-list-item>
-            </mat-list>
-            <button mat-button color="accent" (click)="addItem(checklist)">+ Item hinzufügen</button>
+          <div class="checklist-content" *ngFor="let item of checklist.items; let j = index">
+                <input value="{{item.name}}" placeholder="Item Name" />
+                <input value="{{item.type}}" placeholder="Typ" />
+                <input value="{{item.suchbegriff}}" placeholder="Suchbegriff" />
+                <button (click)="removeItem(checklist, j)">🗑</button>
           </div>
           <div class="actions">
+            <button mat-button color="accent" (click)="addItem(checklist)">+ Item hinzufügen</button>
             <button mat-button color="primary" (click)="saveChecklist(checklist)">💾 Speichern</button>
           </div>
         </mat-expansion-panel>
@@ -32,7 +36,7 @@
   </div>
 
   <!-- User Management -->
-  <div class="container">
+  <div *ngIf="showUser" id="usercontainer" class="container">
     <h2>User {{ filteredUsers.length }}</h2>
     <div class="search-container">
       <input
@@ -42,8 +46,8 @@
         placeholder="🔍 Suche Benutzer, Rolle..."
       />
     </div>
-    <div *ngIf="loadinguser" class="loader"></div>
-    <div *ngIf="!loadinguser">
+    <div *ngIf="loadingUser" class="loader"></div>
+    <div *ngIf="!loadingUser">
       <div *ngFor="let user of filteredUsers" class="user-card" [ngClass]="{'locked': !user.enabled}">
         <mat-card>
           <mat-card-header>
@@ -56,53 +60,25 @@
             <div class="actions-container">
               <button mat-icon-button [matMenuTriggerFor]="menu">⚙️</button>
               <mat-menu #menu="matMenu">
-                <button
-                  mat-menu-item
-                  *ngIf="shouldshow(true) && user.role === Role.USER"
-                  (click)="promoteUser(user)"
-                >
+                <button mat-menu-item *ngIf="shouldshow(true) && user.role === Role.USER" (click)="promoteUser(user)">
                   🔼 Promote to Admin
                 </button>
-                <button
-                  mat-menu-item
-                  *ngIf="shouldshow(true) && user.role === Role.ADMIN"
-                  (click)="demoteUser(user)"
-                >
+                <button mat-menu-item *ngIf="shouldshow(true) && user.role === Role.ADMIN" (click)="demoteUser(user)">
                   🔽 Demote to User
                 </button>
-                <button
-                  mat-menu-item
-                  *ngIf="shouldshow(true) && user.enabled && user.role !== Role.SUPER_ADMIN"
-                  (click)="enableuser(user, true)"
-                >
+                <button mat-menu-item *ngIf="shouldshow(true) && user.enabled && user.role !== Role.SUPER_ADMIN" (click)="enableuser(user, true)">
                   🔒 Benutzer sperren
                 </button>
-                <button
-                  mat-menu-item
-                  *ngIf="shouldshow(true) && !user.enabled && user.role !== Role.SUPER_ADMIN"
-                  (click)="enableuser(user, false)"
-                >
+                <button mat-menu-item *ngIf="shouldshow(true) && !user.enabled && user.role !== Role.SUPER_ADMIN" (click)="enableuser(user, false)">
                   🔓 Benutzer entsperren
                 </button>
-                <button
-                  mat-menu-item
-                  *ngIf="shouldshow(true) && user.role !== Role.SUPER_ADMIN"
-                  (click)="grantaccess(user, false)"
-                >
+                <button mat-menu-item *ngIf="shouldshow(true) && user.role !== Role.SUPER_ADMIN" (click)="grantaccess(user, false)">
                   🚫 Checklisten-Zugriff sperren
                 </button>
-                <button
-                  mat-menu-item
-                  *ngIf="shouldshow(true) && user.role !== Role.SUPER_ADMIN"
-                  (click)="grantaccess(user, true)"
-                >
+                <button mat-menu-item *ngIf="shouldshow(true) && user.role !== Role.SUPER_ADMIN" (click)="grantaccess(user, true)">
                   ✅ Checklisten-Zugriff freigeben
                 </button>
-                <button
-                  mat-menu-item
-                  *ngIf="shouldshow(true) && user.role !== Role.SUPER_ADMIN"
-                  (click)="deleteUser(user)"
-                >
+                <button mat-menu-item *ngIf="shouldshow(true) && user.role !== Role.SUPER_ADMIN" (click)="deleteUser(user)">
                   🗑️ Löschen
                 </button>
                 <button mat-menu-item *ngIf="shouldshow(true)" (click)="changeUserPassword(user)">
@@ -181,4 +157,5 @@
       </div>
     </div>
   </div>
+
 </div>
