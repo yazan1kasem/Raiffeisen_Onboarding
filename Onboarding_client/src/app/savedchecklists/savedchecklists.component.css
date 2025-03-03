@@ -1,108 +1,90 @@
+/* Container für die gespeicherten Checklisten */
 .saved-checklists-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  background-color: #1C1C2E; /* Dunkles Blau */
+  /* Gleicher dunkler Hintergrund wie dein Hauptlayout */
+  padding: 20px;
+  box-sizing: border-box; /* Damit padding korrekt berechnet wird */
+  min-height: 100vh; /* Falls du willst, dass es den ganzen Bildschirm bedeckt */
 }
 
+/* Die Liste selbst */
 .checklist-list {
-  list-style-type: none;
+  list-style: none;
+  margin: 0;
   padding: 0;
-  margin: 0;
-  width: 80%;
-  max-width: 700px; /* Breitere Liste */
-  background-color: #1C1C2E; /* Helles Grau für Kontrast */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* Dezenter Schatten */
-  border-radius: 12px; /* Leicht abgerundete Kanten */
-  overflow: hidden;
-}
-
-.checklist-item {
-  padding: 20px; /* Mehr Platz für Inhalte */
-  margin: 12px;
-  background-color: #212529; /* Schwarze Leiste */
-  border-radius: 10px; /* Sanfte Abrundung */
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 1.2em; /* Größere Schrift */
-  border: 2px solid #ffd700; /* Gelber Rand */
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex-direction: column;
+  gap: 10px; /* Abstand zwischen den einzelnen Checklisten */
 }
 
-.checklist-item h3 {
-  margin: 0;
-  font-size: 1.4em; /* Größere Schrift für bessere Lesbarkeit */
-  color: #ffd700; /* Gelber Text */
-}
-
-.checklist-item:hover {
-  background-color: #101213; /* Noch dunklerer Schwarzton beim Hover */
-  cursor: pointer;
-  transform: scale(1.02);
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
-}
-
-button {
-  background-color: #ffd700; /* Goldgelbe Buttons */
-  color: #212529; /* Dunkle Schrift */
-  border: none;
-  padding: 10px 14px;
-  margin-left: 10px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  border-radius: 6px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-button:hover {
-  background-color: #e6b800; /* Etwas dunkleres Gelb */
-  transform: scale(1.05);
-}
-
-/* Titel-Input */
-#checklist-title {
-  width: 100%;
-  padding: 14px;
-  font-size: 2.8rem; /* Große Schriftgröße */
-  border: 2px solid #ffd700; /* Gelber Rand für Input */
+/* Jedes Listen-Item (einzelne Checkliste) */
+.checklist-item {
+  background-color: #343a40;     /* Dunkelgrau-Blau wie in deinem Screenshot */
+  color: #ffd700;               /* Gelbe Schrift */
+  border: 1px solid #ffd700;    /* Gelbe Umrandung */
   border-radius: 8px;
-  outline: none;
-  background-color: #343a40; /* Dunkelgrau für den Hintergrund */
-  color: #ffd700; /* Gelbe Schrift für bessere Lesbarkeit */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 15px 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Zentriert Buttons und h3 vertikal */
+  justify-content: space-between; /* h3 links, Buttons rechts */
+  cursor: pointer; /* Ganze Zeile klickbar */
+}
+
+/* Hover-Effekt, wie bei deinen anderen Items */
+.checklist-item:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px);
+}
+
+/* Überschrift im Item */
+.checklist-item h3 {
+  margin: 0;              /* Entfernt Standardabstände */
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #ffd700;         /* Auch Gelb */
+  letter-spacing: 1px;
+}
+
+/* Buttons im Item */
+.checklist-item button {
+  background: transparent;         /* Durchsichtiger Hintergrund */
+  border: 2px solid #ffd700;       /* Gelber Rand */
+  border-radius: 30px;
+  color: #ffd700;
+  padding: 8px 16px;
+  margin-left: 10px;
+  cursor: pointer;
+  font-size: 0.95rem;
   transition: all 0.3s ease;
-  margin-bottom: 20px; /* Abstand zwischen Dropdown und Items */
-  text-align: center; /* Zentriert den Text */
 }
 
-#checklist-title:focus {
-  border-color: #f1c40f; /* Hellerer Gelbton beim Fokussieren */
-  box-shadow: 0 0 10px rgba(243, 156, 18, 0.3);
+/* Hover für die Buttons */
+.checklist-item button:hover {
+  background: #ffd700;    /* Gelber Hintergrund */
+  color: #101820;         /* Dunkle Schrift */
+  transform: scale(1.03); /* Leichtes Vergrößern */
 }
 
-/* Responsive Anpassungen für kleinere Bildschirme */
+/* --- Responsive Verhalten --- */
+
+/* Bei kleineren Bildschirmen sollen Text und Buttons ggf. untereinander stehen */
 @media (max-width: 768px) {
-  .checklist-list {
-    width: 90%;
-    max-width: 600px;
+  .checklist-item {
+    flex-direction: column;
+    align-items: flex-start; /* Buttons und Text nach links */
+    gap: 10px;
+  }
+
+  .checklist-item button {
+    margin-left: 0; /* Da sie jetzt untereinander stehen */
   }
 }
-
-@media (max-width: 576px) {
-  .checklist-list {
-    width: 100%;
-    max-width: 500px;
-  }
-
-  .checklist-item {
-    flex-direction: column; /* Items untereinander auf kleinen Screens */
-    text-align: center;
-  }
-
-  button {
-    margin-top: 10px;
-  }
+.checklist-title {
+  text-align: left;
+  color: #FFC107;
+  font-size: 1.8rem;
+  margin: 0 0 1rem;
 }
 

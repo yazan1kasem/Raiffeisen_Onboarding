@@ -1,217 +1,166 @@
-/* Grundlayout */
-body {
-  font-family: 'Roboto', Arial, sans-serif;  /* Moderne, gut lesbare Schriftart */
-  background-color: #101820; /* Dunkelblau-Schwarz-Hintergrund für Eleganz */
+/*
+   Body with a lighter background, so the dark container stands out
+   (or set body to black if you want it fully dark).
+*/
+html, body {
   margin: 0;
   padding: 0;
-  display: flex;
-  height: 100vh;
-  color: #eaeaea; /* Helle Schriftfarbe für guten Kontrast */
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Überschrift für Position und Abteilung */
-.section-header {
-  font-size: 2.8rem;
-  color: #ffd700; /* Gelb */
+/*
+   The main container with some horizontal constraints and
+   a slightly lighter background than body, if you prefer.
+   Could also be the same #3A3A3A as the rows if you want no contrast.
+*/
+.checklist-details-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem;
+  box-sizing: border-box;
+}
+
+/*
+   Title in bright yellow, larger font, centered.
+   Adjust color (#FFC107, #FFCC00, etc.) to match your brand.
+*/
+.checklist-title {
   text-align: center;
-  margin-bottom: 30px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 3px;
+  color: #FFC107;
+  font-size: 1.8rem;
+  margin: 0 0 1rem;
 }
 
-/* Sidebar */
-.sidebar {
-  width: 250px;
-  background-color: #2c3e50; /* Dunkles Blau */
-  color: #f1f1f1; /* Helle Schriftfarbe */
-  padding: 20px;
-  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.25);
-  height: 100%;
-}
-
-/* Hauptbereich */
-.main-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 30px;
-  overflow-y: auto;
-  background-color: #ecf0f1; /* Helles Grau für den Hauptbereich */
-}
-
-/* Überschrift */
-.main-content h1 {
-  font-size: 2.8rem;
-  color: #ffd700; /* Gelb */
-  text-align: center;
-  margin-bottom: 30px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-}
-
-/* Titel-Label */
+/*
+   Labels in yellow, with some spacing.
+*/
 label {
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: #ffd700;
   display: block;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-/* Titel-Input */
-#checklist-title, #type-filter {
-  width: 100%;
-  padding: 14px;
-  font-size: 1.1rem;
-  border: 2px solid #ffd700; /* Gelber Rand für Input */
-  border-radius: 8px;
-  outline: none;
-  background-color: #343a40; /* Dunkelgrau für den Hintergrund */
-  color: #ffd700; /* Gelbe Schrift für bessere Lesbarkeit */
-  transition: all 0.3s ease;
-  margin-bottom: 20px; /* Abstand zwischen Dropdown und Items */
-}
-
-#checklist-title:focus, #type-filter:focus {
-  border-color: #f1c40f; /* Hellerer Gelbton beim Fokussieren */
-  box-shadow: 0 0 10px rgba(243, 156, 18, 0.3);
-}
-
-/* Filterfeld */
-.filter-container {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.filter-container input {
-  padding: 12px 18px;
-  width: 100%;
-  max-width: 500px;
-  border: 1px solid #bbb;
-  border-radius: 8px;
-  font-size: 16px;
-}
-
-/* Checklisten-Items */
-.item-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  padding: 0;
-  margin: 0;
-}
-
-.item-list li {
-  display: flex;
-  align-items: center;
-  background: #343a40; /* Dunkelgrau für die Items */
-  border: 1px solid #ddd;
-  border-radius: 12px;
-  padding: 16px;
-  transition: all 0.3s ease;
-  gap: 15px;
-  font-size: 1.1rem;
-  color: #ffd700; /* Gelber Text */
+  color: #edb900;
+  margin: 0.75rem 0 0.25rem;
   font-weight: 500;
 }
 
-.item-list li:hover {
-  background-color: #212529; /* Dunkelgrau bei Hover */
-  transform: translateY(-3px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+/*
+   Dark-themed inputs with a yellow border on hover/focus.
+   Text is white/yellow. Adjust to your preference.
+*/
+#checklist-title,
+#type-filter {
+  width: 100%;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: #FFFFFF;
+  background-color: #3A3A3A;
+  border: 1px solid #555;
+  border-radius: 4px;
+  transition: border-color 0.2s;
 }
 
-/* Checkbox */
-input[type="checkbox"] {
-  transform: scale(1.4);
+/*
+   Hover/focus states for inputs:
+   - borderline changes to bright yellow
+*/
+#checklist-title:hover,
+#type-filter:hover {
+  border-color: #FFC107;
+}
+#checklist-title:focus,
+#type-filter:focus {
+  outline: none;
+  border-color: #FFC107;
+}
+
+/*
+   The item list is simply removing default list styling.
+*/
+.item-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+/*
+   Each item row:
+   - Dark gray background (#3A3A3A)
+   - White border between rows
+   - Yellow text
+   - Cursor pointer so user knows it’s clickable
+*/
+.item-row {
+  display: flex;
+  align-items: center;
+  background-color: #3A3A3A;
+  border-bottom: 1px solid #FFF;
+  padding: 0.75rem;
   cursor: pointer;
-  accent-color: #ffd700; /* Gelbe Checkbox */
 }
 
-/* Info-Icon */
-.info-icon {
-  font-size: 1.2rem;
-  color: #888; /* Grauer Farbton */
-  cursor: pointer;
-  transition: color 0.3s ease;
+/*
+   If an item is selected, you can highlight differently
+   (e.g., a lighter or deeper shade, or a left border).
+*/
+.item-row.selected {
+  background-color: #505050;
+  border-left: 6px solid #FFC107;
 }
 
-.info-icon:hover {
-  color: #ffd700; /* Gelb bei Hover */
+/*
+   The checkbox with some margin.
+   Checkmark color is typically controlled by the OS, but
+   you can style with appearance: none, etc. if you want.
+*/
+.item-row input[type="checkbox"] {
+  margin-right: 0.75rem;
 }
 
-/* Speichern-Button */
-.save-button {
-  display: block;
-  width: fit-content;
-  margin: 30px auto;
-  padding: 14px 40px;
-  background: linear-gradient(135deg, #ffd700, #f1c40f); /* Gelber Verlauf */
-  color: white;
-  font-weight: bold;
-  font-size: 1.1rem;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(243, 156, 18, 0.25);
+/*
+   The main info container inside each row.
+   We'll color the text a bright yellow.
+*/
+.item-info {
+  flex: 1;
 }
 
-.save-button:hover {
-  transform: translateY(-2px);
-  background: linear-gradient(135deg, #f1c40f, #ffd700); /* Umgekehrter Verlauf beim Hover */
-}
-
-/* Fehlermeldung */
-.error-message {
-  color: #e74c3c; /* Rotes Fehlerformat */
-  font-weight: bold;
-  text-align: center;
-  margin-top: 15px;
-}
-
-/* Info-Box */
-.info-box {
-  background-color: #ffd700; /* Gelber Hintergrund */
-  border: 1px solid #f39c12;
-  padding: 10px;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  color: #333; /* Dunklere Farbe für den Text */
-  margin-top: 8px;
-}
-
-/* Responsiv für kleine Screens */
-@media (max-width: 768px) {
-  body {
-    flex-direction: column;
-  }
-
-  .sidebar {
-    width: 100%;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #2c3e50;
-    color: white;
-  }
-
-  .main-content {
-    padding: 10px;
-  }
-
-  h1 {
-    font-size: 2rem;
-  }
+.item-name {
+  font-weight: 500;
+  color: #edb900;
+  margin-bottom: 0.2rem;
 }
 
 .item-type {
-  font-style: italic;
-  color: #666;
+  color: #FFD54F; /* slightly lighter or different shade of yellow */
+  font-size: 0.9rem;
+}
+
+/*
+   The save button.
+   Dark background with a yellow border or text.
+   Hover changes background or border color.
+*/
+.save-button {
+  margin-top: 1rem;
+  font-weight: 600;
+  background-color: #FFC107;
+  color: #000000;
+  border: 2px solid #FFC107;
+  border-radius: 4px;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.save-button:hover {
+  background-color: #FFD54F;
+  border-color: #FFD54F;
+}
+
+/*
+   Error message text in a contrasting color (e.g., light red or pink).
+*/
+.error-message {
+  margin-top: 1rem;
+  color: #ffaaaa;
+  font-weight: 600;
 }

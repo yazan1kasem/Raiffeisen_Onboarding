@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RestController
@@ -51,10 +52,13 @@ public class UserChecklistController {
             @RequestBody User_Checklists userChecklistDetails) {
         return userChecklistRepository.findById(id).map(existingUser_Checklists -> {
             existingUser_Checklists.setUseritems(userChecklistDetails.getUseritems());
+            existingUser_Checklists.setUpdatedAt(LocalDateTime.now()); // ⬅ `updatedAt` aktualisieren!
+
             User_Checklists updatedUser_Checklists = userChecklistRepository.save(existingUser_Checklists);
             return ResponseEntity.ok(updatedUser_Checklists);
         }).orElseGet(() -> ResponseEntity.notFound().build());
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser_Checklists(@PathVariable String id) {

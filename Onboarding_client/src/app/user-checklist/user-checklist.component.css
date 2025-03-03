@@ -1,231 +1,273 @@
-/* Grundlayout */
-body {
-  font-family: 'Roboto', Arial, sans-serif;  /* Moderne, gut lesbare Schriftart */
-  background-color: #101820; /* Dunkelblau-Schwarz-Hintergrund für Eleganz */
-  margin: 0;
-  padding: 0;
-  display: flex;
-  height: 100vh;
-  color: #eaeaea; /* Helle Schriftfarbe für guten Kontrast */
+/* Hauptcontainer ähnlich wie in checklistendetails */
+.checklist-details-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  color: #ffffff; /* helle Schrift */
 }
 
-/* Überschrift für Position und Abteilung */
-.section-header {
-  font-size: 2.8rem;
-  color: #ffd700; /* Gelb */
-  text-align: center;
-  margin-bottom: 30px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-}
-
-/* Sidebar */
-.sidebar {
-  width: 250px;
-  background-color: #2c3e50; /* Dunkles Blau */
-  color: #f1f1f1; /* Helle Schriftfarbe */
-  padding: 20px;
-  box-shadow: 4px 0 12px rgba(0, 0, 0, 0.25);
-  height: 100%;
-}
-
-/* Hauptbereich */
-.main-content {
-  flex: 1;
+/* WRAP HEADER IN A FLEX COLUMN & CENTER EVERYTHING */
+.checklist-header {
   display: flex;
   flex-direction: column;
-  padding: 30px;
-  overflow-y: auto;
-  background-color: #ecf0f1; /* Helles Grau für den Hauptbereich */
+  align-items: center;     /* horizontally center children */
+  margin-bottom: 2rem;     /* a bit more breathing room below the header */
 }
 
-/* Überschrift */
-.main-content h1 {
-  font-size: 2.8rem;
-  color: #ffd700; /* Gelb */
+/* TITLE STAYS CENTERED & BOLD ORANGE */
+.checklist-title {
   text-align: center;
-  margin-bottom: 30px;
-  font-weight: bold;
-  text-transform: uppercase;
-  letter-spacing: 3px;
+  color: #FFC107;          /* bright yellow-orange */
+  font-size: 1.8rem;
+  margin: 0 0 1rem;
 }
 
-/* Titel-Label */
-label {
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: #ffd700;
-  display: block;
-  margin-bottom: 8px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-/* Titel-Input */
-#checklist-title, #type-filter {
-  width: 100%;
-  padding: 14px;
-  font-size: 1.1rem;
-  border: 2px solid #ffd700; /* Gelber Rand für Input */
-  border-radius: 8px;
-  outline: none;
-  background-color: #343a40; /* Dunkelgrau für den Hintergrund */
-  color: #ffd700; /* Gelbe Schrift für bessere Lesbarkeit */
-  transition: all 0.3s ease;
-  margin-bottom: 20px; /* Abstand zwischen Dropdown und Items */
-}
-
-#checklist-title:focus, #type-filter:focus {
-  border-color: #f1c40f; /* Hellerer Gelbton beim Fokussieren */
-  box-shadow: 0 0 10px rgba(243, 156, 18, 0.3);
-}
-
-/* Filtercontainer */
-.filter-container {
-  margin-bottom: 20px;
-}
-
-/* Flexibles Grid-System für die Items */
-.item-list {
-  list-style: none;
-  padding: 0;
-  margin-top: 10px;
+/* METADATA CONTAINER: DATES & STATUS IN A ROW, CENTERED & SPACED */
+.checklist-metadata {
   display: flex;
-  flex-direction: column; /* Display items in a column */
-  gap: 15px; /* Abstand zwischen den Items */
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;               /* space between items (date, date, status) */
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
 }
 
-/* Styling für jedes Item */
-.item-list li {
-  background-color: #343a40; /* Dunkler Hintergrund */
-  color: #ffd700; /* Gelbe Schriftfarbe */
-  border: 1px solid #ffd700; /* Gelbe Umrandung */
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 10px 15px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  display: flex;
-  align-items: center; /* Zentriert die Inhalte vertikal */
-  gap: 15px; /* Abstand zwischen den Elementen */
+/* MAKE DATES / TEXT LOOK MORE FADED (LESS PROMINENT) */
+.checklist-metadata span {
+  color: #bbbbbb;          /* lighter gray for a "blassere Farbe" */
 }
 
-/* Hover-Effekt für die Items */
-.item-list li:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
-  transform: translateY(-5px);
-  cursor: pointer;
-}
-
-/* Styling für die Checkboxen */
-.checklist-details-container input[type="checkbox"] {
-  transform: scale(1.7); /* Größere Checkboxen */
-  margin-right: 15px; /* Mehr Abstand zum Text */
-  vertical-align: middle;
-}
-
-/* Styling für das Label (Text neben der Checkbox) */
-.checklist-details-container label {
-  font-size: 1.3rem; /* Größere Schriftgröße */
-  cursor: pointer;
-  flex: 1; /* Nimmt den verfügbaren Platz ein */
-}
-
-/* Styling für den Typ */
-.item-type {
-  font-style: italic;
-  color: #666;
-  margin-left: auto; /* Schiebt den Typ nach rechts */
-}
-
-/* Info-Icon */
-.info-icon {
-  margin-left: 10px;
-  cursor: pointer;
-  font-size: 1.2rem;
-  color: #888; /* Grauer Farbton */
-  transition: color 0.3s ease;
-}
-
-.info-icon:hover {
-  color: #ffd700; /* Gelb bei Hover */
-}
-
-/* Speichern-Button */
-.save-button {
-  display: block;
-  width: fit-content;
-  margin: 30px auto;
-  padding: 14px 40px;
-  background: linear-gradient(135deg, #ffd700, #f1c40f); /* Gelber Verlauf */
-  color: white;
-  font-weight: bold;
-  font-size: 1.1rem;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(243, 156, 18, 0.25);
-}
-
-.save-button:hover {
-  transform: translateY(-2px);
-  background: linear-gradient(135deg, #f1c40f, #ffd700); /* Umgekehrter Verlauf beim Hover */
-}
-
-/* Fehler- und Informationsbox */
-.error-message {
-  color: #e74c3c; /* Rotes Fehlerformat */
-  font-weight: bold;
-  text-align: center;
-  margin-top: 15px;
-}
-
-.info-box {
-  background-color: #ffd700; /* Gelber Hintergrund */
-  border: 1px solid #f39c12;
-  padding: 10px;
-  border-radius: 8px;
-  font-size: 0.9rem;
-  color: #333; /* Dunklere Farbe für den Text */
-  margin-top: 8px;
-}
-
-/* Status styles */
+/* STATUS (ORANGE/GREEN) STILL USES YOUR EXISTING CLASSES */
 .status-in-progress {
   color: orange;
 }
-
 .status-complete {
   color: green;
 }
 
-/* Responsiv für kleine Screens */
-@media (max-width: 768px) {
-  body {
-    flex-direction: column;
-  }
 
-  .sidebar {
-    width: 100%;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #2c3e50;
-    color: white;
-  }
-
-  .main-content {
-    padding: 10px;
-  }
-
-  h1 {
-    font-size: 2rem;
-  }
+/* Fehler- und Info-Meldungen */
+.error-message {
+  color: #ffaaaa;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 1rem;
 }
 
+/* Item-Liste (ul) ohne Standard-Punkte/Abstände */
+.item-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+/* Einzelne Zeile (li) mit dunklem Hintergrund, gelben Texten, Hover-Effekt */
+.item-row {
+  display: flex;
+  align-items: center;
+  background-color: #3A3A3A;
+  border-bottom: 1px solid #FFF; /* Trennlinie */
+  padding: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-bottom: 0.5rem;
+}
+
+/* Hover-Effekt */
+.item-row:hover {
+  background-color: #505050;
+}
+
+/* Checkbox mit Abstand */
+.item-row input[type="checkbox"] {
+  margin-right: 0.75rem;
+}
+
+/* Inhalt innerhalb eines Items */
+.item-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  color: #edb900; /* Gelber Ton für den Text */
+}
+
+.item-name {
+  font-weight: 500;
+  margin-bottom: 0.2rem;
+}
+
+/* Typ/Tags in einer anderen gelben Nuance */
 .item-type {
+  color: #FFD54F;
+  font-size: 0.9rem;
   font-style: italic;
-  color: #666;
+}
+
+/* Info-Icon leicht grauer, wird auf Hover gelb */
+.info-icon {
+  margin-left: 0.5rem;
+  font-size: 1.2rem;
+  color: #888;
+  transition: color 0.3s ease;
+}
+.info-icon:hover {
+  color: #FFC107;
+}
+
+/* Aufklappbox für zusätzliche Infos (Suchbegriffe) */
+.info-box {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background-color: #222;
+  color: #FFC107;
+  border: 1px solid #FFC107;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+/* Button-Stil ähnlich wie in checklistendetails */
+.save-button {
+  margin: 1rem 0.25rem 0 0;
+  font-weight: 600;
+  background-color: #FFC107;
+  color: #000000;
+  border: 2px solid #FFC107;
+  border-radius: 4px;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.save-button:hover {
+  background-color: #FFD54F;
+  border-color: #FFD54F;
+}
+
+/* Floating-Buttons für Download (PDF/Word/Excel) */
+.floating-island {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
+}
+
+/* CIRCULAR ICON BUTTON */
+.icon-button {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  background: #ffffff;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  cursor: pointer;
+  outline: none;
+  transition: background 0.2s;
+}
+
+.icon-button:hover {
+  background: #eee;
+}
+
+/* TOOLTIP ON HOVER */
+.icon-button .hover-text {
+  position: absolute;
+  display: none;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0,0,0,0.8);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 4px;
+  white-space: nowrap;
+  font-size: 14px;
+}
+
+.icon-button .hover-text::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(0,0,0,0.8) transparent transparent transparent;
+}
+
+.icon-button:hover .hover-text {
+  display: block;
+}
+
+/* ========== GEÄNDERTE / NEUE STYLE-REGELN ========== */
+
+/* 1) Standard-Item-Styling bleibt weitgehend gleich, wir fügen aber
+   ein wenig mehr Übergang/Shadow hinzu, damit es "interessanter" wirkt. */
+.item-row {
+  display: flex;
+  align-items: center;
+  background-color: #3A3A3A;
+  border-bottom: 1px solid #FFF;
+  padding: 0.75rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  margin-bottom: 0.5rem;
+  border-radius: 6px; /* leichte Abrundung */
+}
+
+/* Leichter Hover-Effekt mit einer minimalen "Anhebung" */
+.item-row:hover {
+  background-color: #505050;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* 2) "Checked"-Zustand optisch hervorgehoben */
+.item-row.checked {
+  background-color: #494949; /* etwas anderer Grauton */
+  border-left: 5px solid #ffc107; /* grüner Balken an der linken Seite */
+  opacity: 0.9; /* leicht abgedunkelt */
+}
+
+/* Strikethrough und etwas "blassere" Farbe für checked Items */
+.item-row.checked .item-name,
+.item-row.checked .item-type {
+
+}
+
+/* Gerne kannst du zusätzlich eine gesonderte Checkbox-Darstellung wählen */
+.item-row.checked input[type="checkbox"] {
+  accent-color: #ffc107; /* grünes Häkchen (wird von Browsern unterschiedlich unterstützt) */
+}
+
+/* 3) Responsive Design: ab max-width: 768px (Mobil/Tablet)
+   reduzieren wir Abstände, ändern Layout, etc. */
+@media (max-width: 768px) {
+  .checklist-details-container {
+    padding: 1rem;
+  }
+
+  .item-row {
+    flex-direction: column; /* Checkbox und Text brechen um */
+    align-items: flex-start;
+  }
+
+  .item-info {
+    margin-top: 0.5rem; /* etwas Abstand überm Text */
+  }
+
+  /* Buttons mehr in die Breite füllen, falls nötig */
+  .save-button {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+
+
 }

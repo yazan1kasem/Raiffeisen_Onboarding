@@ -1,14 +1,89 @@
-/* In `Onboarding_client/src/app/passwort-dialog/passwort-dialog.component.css` */
+/*
+  Centers the dialog content within the overlay.
+  Removing or altering pointer-events depends on how you want clicking outside
+  to dismiss the dialog.
+*/
 .cdk-overlay-pane {
   display: flex;
   align-items: center;
   justify-content: center;
   pointer-events: none; /* Allows clicking outside to close the dialog */
 }
+
+/*
+  Root of the dialog component.
+  Changed background to a dark color and text to a light color.
+*/
 :host {
   display: block;
-  background: #fff;
+  background: #2a2a2a; /* Dark background */
+  color: #f0f0f0;      /* Light text */
   border-radius: 8px;
-  padding: 8px 16px;
+  padding: 16px;
   pointer-events: auto; /* Allows interaction with the dialog */
+}
+
+/*
+  Ensure the dialog content area inherits the dark background
+  so form fields look cohesive.
+*/
+mat-dialog-content {
+  background-color: #2a2a2a;
+}
+
+/*
+  Material form field appearance in dark mode.
+  If you are using appearance="fill" (the default),
+  this sets the background of the input container.
+*/
+.mat-form-field-appearance-fill .mat-form-field-flex {
+  background-color: #3a3a3a; /* Slightly lighter than the main background */
+}
+
+/*
+  Adjust label and input text colors for readability.
+  The !important flag ensures they override Angular Material defaults.
+*/
+.mat-form-field-label {
+  color: #bbb !important;
+}
+.mat-input-element {
+  color: #f0f0f0 !important;
+}
+mat-label {
+  color: #bbb !important;
+}
+
+/*
+  Dialog actions area, often at the bottom of the dialog.
+  Slightly darker than the main content area to create a visual separation.
+*/
+mat-dialog-actions {
+  padding: 8px 16px;
+}
+
+/*
+  Buttons in the actions area:
+  Dark background, light text, and subtle border for a cohesive “dark mode” look.
+*/
+button[mat-button] {
+  color: #f0f0f0;
+  border: 1px solid #444;
+  margin-left: 8px; /* Adds a little spacing between buttons */
+}
+
+/* Optional hover/focus states for the buttons */
+button[mat-button]:hover {
+  background-color: #444;
+}
+
+.paginator {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.page-info {
+  font-weight: bold;
 }

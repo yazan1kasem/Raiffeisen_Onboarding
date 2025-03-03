@@ -8,7 +8,7 @@ export class UserChecklist {
   originalChecklist: Checklist | null;
   status: ChecklistStatus;
   user: User;
-  isLocked: boolean;
+  locked: boolean;
   createdAt: Date;
   updatedAt: Date;
   useritems: UserChecklistItems[];
@@ -28,7 +28,7 @@ export class UserChecklist {
     this.originalChecklist = originalChecklist;
     this.status = status;
     this.user = user;
-    this.isLocked = isLocked;
+    this.locked = isLocked;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.ueberschrift = ueberschrift;

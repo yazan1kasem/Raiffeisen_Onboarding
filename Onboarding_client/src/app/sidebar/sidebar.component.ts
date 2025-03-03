@@ -29,11 +29,7 @@ export class SidebarComponent {
   }
 
   isAdmin():boolean{
-    if(localStorage.getItem('role') === 'Admin'||localStorage.getItem('role') === 'SUPER_ADMIN'){
-      return true
-    }else{
-      return false
-    }
+    return localStorage.getItem('role') === 'ADMIN' || localStorage.getItem('role') === 'SUPER_ADMIN';
   }
 
 }

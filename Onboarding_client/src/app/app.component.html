@@ -1,7 +1,7 @@
 <div class="app-container" [ngClass]="{ 'collapsed': isCollapsed }">
   <!-- Sidebar -->
-  <div id="sidebar-container">
-    <app-sidebar *ngIf="shouldShowSidebar()" (toggle)="toggleSidebar($event)"></app-sidebar>
+  <div *ngIf="shouldShowSidebar()" id="sidebar-container">
+    <app-sidebar  (toggle)="toggleSidebar($event)"></app-sidebar>
   </div>
 
   <!-- Hauptinhalt -->

@@ -41,18 +41,19 @@ export class UserChecklistComponent implements OnInit {
   }
 
   toggleInfoBox(item: UserChecklistItems): void {
-    if (!this.userChecklist?.isLocked) {
+    if (!this.userChecklist?.locked) {
       this.selectedItem = this.selectedItem === item ? null : item;
     }
+    item.isChecked=!item.isChecked;
   }
 
   saveUserChecklist(): void {
-    if (!this.userChecklist || this.userChecklist.isLocked) {
+    if (!this.userChecklist || this.userChecklist.locked) {
       console.error('Fehler: Benutzer-Checkliste ist null oder gesperrt');
       return;
     }
 
-    const updatedChecklist = { ...this.userChecklist, updatedAt: new Date() };
+    const updatedChecklist = { ...this.userChecklist};
 
     this.dataService.updateUserChecklist(updatedChecklist).subscribe({
       next: () => this.router.navigate(['/saved-checklists']),
@@ -61,7 +62,7 @@ export class UserChecklistComponent implements OnInit {
   }
 
   deleteUserChecklist(): void {
-    if (!this.userChecklist || this.userChecklist.isLocked) {
+    if (!this.userChecklist || this.userChecklist.locked) {
       console.error('Fehler: Benutzer-Checkliste ist null oder gesperrt');
       return;
     }

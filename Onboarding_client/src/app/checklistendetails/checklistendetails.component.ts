@@ -76,8 +76,8 @@ export class ChecklistendetailsComponent implements OnInit {
     }
   }
 
-  toggleInfoBox(item: Item): void {
-    this.selectedItem = this.selectedItem === item ? null : item;
+  isItemSelected(item: Item): boolean {
+    return this.selectedItems.has(item);
   }
 
   filterItemsByType(): void {

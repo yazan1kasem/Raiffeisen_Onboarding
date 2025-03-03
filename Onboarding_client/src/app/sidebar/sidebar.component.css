@@ -39,37 +39,6 @@
   width: 60px;
 }
 
-/* 🚀 Mobile Sidebar - Standardmäßig versteckt */
-@media (max-width: 768px) {
-  #sidebar {
-    left: -250px; /* Versteckt die Sidebar */
-    width: 250px;
-  }
-
-  #sidebar.open {
-    left: 0; /* Sidebar erscheint */
-  }
-
-  /* 🏠 Sidebar-Knopf für Mobile */
-  .mobile-sidebar-toggle {
-    position: fixed;
-    top: 15px;
-    left: 15px;
-    background: #ffc107;
-    color: #212529;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 50%;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-    z-index: 1100;
-    transition: transform 0.3s ease-in-out;
-  }
-
-  .mobile-sidebar-toggle:hover {
-    transform: scale(1.1);
-  }
-}
 
 /* 📜 Sidebar Navigation */
 #sidebar ul.components {
@@ -152,30 +121,7 @@
   transform: rotate(180deg);
 }
 
-/* 🚀 Floating Logout-Button in der mobilen Ansicht */
-@media (max-width: 768px) {
-  #sidebar .logout-container {
-    display: none;
-  }
 
-  .floating-logout {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #ffc107;
-    color: #212529;
-    padding: 15px;
-    border-radius: 50%;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-    transition: transform 0.3s ease-in-out;
-    z-index: 1100;
-  }
-
-  .floating-logout:hover {
-    transform: scale(1.1);
-  }
-}
 .toggle-btn {
   background: none;
   border: none;

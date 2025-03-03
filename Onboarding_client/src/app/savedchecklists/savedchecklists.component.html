@@ -1,12 +1,17 @@
 <div class="saved-checklists-container">
+  <h1 class="checklist-title">
+    Deine Checklisten
+  </h1>
   <ul class="checklist-list">
-    <li *ngFor="let checklist of savedChecklists" class="checklist-item" (click)="editChecklist(checklist.id)">
+    <li *ngFor="let checklist of savedChecklists"
+        class="checklist-item"
+        (click)="editChecklist(checklist)">
       <h3>{{ checklist.ueberschrift }}</h3>
-
-      <button (click)="downloadExcel(checklist)">📊 Excel</button>
-      <button (click)="downloadPdf(checklist)">📄 PDF</button>
-      <button (click)="downloadWord(checklist)">📝 Word</button>
+      <div>
+        <button (click)="downloadExcel(checklist); $event.stopPropagation()">📊 Excel</button>
+        <button (click)="downloadPdf(checklist); $event.stopPropagation()">📄 PDF</button>
+        <button (click)="downloadWord(checklist); $event.stopPropagation()">📝 Word</button>
+      </div>
     </li>
   </ul>
 </div>
-

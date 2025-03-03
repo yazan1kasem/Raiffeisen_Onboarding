@@ -1,7 +1,14 @@
 <div class="checklist-details-container" *ngIf="checklist">
-  <h1>{{ checklist.abteilungsname }} - {{ checklist.position }}</h1>
+  <h1 class="checklist-title">
+    {{ checklist.abteilungsname }} - {{ checklist.position }}
+  </h1>
+
   <label for="checklist-title">Titel:</label>
-  <input id="checklist-title" [(ngModel)]="ueberschrift" placeholder="Checklisten-Titel eingeben" />
+  <input
+    id="checklist-title"
+    [(ngModel)]="ueberschrift"
+    placeholder="Checklisten-Titel eingeben"
+  />
 
   <label for="type-filter">Filter by Type:</label>
   <select id="type-filter" [(ngModel)]="selectedType" (change)="filterItemsByType()">
@@ -10,17 +17,36 @@
   </select>
 
   <ul class="item-list">
-    <li *ngFor="let item of filteredItems" class="item-row">
-      <input type="checkbox" (change)="toggleItemSelection(item)" />
-      <div class="item-name">{{ item.name }}</div>
-      <div class="item-type">{{ item.type }}</div>
-      <span class="info-icon" (click)="toggleInfoBox(item)">ℹ️</span>
-      <div class="info-box" *ngIf="selectedItem === item">
-        Suchbegriffe: {{ item.suchbegriff }}
+    <!--
+      For each item:
+        - We add a click handler to the row that toggles selection
+        - We check or uncheck the checkbox based on our separate 'selectedItems' data
+        - We stop the event from the checkbox itself so it doesn't double toggle
+    -->
+    <li
+      *ngFor="let item of filteredItems"
+      class="item-row"
+      (click)="toggleItemSelection(item)"
+      [class.selected]="isItemSelected(item)"
+    >
+      <input
+        type="checkbox"
+        [checked]="isItemSelected(item)"
+        (click)="$event.stopPropagation(); toggleItemSelection(item)"
+      />
+      <div class="item-info">
+        <div class="item-name">{{ item.name }}</div>
+        <div class="item-type">
+          {{ item.type }} - Suchbegriffe: {{ item.suchbegriff }}
+        </div>
       </div>
     </li>
   </ul>
-  <button class="save-button" (click)="createUserChecklist()">Checkliste speichern</button>
+
+  <button class="save-button" (click)="createUserChecklist()">
+    Checkliste speichern
+  </button>
+
   <div *ngIf="errorMessage" class="error-message">
     {{ errorMessage }}
   </div>

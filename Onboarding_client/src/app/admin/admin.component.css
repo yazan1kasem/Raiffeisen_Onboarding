@@ -1,44 +1,173 @@
-/* 🌟 Benutzer-Karten */
+/* ===========================
+   GLOBAL / WRAPPER / BODY
+   =========================== */
+body,
+.wrapper,
+.container {
+  color: #f0f0f0 !important;
+  margin: 0; /* Ensure no default body margin */
+}
+
+.wrapper {
+  min-height: 100vh;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* ===========================
+   HEADINGS
+   =========================== */
+h2 {
+  color: #ffffff;
+  padding: 12px;
+  margin: 0;
+}
+
+/* ===========================
+   USER CARDS
+   =========================== */
 .user-card {
   margin-bottom: 20px;
+  background-color: #2a2a2a !important;
+  color: #f0f0f0 !important;
+  border: 1px solid #444 !important;
 }
 
-checklist-text {
+/* If you are using Angular Material mat-card */
+mat-card,
+.mat-card {
+  background-color: #2a2a2a !important;
+  color: #f0f0f0 !important;
+  border: 1px solid #444 !important;
+}
+
+.mat-card-header {
+  background-color: #2a2a2a !important;
+  color: #f0f0f0 !important;
+}
+
+mat-card-actions {
+  background-color: #2a2a2a !important;
+}
+
+/* ===========================
+   CHECKLIST + LOCKED ITEMS
+   =========================== */
+.user-checklist-card {
+  width: 100%;
+  margin: 20px auto;
+  padding: 15px;
+  border-radius: 10px;
+  background-color: #1e1e1e;
+  color: #f0f0f0;
+  border: 1px solid #444;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.checklist-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #444;
+}
+
+.checklist-checkbox {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  color: #f0f0f0;
+}
+
+.checklist-text {
   font-size: 16px;
+  margin-left: 10px;
   gap: 1px;
+  color: #f0f0f0 !important;
 }
 
-/* 🎛 Benutzeraktionen */
+.item-name {
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: -17px;
+  color: #f0f0f0;
+}
+
+.item-details {
+  font-size: 14px;
+  color: #bbb; /* Slightly lighter gray text */
+}
+
+/* Locked state */
+.locked {
+  background-color: #333 !important;
+  opacity: 0.8;
+}
+
+.locked .checklist-text {
+  color: #999 !important;
+}
+
+/* If using Angular Material’s mat-checkbox inside .locked items */
+.locked mat-checkbox {
+  opacity: 0.6;
+}
+
+/* ===========================
+   TABLES
+   =========================== */
+.items-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.items-table th,
+.items-table td {
+  border: 1px solid #444;
+  padding: 8px;
+  vertical-align: middle;
+}
+
+.items-table th {
+  background-color: #2a2a2a;
+  color: #f0f0f0;
+  text-align: left;
+}
+
+.items-table td {
+  background-color: #1e1e1e;
+  color: #f0f0f0;
+}
+
+.items-table input {
+  width: 100%;
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+  padding: 4px;
+}
+
+/* ===========================
+   USER ACTIONS (BUTTONS)
+   =========================== */
 .user-actions {
   display: flex;
-  flex-direction: column;  /* 🔹 Align buttons vertically */
-  align-items: flex-end;   /* 🔹 Stick to the right */
-  gap: 8px;                /* 🔹 Adds spacing between buttons */
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8px;
 }
 
 .user-actions button {
   font-size: 16px;
-  min-width: 150px;       /* 🔹 Uniform button width */
-  text-align: left;       /* 🔹 Align icon and text properly */
+  min-width: 150px;
+  text-align: left;
   display: flex;
   align-items: center;
   gap: 8px;
+  background-color: #333;
+  color: #f0f0f0;
+  border: 1px solid #444;
 }
 
-/* 🎚 Dropdown-Menü */
-
-
-/* 🔍 Suchfeld */
-input[type="text"] {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 15px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 16px;
-}
-
-/* 📱 Responsive Anpassung */
+/* Responsive layout for narrower screens */
 @media (max-width: 768px) {
   .user-actions {
     flex-direction: row;
@@ -53,7 +182,9 @@ input[type="text"] {
   }
 }
 
-/* 🎨 Search Input Styling */
+/* ===========================
+   SEARCH CONTAINER
+   =========================== */
 .search-container {
   display: flex;
   align-items: center;
@@ -66,25 +197,34 @@ input[type="text"] {
 .search-container input {
   width: 100%;
   padding: 12px 15px;
-  border: 2px solid #ddd;
+  border: 2px solid #444;
   border-radius: 25px;
   font-size: 16px;
   outline: none;
   transition: all 0.3s ease-in-out;
-  background-color: #f9f9f9;
+  background-color: #2b2b2b;
+  color: #f0f0f0;
 }
 
-/* 🔵 Smooth focus effect */
+.search-container input::placeholder {
+  color: #aaa;
+}
+
+/* Smooth focus effect */
 .search-container input:focus {
-  border-color: #007bff;
-  box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
-  background-color: #fff;
+  border-color: #888;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
+  background-color: #333;
 }
 
-/* ✨ Typing Animation Effect */
+/* Typing animation effect */
 @keyframes typing {
-  from { opacity: 0.5; }
-  to { opacity: 1; }
+  from {
+    opacity: 0.5;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .search-container input:focus::placeholder {
@@ -92,59 +232,9 @@ input[type="text"] {
   transition: opacity 0.3s ease-in-out;
 }
 
-
-
-.user-checklist-card {
-  width: 100%;
-  margin: 20px auto;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.checklist-item {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-.checklist-checkbox {
-  width: 100%;
-  display: flex;
-  align-items: center;
-}
-
-.checklist-text {
-  margin-left: 10px;
-}
-
-.item-name {
-  font-weight: bold;
-  font-size: 16px;
-  margin-bottom: -17px;
-}
-
-.item-details {
-  font-size: 14px;
-  color: gray;
-}
-.locked {
-  background-color: #e0e0e0 !important; /* Grauer Hintergrund */
-  opacity: 0.6; /* Halbtransparenz */
-}
-
-.locked .checklist-text {
-  color: #757575 !important; /* Grauer Text */
-}
-
-.locked mat-checkbox {
-  opacity: 0.6;
-}
-
-/* Put this in admin.component.css or a global stylesheet */
-
-/* Container for the floating buttons */
+/* ===========================
+   SCROLL / FLOATING BUTTONS
+   =========================== */
 .scroll-buttons {
   position: fixed;
   bottom: 20px;
@@ -152,12 +242,121 @@ input[type="text"] {
   display: flex;
   gap: 16px;
   transition: transform 0.4s ease, opacity 0.4s ease;
-  z-index: 9999; /* Ensure it’s on top of other elements */
+  z-index: 9999;
+}
+
+.scroll-buttons button {
+  background-color: #333 !important;
+  color: #fff !important;
+  border: 1px solid #444;
 }
 
 /* Hide class shifts them down and fades out */
 .scroll-buttons.hide {
   transform: translateY(100px);
   opacity: 0;
-  pointer-events: none; /* Prevent clicks when hidden */
+  pointer-events: none;
 }
+
+/* ===========================
+   ANGULAR MATERIAL EXPANSION PANELS
+   =========================== */
+mat-expansion-panel,
+mat-expansion-panel-header,
+.mat-expansion-panel-content,
+.mat-expansion-panel-description,
+.mat-expansion-panel-header-title {
+  background-color: #2a2a2a !important;
+  color: #f0f0f0 !important;
+  border-color: #333 !important;
+}
+
+mat-expansion-panel {
+  margin-bottom: 10px;
+  padding: 0 16px;
+}
+
+/* Nested content inside the expansion panel */
+mat-expansion-panel .checklist-content {
+  background-color: #2a2a2a !important;
+  color: #f0f0f0 !important;
+}
+
+/* Inputs inside the panel */
+mat-expansion-panel input[type="text"] {
+  background-color: #3a3a3a !important;
+  color: #fff !important;
+  border: 1px solid #555 !important;
+}
+
+/* Expansion panel “actions” area if you have buttons at the bottom */
+.actions {
+  background-color: #2a2a2a !important;
+  padding: 8px 0;
+}
+
+.actions button {
+  background-color: #444 !important;
+  color: #fff !important;
+  border: 1px solid #555 !important;
+}
+
+/* Make the menu panel visible against a dark background */
+.mat-menu-panel {
+  background-color: #2a2a2a !important; /* or #333 for a darker shade */
+  color: #f0f0f0 !important;
+  border: 1px solid #444 !important; /* helps define the panel’s edge */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.7) !important;
+}
+
+/* Remove default mat-menu-item background so it inherits from .mat-menu-panel */
+.mat-menu-item {
+  background-color: transparent !important;
+  color: #f0f0f0 !important;
+  border: none !important;
+}
+
+/* Define hover/focus states for better visibility */
+.mat-menu-item:hover,
+.mat-menu-item:focus {
+  background-color: #333 !important;
+  color: #fff !important;
+}
+
+/* If you have any mat-divider lines in the menu, make them visible too */
+.mat-divider {
+  background-color: #555 !important;
+}
+
+/* Wrapper for the user list and paginator; uses flex to push the paginator to the bottom */
+.user-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+/* The user list will grow as needed and scroll if necessary */
+.user-list {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Paginator styles to center controls horizontally */
+.paginator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-top: 1px solid #ccc; /* optional divider */
+  /* If you want the paginator to stick to the bottom of the viewport,
+     you could also use position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+     but this example keeps it at the bottom of the user-list-wrapper */
+}
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px; /* Adjust as needed */
+}
+

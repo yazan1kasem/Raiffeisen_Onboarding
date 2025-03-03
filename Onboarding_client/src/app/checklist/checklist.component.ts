@@ -31,30 +31,56 @@ export class ChecklistComponent implements OnInit {
 
   loadChecklists(): void {
     this.checklistService.getChecklists().subscribe((data: Checklist[]) => {
+      // Gespeicherte Checklisten und Filterliste setzen
       this.checklists = data;
       this.filteredChecklists = data;
 
-      this.abteilungen = [...new Set(data.map((checklist) => checklist.abteilungsname))];
+      // Eindeutige Abteilungen extrahieren
+      this.abteilungen = [...new Set(data.map(checklist => checklist.abteilungsname))];
+
+      // Filteroptionen aktualisieren
       this.updatePositions();
+      this.updateDepartments();
     });
   }
 
   onFilterChange(): void {
+    // Aktualisiere die Positionen, wende Filter an und extrahiere Abteilungen neu
     this.updatePositions();
     this.filterChecklists();
+    this.updateDepartments();
   }
 
   updatePositions(): void {
     if (this.selectedDepartment) {
+      // Filtere Positionen anhand der ausgewählten Abteilung und entferne Duplikate
       this.positions = [...new Set(
         this.checklists
-          .filter((checklist) => checklist.abteilungsname === this.selectedDepartment)
-          .map((checklist) => checklist.position)
+          .filter(checklist => checklist.abteilungsname === this.selectedDepartment)
+          .map(checklist => checklist.position)
       )];
     } else {
-      this.positions = [...new Set(this.checklists.map((checklist) => checklist.position))];
+      // Alle Positionen ohne Filterung als eindeutige Werte
+      this.positions = [...new Set(this.checklists.map(checklist => checklist.position))];
     }
   }
+
+// Aktualisierte updateDepartments()-Funktion:
+  updateDepartments(): void {
+    if (this.selectedPosition) {
+      // Falls eine Position ausgewählt wurde, werden nur die Abteilungen ermittelt,
+      // in denen Checklisten mit dieser Position vorkommen
+      this.abteilungen = [...new Set(
+        this.checklists
+          .filter(checklist => checklist.position === this.selectedPosition)
+          .map(checklist => checklist.abteilungsname)
+      )];
+    } else {
+      // Andernfalls alle Abteilungen aus allen Checklisten
+      this.abteilungen = [...new Set(this.checklists.map(checklist => checklist.abteilungsname))];
+    }
+  }
+
 
   filterChecklists(): void {
     this.filteredChecklists = this.checklists.filter((checklist) => {

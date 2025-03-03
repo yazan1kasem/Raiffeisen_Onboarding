@@ -1,29 +1,85 @@
+<!-- Container-Klasse angleichen -->
 <div class="checklist-details-container" *ngIf="userChecklist">
-  <h1>{{ userChecklist.ueberschrift }}</h1>
-  <p>Erstellt am: {{ userChecklist.createdAt | date:'dd.MM.yyyy, HH:mm:ss' }}</p>
-  <p [ngClass]="{'status-in-progress': userChecklist.status === ChecklistStatus.IN_PROGRESS, 'status-complete': userChecklist.status === ChecklistStatus.COMPLETED}">
-    Status: {{ userChecklist.status === ChecklistStatus.IN_PROGRESS ? 'In Bearbeitung' : 'Abgeschlossen' }}
-  </p>
-  <ul class="item-list" [ngClass]="{'locked': userChecklist.isLocked}">
-    <li *ngFor="let item of userChecklist.useritems">
-      <input type="checkbox" [(ngModel)]="item.isChecked" (change)="updateChecklistStatus()" [disabled]="userChecklist.isLocked" />
-      <div>{{ item.originalItem.name }}</div>
-      <span class="item-type">{{ item.originalItem.type }}</span>
-      <span class="info-icon" (click)="toggleInfoBox(item)">ℹ️</span>
-      <div class="info-box" *ngIf="selectedItem === item">
-        Suchbegriffe: {{ item.originalItem.suchbegriff }}
+
+  <!-- HEADER SECTION -->
+  <div class="checklist-header">
+    <h1 class="checklist-title">
+      {{ userChecklist.ueberschrift }}
+    </h1>
+    <div class="checklist-metadata">
+      <span>Erstellt am: {{ userChecklist.createdAt | date:'dd.MM.yyyy, HH:mm:ss' }}</span>
+      <span>letzte veränderung am: {{ userChecklist.updatedAt | date:'dd.MM.yyyy, HH:mm:ss' }}</span>
+      <span
+        [ngClass]="{
+          'status-in-progress': userChecklist.status === ChecklistStatus.IN_PROGRESS,
+          'status-complete': userChecklist.status === ChecklistStatus.COMPLETED
+        }"
+      >
+        Status:
+        {{ userChecklist.status === ChecklistStatus.IN_PROGRESS ? 'In Bearbeitung' : 'Abgeschlossen' }}
+      </span>
+    </div>
+  </div>
+
+  <!-- Auflistung der einzelnen Items -->
+  <ul class="item-list">
+    <li
+      class="item-row"
+      *ngFor="let item of userChecklist.useritems"
+      (click)="toggleInfoBox(item)"
+      [ngClass]="{ 'checked': item.isChecked }"
+    >
+      <input
+        type="checkbox"
+        [(ngModel)]="item.isChecked"
+        (change)="updateChecklistStatus()"
+        [disabled]="userChecklist.locked"
+        (click)="$event.stopPropagation()"
+      />
+      <div class="item-info">
+        <div class="item-name">
+          {{ item.originalItem.name }}
+        </div>
+        <div class="item-type">
+          {{ item.originalItem.type }} - Suchbegriffe: {{ item.originalItem.suchbegriff }}
+        </div>
       </div>
+
+      <!-- Info-Icon zum Ein-/Ausblenden von Details -->
     </li>
   </ul>
-  <button class="save-button" (click)="saveUserChecklist()" [disabled]="userChecklist.isLocked">Änderungen speichern</button>
-  <button class="save-button" (click)="deleteUserChecklist()" [disabled]="userChecklist.isLocked">Checkliste löschen</button>
-  <hr />
-  <h3>Exportoptionen</h3>
-  <button class="save-button" (click)="downloadExcel()">📊 Excel herunterladen</button>
-  <button class="save-button" (click)="downloadPdf()">📄 PDF herunterladen</button>
-  <button class="save-button" (click)="downloadWord()">📝 Word herunterladen</button>
+
+  <!-- Dynamische Info-Box, je nachdem welches Item geklickt wurde -->
+
+
+  <!-- Button-Leiste (Speichern/Löschen) -->
+  <div>
+    <button class="save-button" (click)="saveUserChecklist()" [disabled]="userChecklist.locked">
+      Änderungen speichern
+    </button>
+    <button class="save-button" (click)="deleteUserChecklist()" [disabled]="userChecklist.locked">
+      Checkliste löschen
+    </button>
+  </div>
+
+  <!-- Floating-Icons für Downloads -->
+  <div class="floating-island">
+    <button class="icon-button" (click)="downloadExcel()">
+      📊
+      <span class="hover-text">Excel herunterladen</span>
+    </button>
+    <button class="icon-button" (click)="downloadPdf()">
+      📄
+      <span class="hover-text">PDF herunterladen</span>
+    </button>
+    <button class="icon-button" (click)="downloadWord()">
+      📝
+      <span class="hover-text">Word herunterladen</span>
+    </button>
+  </div>
 </div>
 
+<!-- Fallback, falls keine Checkliste gefunden wird -->
 <div *ngIf="!userChecklist">
   <p>Checkliste wird geladen oder konnte nicht gefunden werden.</p>
 </div>

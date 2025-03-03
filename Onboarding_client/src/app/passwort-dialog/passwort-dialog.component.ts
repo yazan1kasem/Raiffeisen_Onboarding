@@ -34,7 +34,7 @@ import {NgIf} from "@angular/common";
 export class PasswortDialogComponent implements OnInit {
   passwordForm!: FormGroup;
   user: User;
-  minLength = 10;
+  minLength = 4;
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<PasswortDialogComponent>,

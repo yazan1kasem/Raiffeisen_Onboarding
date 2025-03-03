@@ -77,6 +77,11 @@ public class User_Checklists {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
+    }
+
     /**
      * Possible statuses for a checklist.
      */
