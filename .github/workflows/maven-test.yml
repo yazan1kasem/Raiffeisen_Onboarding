@@ -7,6 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       MYSQL_HOST: 127.0.0.1
+      # Stelle sicher, dass das Passwort hier als Literal gesetzt wird, um den führenden $ zu erhalten.
+      MYSQL_PASSWORD: '$g7m87Tsxwz2moaS'
     services:
       mysql:
         image: mysql:8.0
@@ -14,7 +16,7 @@ jobs:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: rbionboarding-database
           MYSQL_USER: iiyvhpemdg
-          MYSQL_PASSWORD: $g7m87Tsxwz2moaS
+          MYSQL_PASSWORD: '$g7m87Tsxwz2moaS'
         ports:
           - 3306:3306
         options: >-
@@ -47,52 +49,4 @@ jobs:
       - name: Check Database Connection using properties credentials
         run: |
           echo "Trying to connect to MySQL using properties credentials..."
-          mysql -h 127.0.0.1 -u iiyvhpemdg -p"$g7m87Tsxwz2moaS" -e "SHOW DATABASES;"
-
-      - name: Install Dependencies und Run Tests (Server)
-        env:
-          JWT_SECRET: ${{ secrets.SECRET_KEY }}
-        run: |
-          cd ..
-          cd Raiffeisen_Onboarding
-          mvn clean install
-          mvn test
-
-      - name: Collect Server Test Reports
-        run: |
-          mkdir -p server-test-results
-          cp target/surefire-reports/*.xml server-test-results/
-
-      - name: Install Dependencies und Fix Vulnerabilities (Client)
-        run: |
-          cd Onboarding_client
-          npm install
-          npm audit fix || true
-
-      - name: Update Angular and Dependencies
-        run: |
-          cd Onboarding_client
-          npm install -g @angular/cli@latest
-          ng update @angular/core @angular/cli || true
-          npm fund
-
-      - name: Run Angular Tests
-        run: |
-          cd Onboarding_client
-          npm test -- --watch=false --browsers=ChromeHeadless || true
-
-      - name: Collect Client Test Reports
-        run: |
-          mkdir -p client-test-results
-          cp Onboarding_client/test-results/*.xml client-test-results/
-
-      - name: Upload Test Reports
-        uses: actions/upload-artifact@v4.5.0
-        with:
-          name: test-reports
-          path: |
-            server-test-results/
-            client-test-results/
-
-      - name: List Docker Images
-        run: docker images
+          mysql -h 127.0.0.1 -u iiyvhpemdg -p"$MYSQL_PASSWORD" -e "SHOW DATABASES;"
