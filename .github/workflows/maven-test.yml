@@ -1,16 +1,20 @@
 name: Build, Test and Deploy
-#a
+
 on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      MYSQL_HOST: 127.0.0.1
     services:
       mysql:
         image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: root
-          MYSQL_DATABASE: db_raiffeisen
+          MYSQL_DATABASE: rbionboarding-database
+          MYSQL_USER: iiyvhpemdg
+          MYSQL_PASSWORD: $g7m87Tsxwz2moaS
         ports:
           - 3306:3306
         options: >-
@@ -28,6 +32,7 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
+
       - name: Wait for MySQL
         run: |
           for i in {1..10}; do
@@ -39,10 +44,10 @@ jobs:
             sleep 5
           done
 
-      - name: Check Database Connection
+      - name: Check Database Connection using properties credentials
         run: |
-          echo "Trying to connect to MySQL..."
-          mysql -h 127.0.0.1 -u root -proot -e "SHOW DATABASES;"
+          echo "Trying to connect to MySQL using properties credentials..."
+          mysql -h 127.0.0.1 -u iiyvhpemdg -p"$g7m87Tsxwz2moaS" -e "SHOW DATABASES;"
 
       - name: Install Dependencies und Run Tests (Server)
         env:
@@ -56,17 +61,14 @@ jobs:
       - name: Collect Server Test Reports
         run: |
           mkdir -p server-test-results
-          cp target/surefire-reports/*.xml server-test-results/      
-      
+          cp target/surefire-reports/*.xml server-test-results/
 
-      # Client: Install Dependencies and Fix Vulnerabilities
       - name: Install Dependencies und Fix Vulnerabilities (Client)
         run: |
           cd Onboarding_client
           npm install
           npm audit fix || true
 
-      # Client: Update Angular and Dependencies
       - name: Update Angular and Dependencies
         run: |
           cd Onboarding_client
@@ -74,20 +76,16 @@ jobs:
           ng update @angular/core @angular/cli || true
           npm fund
 
-      # Client: Run Angular Tests
       - name: Run Angular Tests
         run: |
           cd Onboarding_client
           npm test -- --watch=false --browsers=ChromeHeadless || true
 
-      # Client: Collect Test Reports
       - name: Collect Client Test Reports
         run: |
-          ls
           mkdir -p client-test-results
           cp Onboarding_client/test-results/*.xml client-test-results/
 
-      # Upload Test Reports
       - name: Upload Test Reports
         uses: actions/upload-artifact@v4.5.0
         with:
