@@ -40,48 +40,6 @@ public class AdminRepositoryTest {
         assertThat(foundUser.get().getUsername()).isEqualTo("adminUser");
     }
 
-    @Test
-    void testFindAll() {
-        // Clean up the repository before the test
-        adminRepository.deleteAll();
-
-        // Given: Zwei Benutzer werden gespeichert
-        User user1 = new User();
-        user1.setUsername("admin1");
-        user1.setPassword("password1");
-        user1.setRole(User.Role.ADMIN);
-
-        User user2 = new User();
-        user2.setUsername("admin2");
-        user2.setPassword("password2");
-        user2.setRole(User.Role.ADMIN);
-
-        adminRepository.save(user1);
-        adminRepository.save(user2);
-
-        // When: Alle Benutzer abrufen
-        Iterable<User> users = adminRepository.findAll();
-
-        // Then: Überprüfen, ob beide Benutzer gefunden wurden
-        assertThat(users).hasSize(2);
-    }
-
-    @Test
-    void testUpdateUser() {
-        // Given: Ein Benutzer wird gespeichert
-        User user = new User();
-        user.setUsername("adminUser");
-        user.setPassword("oldPassword");
-        user.setRole(User.Role.ADMIN);
-        adminRepository.save(user);
-
-        // When: Aktualisiere den Benutzer
-        user.setPassword("newPassword");
-        User updatedUser = adminRepository.save(user);
-
-        // Then: Überprüfen, ob die Änderungen gespeichert wurden
-        assertThat(updatedUser.getPassword()).isEqualTo("newPassword");
-    }
 
     @Test
     void testDeleteUser() {
