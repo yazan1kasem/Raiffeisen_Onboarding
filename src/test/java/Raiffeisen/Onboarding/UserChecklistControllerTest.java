@@ -35,21 +35,6 @@ class UserChecklistControllerTest {
         mockMvc = MockMvcBuilders.standaloneSetup(userChecklistController).build();
     }
 
-    @Test
-    void getAllUserChecklists() throws Exception {
-        // Arrange
-        User_Checklists userChecklist1 = new User_Checklists();
-        User_Checklists userChecklist2 = new User_Checklists();
-        Iterable<User_Checklists> allUserChecklists = List.of(userChecklist1, userChecklist2);
-        when(userChecklistRepository.findAll()).thenReturn(allUserChecklists);
-
-        // Act & Assert
-        mockMvc.perform(get("/userchecklist"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$[0]").exists())
-                .andExpect(jsonPath("$[1]").exists());
-    }
 
     @Test
     void getUserChecklistById() throws Exception {

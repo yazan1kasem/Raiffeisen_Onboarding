@@ -1,4 +1,4 @@
-package Raiffeisen.Onboarding.PDFGenerator;
+package Raiffeisen.Onboarding.PDFGenrator;
 
 import Raiffeisen.Onboarding.Entities.CheckList;
 import Raiffeisen.Onboarding.Entities.Item;

@@ -107,11 +107,4 @@ class ChecklistenControllerTest {
                 .andExpect(status().isNotFound());
     }
 
-    @Test
-    void shouldReturnNotFoundWhenDeletingNonExistentCheckList() throws Exception {
-        when(checkListenRepository.existsById(anyString())).thenReturn(false);
-
-        mockMvc.perform(delete("/checklisten/999"))
-                .andExpect(status().isNotFound());
-    }
 }

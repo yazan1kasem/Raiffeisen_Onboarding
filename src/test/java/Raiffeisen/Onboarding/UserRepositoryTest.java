@@ -78,6 +78,9 @@ public class UserRepositoryTest {
 
     @Test
     void testFindAllUsers() {
+        // Clean up the repository before the test
+        userRepository.deleteAll();
+
         // Given: Zwei Benutzer werden gespeichert
         User user1 = new User();
         user1.setUsername("user1"); // Benutzername ist gleichzeitig die ID

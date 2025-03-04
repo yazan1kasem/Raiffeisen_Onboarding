@@ -62,7 +62,7 @@ public class ConverterController {
         }
     }
     @Autowired
-    private Raiffeisen.Onboarding.PDFGenerator.PdfGeneratorService pdfGeneratorService;
+    private Raiffeisen.Onboarding.PDFGenrator.PdfGeneratorService pdfGeneratorService;
 
     @PostMapping("/pdf/generate")
     public ResponseEntity<byte[]> generateChecklistPdf(@RequestBody User_Checklists checklist) {

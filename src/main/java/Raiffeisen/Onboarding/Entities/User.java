@@ -48,6 +48,9 @@ public class User implements UserDetails {
     @Builder.Default
     private boolean enabled = true;
 
+    public User(String userId, String oldPassword) {
+    }
+
 
     public enum Role {
         USER,

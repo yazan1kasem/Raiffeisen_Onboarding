@@ -4,9 +4,9 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import Raiffeisen.Onboarding.Controller.SuperAdminController;
-import Raiffeisen.Onboarding.Entities.Item;
 import Raiffeisen.Onboarding.Entities.User;
-import Raiffeisen.Onboarding.Repository.ItemRepository;
+import Raiffeisen.Onboarding.Entities.User_Checklists;
+import Raiffeisen.Onboarding.Repository.UserChecklistRepository;
 import Raiffeisen.Onboarding.Repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,49 +29,19 @@ class SuperAdminControllerTest {
     private UserRepository userRepository;
 
     @Mock
-    private ItemRepository itemRepository;
+    private UserChecklistRepository userChecklistRepository;
 
     private User mockUser;
-    private Item mockItem;
+    private User_Checklists mockUserChecklist;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
         mockUser = new User("superadmin", "password", null, null, true, User.Role.SUPER_ADMIN);
-        mockItem = new Item("Item1", "Type1", "SearchTerm1");
+        mockUserChecklist = new User_Checklists();
+        mockUserChecklist.setId("checklist1");
+        mockUserChecklist.setUser(mockUser);
     }
-
-    @Test
-    void testCreateItem() {
-        when(itemRepository.save(mockItem)).thenReturn(mockItem);
-
-        ResponseEntity<Item> response = superAdminController.createItem(mockItem);
-
-        assertEquals(200, response.getStatusCodeValue());
-        assertEquals(mockItem.getName(), response.getBody().getName());
-    }
-
-    @Test
-    void testUpdateItem() {
-        when(itemRepository.findById(mockItem.getId())).thenReturn(Optional.of(mockItem));
-        Item updatedItem = new Item("Updated Item", "Type1", "SearchTerm1");
-        when(itemRepository.save(any(Item.class))).thenReturn(updatedItem);
-
-        ResponseEntity<Item> response = superAdminController.updateItem(mockItem.getId(), updatedItem);
-
-        assertEquals(200, response.getStatusCodeValue());
-        assertEquals("Updated Item", response.getBody().getName());
-    }
-
-    @Test
-    void testDeleteItem() {
-        when(itemRepository.existsById(mockItem.getId())).thenReturn(true);
-
-        ResponseEntity<Void> response = superAdminController.deleteItem(mockItem.getId());
-
-        assertEquals(204, response.getStatusCodeValue());
-    }
-
 
     @Test
     void testPromoteUserToAdmin() {
@@ -99,24 +69,73 @@ class SuperAdminControllerTest {
     }
 
     @Test
-    void testSetActiveStatus() {
-        when(userRepository.findById("superadmin")).thenReturn(Optional.of(mockUser));
-        mockUser.setEnabled(true);
-        when(userRepository.save(any(User.class))).thenReturn(mockUser);
-
-        ResponseEntity<User> response = superAdminController.setActiveStatus("superadmin", true);
-
-        assertEquals(200, response.getStatusCodeValue());
-        assertTrue(response.getBody().isEnabled());
-    }
-
-    @Test
     void testDeleteUser() {
         when(userRepository.existsById("superadmin")).thenReturn(true);
+        when(userRepository.findById("superadmin")).thenReturn(Optional.of(mockUser));
+        when(userChecklistRepository.findByUser(mockUser)).thenReturn(List.of(mockUserChecklist));
 
         ResponseEntity<Void> response = superAdminController.deleteUser("superadmin");
 
         assertEquals(204, response.getStatusCodeValue());
+        verify(userRepository, times(1)).deleteById("superadmin");
+    }
+
+    @Test
+    void testDeleteUserChecklist() {
+        when(userChecklistRepository.existsById("checklist1")).thenReturn(true);
+
+        ResponseEntity<Void> response = superAdminController.deleteUserChecklist("checklist1");
+
+        assertEquals(204, response.getStatusCodeValue());
+        verify(userChecklistRepository, times(1)).deleteById("checklist1");
+    }
+
+    @Test
+    void testDeleteAllUserChecklists() {
+        when(userRepository.existsById("superadmin")).thenReturn(true);
+        when(userRepository.findById("superadmin")).thenReturn(Optional.of(mockUser));
+        when(userChecklistRepository.findByUser(mockUser)).thenReturn(List.of(mockUserChecklist));
+
+        ResponseEntity<Void> response = superAdminController.deleteallUserChecklistfromuser("superadmin");
+
+        assertEquals(204, response.getStatusCodeValue());
+        verify(userChecklistRepository, times(1)).deleteAll(anyList());
+    }
+
+    @Test
+    void testBlockUserChecklist() {
+        when(userChecklistRepository.findById("checklist1")).thenReturn(Optional.of(mockUserChecklist));
+        mockUserChecklist.setLocked(true);
+        when(userChecklistRepository.save(any(User_Checklists.class))).thenReturn(mockUserChecklist);
+
+        ResponseEntity<User_Checklists> response = superAdminController.blockUserChecklist("checklist1");
+
+        assertEquals(200, response.getStatusCodeValue());
+        assertTrue(response.getBody().isLocked());
+    }
+
+    @Test
+    void testUnblockUserChecklist() {
+        when(userChecklistRepository.findById("checklist1")).thenReturn(Optional.of(mockUserChecklist));
+        mockUserChecklist.setLocked(false);
+        when(userChecklistRepository.save(any(User_Checklists.class))).thenReturn(mockUserChecklist);
+
+        ResponseEntity<User_Checklists> response = superAdminController.unblockUserChecklist("checklist1");
+
+        assertEquals(200, response.getStatusCodeValue());
+        assertFalse(response.getBody().isLocked());
+    }
+
+    @Test
+    void testUserEnable() {
+        when(userRepository.findById("superadmin")).thenReturn(Optional.of(mockUser));
+        mockUser.setEnabled(true);
+        when(userRepository.save(any(User.class))).thenReturn(mockUser);
+
+        ResponseEntity<Boolean> response = superAdminController.userenable("superadmin", true);
+
+        assertEquals(200, response.getStatusCodeValue());
+        assertTrue(response.getBody());
     }
 
     @Test
