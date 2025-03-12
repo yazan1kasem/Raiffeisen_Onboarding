@@ -1,7 +1,7 @@
 # Dockerfile for Java Spring Boot application
 FROM maven:3.8.6 AS build
 
-COPY . .
+COPY .. .
 
 RUN java -version
 

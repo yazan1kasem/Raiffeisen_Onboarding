@@ -22,7 +22,7 @@ export class DataService {
   // HTTP Helper Methods
   // -----------------------------------
 
-  private getAuthHeaders(): HttpHeaders {
+  getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
     if (!token) {
       this.showError('Es scheint, dass du nicht eingeloggt bist. Bitte melde dich an.');
@@ -34,7 +34,7 @@ export class DataService {
     });
   }
 
-  private showError(message: string): void {
+  showError(message: string): void {
     this.snackBar.open(message, 'Schließen', {
       duration: 4000,
       panelClass: ['error-snackbar']
