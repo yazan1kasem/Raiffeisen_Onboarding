@@ -93,7 +93,6 @@ public class AdminController {
     }
 
 
-
     @GetMapping("/test")
     public ResponseEntity<String> checkIfAdmin(@AuthenticationPrincipal UserDetails userDetails) {
         if (userDetails == null) {

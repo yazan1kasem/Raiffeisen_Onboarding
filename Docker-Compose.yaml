@@ -2,7 +2,7 @@ services:
   app:
     image: 'docker-spring-boot-postgres:latest'
     build:
-      context: .  # Geben Sie den Kontext an, wo die Dockerfile für die Spring Boot App liegt
+      context: ..  # Geben Sie den Kontext an, wo die Dockerfile für die Spring Boot App liegt
     container_name: Onboarding
     ports:
       - "8081:8081"
@@ -22,7 +22,7 @@ services:
 
   angular-app:
     build:
-      context: ./Onboarding_client  # Kontext für die Angular-App
+      context: ../Onboarding_client  # Kontext für die Angular-App
     container_name: angular-app
     ports:
       - "4200:4200"

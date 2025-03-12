@@ -76,6 +76,7 @@ public class AdminControllerTest {
         verify(checkListenRepository, times(1)).findById(checklistId);
         verify(checkListenRepository, times(1)).save(any(CheckList.class));
     }
+
 /*
     @Test
     public void testChangeUserPassword() throws Exception {
@@ -127,5 +128,28 @@ public class AdminControllerTest {
                 .andExpect(jsonPath("$.length()").value(1)); // Assert that the length of the array is 1
 
         verify(itemRepository, times(1)).findAll();
+    }
+
+    @Test
+    public void testGetAllUsers() throws Exception {
+        // Given
+        User user1 = new User();
+        user1.setUsername("user1");
+        user1.setRole(User.Role.USER); // Set the role to avoid null pointer exception
+
+        User user2 = new User();
+        user2.setUsername("user2");
+        user2.setRole(User.Role.ADMIN); // Set the role to avoid null pointer exception
+
+        when(userRepository.findAll()).thenReturn(Arrays.asList(user1, user2));
+
+        // When & Then
+        mockMvc.perform(get("/admin/users"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(2)) // Assert that the length of the array is 2
+                .andExpect(jsonPath("$[0].username").value("user1"))
+                .andExpect(jsonPath("$[1].username").value("user2"));
+
+        verify(userRepository, times(1)).findAll();
     }
 }
