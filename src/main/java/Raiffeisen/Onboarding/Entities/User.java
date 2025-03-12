@@ -68,6 +68,21 @@ public class User implements UserDetails {
         return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return enabled;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
     @JsonProperty("authorities")
     public List<String> getAuthoritiesAsStrings() {
         return Collections.singletonList("ROLE_" + role.name());

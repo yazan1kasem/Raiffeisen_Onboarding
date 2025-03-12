@@ -5,9 +5,9 @@ import string
 from faker import Faker
 
 BASE_URL = "http://localhost:8081"
-NUM_SIGNUP = 500
-NUM_LOGIN = 1
-NUM_CHECKLIST = 1
+NUM_SIGNUP = 100
+NUM_LOGIN = 100
+NUM_CHECKLIST = 100
 
 fake = Faker()
 
@@ -80,7 +80,7 @@ async def create_userchecklist():
             ]
         },
         "user": {
-            "username": user["username"],
+            "username": "yazan",
             "password": user["hash_password"],
             "createdAt": "2025-02-11T12:38:33.404+00:00",
             "updatedAt": "2025-02-11T12:38:33.404+00:00",
