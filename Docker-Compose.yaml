@@ -34,20 +34,4 @@ services:
       timeout: 10s
       retries: 3
 
-  db:
-    image: mysql:8
-    container_name: db
-    restart: always
-    volumes:
-      - ./db-data:/var/lib/mysql
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_DATABASE: db_raiffeisen
-      MYSQL_PASSWORD: root
-      MYSQL_ROOT_PASSWORD: root
-    healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
+
