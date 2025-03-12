@@ -7,6 +7,7 @@ RUN java -version
 
 RUN mvn clean package -DskipTests
 
+
 FROM openjdk:17-jdk
 
 COPY --from=build target/Onboarding-0.0.1-SNAPSHOT.jar app.jar
