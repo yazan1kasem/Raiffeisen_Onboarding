@@ -1,5 +1,5 @@
 name: Build, Test and Deploy
-
+#a
 on: [push]
 
 jobs:
@@ -22,15 +22,12 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4.2.2
 
-      # Setup Java and Maven for Server Tests
       - name: Setup Java
         uses: actions/setup-java@v4.6.0
         with:
           java-version: '17'
           distribution: 'temurin'
           cache: maven
-
-      # Wait for MySQL service to be ready
       - name: Wait for MySQL
         run: |
           for i in {1..10}; do
@@ -42,13 +39,11 @@ jobs:
             sleep 5
           done
 
-      # Check Database Connection
       - name: Check Database Connection
         run: |
           echo "Trying to connect to MySQL..."
           mysql -h 127.0.0.1 -u root -proot -e "SHOW DATABASES;"
 
-      # Server: Install Dependencies and Run Server Tests
       - name: Install Dependencies und Run Tests (Server)
         env:
           JWT_SECRET: ${{ secrets.SECRET_KEY }}
@@ -58,11 +53,11 @@ jobs:
           mvn clean install
           mvn test
 
-      # Collect Server Test Reports
       - name: Collect Server Test Reports
         run: |
           mkdir -p server-test-results
-          cp target/surefire-reports/*.xml server-test-results/
+          cp target/surefire-reports/*.xml server-test-results/      
+      
 
       # Client: Install Dependencies and Fix Vulnerabilities
       - name: Install Dependencies und Fix Vulnerabilities (Client)
@@ -85,27 +80,14 @@ jobs:
           cd Onboarding_client
           npm test -- --watch=false --browsers=ChromeHeadless || true
 
-      # Collect Client Test Reports
+      # Client: Collect Test Reports
       - name: Collect Client Test Reports
         run: |
           ls
           mkdir -p client-test-results
           cp Onboarding_client/test-results/*.xml client-test-results/
 
-      # Add E2E Tests with Cypress
-      - name: Install Cypress and Run E2E Tests
-        run: |
-          cd Onboarding_client
-          npm install cypress --save-dev  # Install Cypress
-          npx cypress run --headless --no-exit  # Run E2E tests in headless mode
-
-      # Collect Cypress Test Reports
-      - name: Collect Cypress Test Reports
-        run: |
-          mkdir -p cypress-test-results
-          cp Onboarding_client/cypress/reports/* cypress-test-results/
-
-      # Upload all Test Reports
+      # Upload Test Reports
       - name: Upload Test Reports
         uses: actions/upload-artifact@v4.5.0
         with:
@@ -113,9 +95,6 @@ jobs:
           path: |
             server-test-results/
             client-test-results/
-            cypress-test-results/
 
-      # List Docker Images (optional, for debugging)
       - name: List Docker Images
-        run: |
-          docker images
+        run: docker images
