@@ -1,13 +1,22 @@
 services:
-  - name: onboarding
+  - name: onboarding-frontend
+    type: web
+    runtime: docker
+    repo: https://github.com/yazan1kasem/Raiffeisen_Onboarding.git/Onboarding_client
+    branch: master
+    plan: starter
+    envVars:
+      - key: SERVER_PORT
+        value: "4200"
+  - name: onboarding-backend
     type: web
     runtime: docker
     repo: https://github.com/yazan1kasem/Raiffeisen_Onboarding.git
     branch: master
-    dockerfilePath: Dockerfile
+    plan: starter
     envVars:
       - key: SPRING_DATASOURCE_URL
-        value: jdbc:mysql://db:3306/db_raiffeisen
+        value: jdbc:mysql://db_raiffeisen:3306/db_raiffeisen?serverTimezone=UTC
       - key: SPRING_DATASOURCE_USERNAME
         value: root
       - key: SPRING_DATASOURCE_PASSWORD
@@ -20,3 +29,6 @@ services:
         value: "36000000"
     healthCheckPath: /actuator/health
     region: frankfurt
+    dockerfilePath: Dockerfile
+
+
