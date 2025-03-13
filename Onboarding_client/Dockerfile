@@ -5,6 +5,7 @@ WORKDIR /app
 
 COPY . .
 
+RUN cd Onboarding_client
 RUN ls
 RUN npm install
 
