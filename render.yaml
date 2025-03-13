@@ -44,23 +44,28 @@ services:
     region: frankfurt
     dockerfilePath: Dockerfile
 
-  - name: db_raiffeisen
-    type: pserv  # ✅ Erlaubter Typ für persistente Services
-    plan: starter
-    envVars:
-      - key: MYSQL_DATABASE
-        value: db_raiffeisen
-      - key: MYSQL_USER
-        value: root  # 🔐 Sicherer Benutzername
-      - key: MYSQL_PASSWORD
-        value: root  # 🔒 Sicheres Passwort wird generiert
-      - key: MYSQL_ROOT_PASSWORD
-        value: root  # 🔒 Sicheres Root-Passwort wird generiert
+  - type: pserv  # ✅ Erlaubter Typ für persistente Services
+    plan: standard
+    name: db_raiffeisen
+    autoDeploy: true
     disk:
       name: db_raiffeisen
       mountPath: /var/lib/mysql
       sizeGB: 10
-    repo: https://github.com/render-examples/mysql
+    repo: https://github.com/render-examples/mysql.git
     region: frankfurt
     branch: oh/mysql_8.0.24
     runtime: docker
+    envVars:
+      - fromGroup: db_raiffeisen
+envVarGroups:
+  - name: db_raiffeisen
+    envVars:
+      - key: MYSQL_DATABASE
+        value: db_raiffeisen
+      - key: MYSQL_USER
+        value: root
+      - key: MYSQL_PASSWORD
+        generateValue: true
+      - key: MYSQL_ROOT_PASSWORD
+        generateValue: true
