@@ -21,20 +21,16 @@ services:
     branch: master
     plan: starter
     envVars:
-      - key: SPRING_DATASOURCE_URL
-        fromDatabase:
-          name: db_raiffeisen
-          property: connectionString
-      - key: SPRING_DATASOURCE_USERNAME
-        fromDatabase:
-          name: db_raiffeisen
-          property: user
-      - key: SPRING_DATASOURCE_PASSWORD
-        fromDatabase:
-          name: db_raiffeisen
-          property: password
-      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
-        value: update
+      - key: DATABASE_HOST
+        value: db_raiffeisen
+      - key: DATABASE_PORT
+        value: "3306"
+      - key: DATABASE_NAME
+        value: db_raiffeisen
+      - key: DATABASE_USER
+        value: root
+      - key: DATABASE_PASSWORD
+        value: root
       - key: SERVER_PORT
         value: "8081"
       - key: SECURITY_JWT_SECRET_KEY
