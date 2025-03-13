@@ -5,6 +5,7 @@ WORKDIR /app
 
 COPY . .
 
+RUN ls
 RUN npm install
 
 EXPOSE 4200
