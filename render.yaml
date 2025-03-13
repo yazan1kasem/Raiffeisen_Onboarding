@@ -9,9 +9,6 @@ services:
     envVars:
       - key: API_URL
         value: https://onboarding-backend.onrender.com
-    headers:
-      - name: "Cache-Control"
-        value: "max-age=31536000, immutable"
     routes:
       - source: /.*
         destination: /index.html
