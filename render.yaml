@@ -7,12 +7,10 @@ services:
         value: db_raiffeisen
       - key: MYSQL_ROOT_PASSWORD
         value: root
-    image: mysql:8
-    ports:
-      - "3306"
     disk:
       name: db-storage
       mountPath: /var/lib/mysql
+    runtime: image
 
   - name: onboarding-frontend
     type: web
@@ -46,6 +44,3 @@ services:
     healthCheckPath: /actuator/health
     region: frankfurt
     dockerfilePath: Dockerfile
-    dependsOn:
-      - name: db_raiffeisen
-        condition: service_healthy
