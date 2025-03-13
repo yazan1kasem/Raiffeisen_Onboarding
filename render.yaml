@@ -1,4 +1,19 @@
 services:
+  - name: db_raiffeisen
+    type: pserv
+    plan: free
+    envVars:
+      - key: MYSQL_DATABASE
+        value: db_raiffeisen
+      - key: MYSQL_ROOT_PASSWORD
+        value: root
+    image: mysql:8
+    ports:
+      - "3306"
+    disk:
+      name: db-storage
+      mountPath: /var/lib/mysql
+
   - name: onboarding-frontend
     type: web
     runtime: docker
@@ -8,6 +23,7 @@ services:
     envVars:
       - key: SERVER_PORT
         value: "4200"
+
   - name: onboarding-backend
     type: web
     runtime: docker
@@ -30,5 +46,6 @@ services:
     healthCheckPath: /actuator/health
     region: frankfurt
     dockerfilePath: Dockerfile
-
-
+    dependsOn:
+      - name: db_raiffeisen
+        condition: service_healthy
