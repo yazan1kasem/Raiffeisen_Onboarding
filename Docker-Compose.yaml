@@ -1,64 +1,53 @@
-version: '3.8'
-
 services:
-  mysql-db:
-    image: mysql:8.0.24
-    container_name: db_raiffeisen
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: db_raiffeisen
-      MYSQL_USER: root
-      MYSQL_PASSWORD: root
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
-    networks:
-      - onboarding-network
-
-  backend:
+  app:
+    image: 'docker-spring-boot-postgres:latest'
     build:
-      context: ..  # Setzt den Pfad zur Spring Boot App
-      dockerfile: Dockerfile
-    container_name: onboarding-backend
+      context: ..  # Geben Sie den Kontext an, wo die Dockerfile für die Spring Boot App liegt
+    container_name: Onboarding
     ports:
       - "8081:8081"
     depends_on:
-      mysql-db:
+      db:
         condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://db_raiffeisen:3306/db_raiffeisen?serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: root
-      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/db_raiffeisen
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=create
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8081/actuator/health"]
       interval: 30s
       timeout: 10s
       retries: 3
-    networks:
-      - onboarding-network
 
-  frontend:
+  angular-app:
     build:
-      context: ../Onboarding_client
-      dockerfile: Dockerfile
-    container_name: onboarding-frontend
+      context: ../Onboarding_client  # Kontext für die Angular-App
+    container_name: angular-app
     ports:
       - "4200:4200"
     depends_on:
-      - backend
+      - app
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:4200"]
       interval: 30s
       timeout: 10s
       retries: 3
-    networks:
-      - onboarding-network
 
-networks:
-  onboarding-network:
-
-volumes:
-  mysql_data:
+  db:
+    image: mysql:8
+    container_name: db
+    restart: always
+    volumes:
+      - ./db-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_DATABASE: db_raiffeisen
+      MYSQL_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: root
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
