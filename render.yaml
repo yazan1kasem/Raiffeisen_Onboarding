@@ -11,17 +11,17 @@ services:
     disk:
       name: db-storage
       mountPath: /var/lib/mysql
-
   - name: onboarding-frontend
     type: web
-    startCommand: cd Onboarding_client
     runtime: docker
     repo: https://github.com/yazan1kasem/Raiffeisen_Onboarding.git
     branch: master
     plan: starter
+    dockerfilePath: Onboarding_client/Dockerfile  # ✅ Set Dockerfile inside Onboarding_client
     envVars:
       - key: SERVER_PORT
         value: "4200"
+
 
   - name: onboarding-backend
     type: web
