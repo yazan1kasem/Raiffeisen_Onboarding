@@ -44,29 +44,28 @@ services:
     healthCheckPath: /actuator/health
     region: frankfurt
     dockerfilePath: Dockerfile
-
-  - type: pserv  # ✅ Erlaubter Typ für persistente Services
-    plan: standard
-    name: db_raiffeisen
-    autoDeploy: true
-    disk:
-      name: db_raiffeisen
-      mountPath: /var/lib/mysql
-      sizeGB: 10
-    repo: https://github.com/render-examples/mysql.git
-    region: frankfurt
-    branch: oh/mysql_8.0.24
+  - type: pserv
+    name: mysql
     runtime: docker
+    repo: https://github.com/render-examples/mysql
+    plan: starter
     envVars:
-      - fromGroup: db_raiffeisen
-envVarGroups:
-  - name: db_raiffeisen
-    envVars:
-      - key: MYSQL_DATABASE
-        value: db_raiffeisen
-      - key: MYSQL_USER
+      - key: MYSQL_ROOT_PASSWORD
+        sync: false
         value: root
       - key: MYSQL_PASSWORD
-        generateValue: true
-      - key: MYSQL_ROOT_PASSWORD
-        generateValue: true
+        sync: false
+        value: root
+      - key: MYSQL_USER
+        sync: false
+        value: root
+      - key: MYSQL_DATABASE
+        sync: false
+        value: db_raiffeisen
+    region: frankfurt
+    dockerContext: .
+    dockerfilePath: ./Dockerfile
+    disk:
+      name: disk
+      mountPath: /var/lib/mysql
+      sizeGB: 10
