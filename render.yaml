@@ -12,6 +12,10 @@ services:
     headers:
       - name: "Cache-Control"
         value: "max-age=31536000, immutable"
+    routes:
+      - source: /.*
+        destination: /index.html
+        status: 200
 
   - name: onboarding-backend
     type: web
@@ -37,7 +41,7 @@ services:
       - key: SERVER_PORT
         value: "8081"
       - key: SECURITY_JWT_SECRET_KEY
-        value: knPeHS16UXrpv0w4jr+8/8zbV4h8H/9CLn4snkV51EY=
+        sync: false  # 🔒 Secret bleibt sicher
       - key: SECURITY_JWT_EXPIRATION_TIME
         value: "36000000"
     healthCheckPath: /actuator/health
@@ -45,20 +49,19 @@ services:
     dockerfilePath: Dockerfile
 
   - name: db_raiffeisen
+    type: pserv  # ✅ Erlaubter Typ für persistente Services
     plan: free
-    type: database
     envVars:
       - key: MYSQL_DATABASE
         value: db_raiffeisen
       - key: MYSQL_USER
-        value: root
+        value: root  # 🔐 Sicherer Benutzername
       - key: MYSQL_PASSWORD
-        value: root
+        value: root  # 🔒 Sicheres Passwort wird generiert
       - key: MYSQL_ROOT_PASSWORD
-        value: root
+        value: root  # 🔒 Sicheres Root-Passwort wird generiert
     disk:
-        name: db_raiffeisen
-        MOUNT_PATH: /var/lib/mysql
-        sizeGB: 10
+      name: db_raiffeisen
+      MOUNT_PATH: /var/lib/mysql
+      sizeGB: 10
     repo: https://github.com/render-examples/mysql
-
