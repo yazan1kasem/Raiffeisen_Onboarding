@@ -28,7 +28,7 @@ services:
       mysql-db:
         condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/db_raiffeisen?serverTimezone=UTC
+      SPRING_DATASOURCE_URL: jdbc:mysql://db_raiffeisen:3306/db_raiffeisen?serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
