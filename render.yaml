@@ -3,7 +3,7 @@ services:
     type: web
     runtime: static
     repo: https://github.com/yazan1kasem/Raiffeisen_Onboarding.git
-    branch: main
+    branch: master
     buildCommand: cd Onboarding_client && npm install && npm run build
     staticPublishPath: Onboarding_client/dist/Onboarding_client
     envVars:
@@ -17,7 +17,7 @@ services:
     type: web
     runtime: docker
     repo: https://github.com/yazan1kasem/Raiffeisen_Onboarding.git
-    branch: main
+    branch: master
     plan: starter
     envVars:
       - key: SPRING_DATASOURCE_URL
@@ -61,4 +61,6 @@ services:
       mountPath: /var/lib/mysql
       sizeGB: 10
     repo: https://github.com/render-examples/mysql
+    region: frankfurt
+    branch: oh/mysql_8.0.24
     runtime: docker
