@@ -46,6 +46,7 @@ services:
 
   - name: db_raiffeisen
     plan: free
+    type: database
     envVars:
       - key: MYSQL_DATABASE
         value: db_raiffeisen
