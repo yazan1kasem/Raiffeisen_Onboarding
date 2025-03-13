@@ -3,6 +3,9 @@ services:
     type: pserv
     runtime: docker  # ✅ Hier hinzufügen!
     plan: starter
+    repo: https://github.com/yazan1kasem/Raiffeisen_Onboarding.git
+    branch: master
+    dockerfilePath: sql/Dockerfile  # ✅ Set Dockerfile inside Onboarding_client
     envVars:
       - key: MYSQL_DATABASE
         value: db_raiffeisen
