@@ -15,8 +15,7 @@ services:
     routes:
       - source: /.*
         destination: /index.html
-        status: 200
-
+        type: redirect
   - name: onboarding-backend
     type: web
     runtime: docker
@@ -62,6 +61,6 @@ services:
         value: root  # 🔒 Sicheres Root-Passwort wird generiert
     disk:
       name: db_raiffeisen
-      MOUNT_PATH: /var/lib/mysql
+      mountPath: /var/lib/mysql
       sizeGB: 10
     repo: https://github.com/render-examples/mysql
