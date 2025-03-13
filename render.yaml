@@ -64,3 +64,4 @@ services:
       mountPath: /var/lib/mysql
       sizeGB: 10
     repo: https://github.com/render-examples/mysql
+    runtime: docker
