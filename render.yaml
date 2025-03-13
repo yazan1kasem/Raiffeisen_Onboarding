@@ -18,7 +18,7 @@ services:
     runtime: docker
     repo: https://github.com/yazan1kasem/Raiffeisen_Onboarding.git
     branch: main
-    plan: free
+    plan: starter
     envVars:
       - key: SPRING_DATASOURCE_URL
         fromDatabase:
@@ -46,7 +46,7 @@ services:
 
   - name: db_raiffeisen
     type: pserv  # ✅ Erlaubter Typ für persistente Services
-    plan: free
+    plan: starter
     envVars:
       - key: MYSQL_DATABASE
         value: db_raiffeisen
