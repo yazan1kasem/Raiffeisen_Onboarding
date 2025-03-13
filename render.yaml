@@ -21,11 +21,17 @@ services:
     plan: free
     envVars:
       - key: SPRING_DATASOURCE_URL
-        value: jdbc:mysql://mysql-keif:10000/db_raiffeisen
+        fromDatabase:
+          name: db_raiffeisen
+          property: connectionString
       - key: SPRING_DATASOURCE_USERNAME
-        value: root
+        fromDatabase:
+          name: db_raiffeisen
+          property: user
       - key: SPRING_DATASOURCE_PASSWORD
-        value: examplepassword  # Replace with actual Render MySQL password
+        fromDatabase:
+          name: db_raiffeisen
+          property: password
       - key: SPRING_JPA_HIBERNATE_DDL_AUTO
         value: update
       - key: SERVER_PORT
@@ -40,14 +46,6 @@ services:
 
 databases:
   - name: db_raiffeisen
-    type: private
     plan: free
-    repo: https://github.com/render-examples/mysql
-    branch: main
-    envVars:
-      - key: MYSQL_DATABASE
-        value: db_raiffeisen
-      - key: MYSQL_USER
-        value: root
-      - key: MYSQL_PASSWORD
-        value: root  # Replace with a strong password
+    databaseName: db_raiffeisen
+    user: root
