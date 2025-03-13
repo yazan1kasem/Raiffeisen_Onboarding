@@ -22,16 +22,14 @@ services:
     plan: free
     envVars:
       - key: SPRING_DATASOURCE_URL
-        fromDatabase:
-          name: onboarding-db
-          property: connectionString
+        value: jdbc:mysql://mysql-keif:10000/db_raiffeisen
       - key: SPRING_DATASOURCE_USERNAME
         fromDatabase:
-          name: onboarding-db
+          name: db_raiffeisen
           property: user
       - key: SPRING_DATASOURCE_PASSWORD
         fromDatabase:
-          name: onboarding-db
+          name: db_raiffeisen
           property: password
       - key: SPRING_JPA_HIBERNATE_DDL_AUTO
         value: create-drop
@@ -46,7 +44,7 @@ services:
     dockerfilePath: Dockerfile
 
 databases:
-  - name: onboarding-db
+  - name: db_raiffeisen
     plan: free
     databaseName: db_raiffeisen
     user: root
