@@ -92,7 +92,7 @@ jobs:
         uses: actions/upload-artifact@v4.5.0
         with:
           name: test-reports
-          path: |
+          path:
             server-test-results/
             client-test-results/
 

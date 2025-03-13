@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy JAR app to Azure Web App - rbiOnboarding
+name: Build and deploy JAR  - rbiOnboarding
 
 on:
   push:
@@ -49,18 +49,3 @@ jobs:
         with:
           name: java-app
       
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_E380B600D7E6466FA35DD57BA8F03C4A }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_2270447C650346AE860286B1776514A4 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_362E15CF97B24673883C6E85A4258C77 }}
-
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v3
-        with:
-          app-name: 'rbiOnboarding'
-          slot-name: 'Production'
-          package: '*.jar'
-          
