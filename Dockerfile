@@ -1,15 +1,33 @@
-# Dockerfile for Java Spring Boot application
+# Basis-Image für Maven Build
 FROM maven:3.8.6 AS build
 
-COPY .. .
+# Setze das Arbeitsverzeichnis für den Build
+WORKDIR /app
 
-RUN java -version
+# Kopiere nur die notwendigen Dateien für den Build
+COPY pom.xml .
+RUN mvn dependency:go-offline
 
+# Kopiere den gesamten Code nach dem Abhängigkeits-Download
+COPY . .
+
+# Baue das Projekt, ohne Tests auszuführen
 RUN mvn clean package -DskipTests
 
+# Neues schlankes Image für die Anwendung
+FROM openjdk:17-jdk-slim
 
-FROM openjdk:17-jdk
+# Setze das Arbeitsverzeichnis
+WORKDIR /app
 
-COPY --from=build target/Onboarding-0.0.1-SNAPSHOT.jar app.jar
+# Kopiere das fertige JAR-File aus dem vorherigen Schritt
+COPY --from=build /app/target/Onboarding-0.0.1-SNAPSHOT.jar app.jar
 
+# Exponiere den Port 8081 (wie in deiner Render-Konfig)
+EXPOSE 8081
+
+# Setze Umgebungsvariablen für Render
+ENV SPRING_PROFILES_ACTIVE=production
+
+# Starte die Spring Boot Anwendung
 ENTRYPOINT ["java", "-jar", "app.jar"]

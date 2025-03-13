@@ -1,0 +1,52 @@
+services:
+  - name: onboarding-frontend
+    type: web
+    runtime: static
+    repo: https://github.com/yazan1kasem/Raiffeisen_Onboarding.git
+    branch: main
+    buildCommand: cd Onboarding_client && npm install && npm run build
+    staticPublishPath: Onboarding_client/dist/Onboarding_client
+    region: frankfurt
+    envVars:
+      - key: API_URL
+        value: https://onboarding-backend.onrender.com
+    headers:
+      - name: "Cache-Control"
+        value: "max-age=31536000, immutable"
+
+  - name: onboarding-backend
+    type: web
+    runtime: docker
+    repo: https://github.com/yazan1kasem/Raiffeisen_Onboarding.git
+    branch: main
+    plan: free
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: onboarding-db
+          property: connectionString
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: onboarding-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: onboarding-db
+          property: password
+      - key: SPRING_JPA_HIBERNATE_DDL_AUTO
+        value: create-drop
+      - key: SERVER_PORT
+        value: "8081"
+      - key: SECURITY_JWT_SECRET_KEY
+        value: knPeHS16UXrpv0w4jr+8/8zbV4h8H/9CLn4snkV51EY=
+      - key: SECURITY_JWT_EXPIRATION_TIME
+        value: "36000000"
+    healthCheckPath: /actuator/health
+    region: frankfurt
+    dockerfilePath: Dockerfile
+
+databases:
+  - name: onboarding-db
+    plan: free
+    databaseName: db_raiffeisen
+    user: root
