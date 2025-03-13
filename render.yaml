@@ -1,7 +1,7 @@
 services:
   - name: db_raiffeisen
     type: pserv
-    runtime: image  # Füge diese Zeile hinzu!
+    runtime: docker  # ✅ Hier hinzufügen!
     plan: free
     envVars:
       - key: MYSQL_DATABASE
