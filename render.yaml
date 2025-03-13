@@ -4,7 +4,7 @@ services:
     runtime: static
     repo: https://github.com/yazan1kasem/Raiffeisen_Onboarding.git
     branch: master
-    buildCommand: cd Onboarding_client && npm install && ng serve -o
+    buildCommand: cd Onboarding_client && npm install && npm run build
     staticPublishPath: Onboarding_client/dist/Onboarding_client
     envVars:
       - key: API_URL
