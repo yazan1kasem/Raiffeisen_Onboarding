@@ -49,6 +49,7 @@ services:
     runtime: docker
     repo: https://github.com/render-examples/mysql
     plan: starter
+    branch: oh/mysql_8.0.24
     envVars:
       - key: MYSQL_ROOT_PASSWORD
         value: root
