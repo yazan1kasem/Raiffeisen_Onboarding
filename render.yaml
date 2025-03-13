@@ -24,8 +24,6 @@ services:
     envVars:
       - key: SERVER_PORT
         value: "4200"
-
-
   - name: onboarding-backend
     type: web
     runtime: docker
