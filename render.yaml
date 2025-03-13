@@ -14,8 +14,9 @@ services:
 
   - name: onboarding-frontend
     type: web
+    startCommand: cd Onboarding_client
     runtime: docker
-    repo: https://github.com/yazan1kasem/Raiffeisen_Onboarding/tree/70f746e819845c58e3e07dfca7a0eedf50554042/Onboarding_client
+    repo: https://github.com/yazan1kasem/Raiffeisen_Onboarding.git
     branch: master
     plan: starter
     envVars:
