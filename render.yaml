@@ -1,27 +1,14 @@
 services:
-  - name: onboarding-frontend
-    type: web
-    runtime: static
-    repo: https://github.com/yazan1kasem/Raiffeisen_Onboarding.git
-    branch: master
-    buildCommand: cd Onboarding_client && npm install && npm run build
-    envVars:
-      - key: API_URL
-        value: https://onboarding-backend.onrender.com
-    routes:
-      - source: /.*
-        destination: /index.html
-        type: rewrite
-
-  - name: onboarding-backend
+  - name: onboarding
     type: web
     runtime: docker
     repo: https://github.com/yazan1kasem/Raiffeisen_Onboarding.git
     branch: master
-    plan: starter
+    dockerfilePath: Dockerfile
+    dockerComposePath: Docker-Compose.yaml
     envVars:
       - key: SPRING_DATASOURCE_URL
-        value: jdbc:mysql://db_raiffeisen:3306/db_raiffeisen?serverTimezone=UTC
+        value: jdbc:mysql://db:3306/db_raiffeisen
       - key: SPRING_DATASOURCE_USERNAME
         value: root
       - key: SPRING_DATASOURCE_PASSWORD
@@ -34,26 +21,3 @@ services:
         value: "36000000"
     healthCheckPath: /actuator/health
     region: frankfurt
-    dockerfilePath: Dockerfile
-  - type: pserv
-    name: db_raiffeisen
-    runtime: docker
-    repo: https://github.com/render-examples/mysql
-    plan: starter
-    branch: oh/mysql_8.0.24
-    envVars:
-      - key: MYSQL_ROOT_PASSWORD
-        value: root
-      - key: MYSQL_PASSWORD
-        value: root
-      - key: MYSQL_USER
-        value: root
-      - key: MYSQL_DATABASE
-        value: db_raiffeisen
-    region: frankfurt
-    dockerContext: .
-    dockerfilePath: ./Dockerfile
-    disk:
-      name: disk
-      mountPath: /var/lib/mysql
-      sizeGB: 10
