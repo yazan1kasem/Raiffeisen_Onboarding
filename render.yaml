@@ -1,14 +1,16 @@
 services:
   - name: onboarding-frontend
     type: web
-    runtime: docker
+    runtime: static
     repo: https://github.com/yazan1kasem/Raiffeisen_Onboarding.git
     branch: master
-    plan: starter
-    dockerfilePath: Onboarding_client/Dockerfile  # ✅ Set Dockerfile inside Onboarding_client
-    envVars:
-      - key: SERVER_PORT
-        value: "4200"
+    buildCommand: cd Onboarding_client && npm install && npm run build
+    staticPublishPath: Onboarding_client/dist
+    routes:
+      - source: /.*
+        destination: /index.html
+        type: rewrite
+
   - name: onboarding-backend
     type: web
     runtime: docker

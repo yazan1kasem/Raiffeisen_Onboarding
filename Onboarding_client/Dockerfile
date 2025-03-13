@@ -1,18 +1,27 @@
-# 1. Use Node.js with Alpine for a lightweight image
-FROM node:18-alpine
+# Use Node.js as base image
+FROM node:18-alpine AS build
 
-# 2. Set working directory inside Onboarding_client
-WORKDIR /app/Onboarding_client
+# Set working directory
+WORKDIR /app
 
-# 3. Copy only Onboarding_client to the container
-COPY Onboarding_client /app/Onboarding_client
+# Copy package.json and package-lock.json first (better caching)
+COPY Onboarding_client/package*.json ./
 
-# 4. Install dependencies and build
-RUN ls
+# Install dependencies
 RUN npm install
 
-# 5. Expose port 4200 for Angular development server
-EXPOSE 4200
+# Copy the entire frontend code
+COPY Onboarding_client/ .
 
-# 6. Start the Angular application
-CMD ["npx", "ng", "serve", "--host", "0.0.0.0", "--port", "4200"]
+# Build the Angular app
+RUN npm run build --prod
+
+# Use a lightweight web server to serve the Angular app
+FROM nginx:alpine
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# Expose port 80 for HTTP traffic
+EXPOSE 80
+
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]
