@@ -6,7 +6,6 @@ services:
     branch: main
     buildCommand: cd Onboarding_client && npm install && npm run build
     staticPublishPath: Onboarding_client/dist/Onboarding_client
-    region: frankfurt
     envVars:
       - key: API_URL
         value: https://onboarding-backend.onrender.com
@@ -22,7 +21,9 @@ services:
     plan: free
     envVars:
       - key: SPRING_DATASOURCE_URL
-        value: jdbc:mysql://mysql-keif:10000/db_raiffeisen
+        fromDatabase:
+          name: db_raiffeisen
+          property: connectionString
       - key: SPRING_DATASOURCE_USERNAME
         fromDatabase:
           name: db_raiffeisen
@@ -32,7 +33,7 @@ services:
           name: db_raiffeisen
           property: password
       - key: SPRING_JPA_HIBERNATE_DDL_AUTO
-        value: create-drop
+        value: update
       - key: SERVER_PORT
         value: "8081"
       - key: SECURITY_JWT_SECRET_KEY
