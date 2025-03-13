@@ -21,20 +21,16 @@ services:
     branch: master
     plan: starter
     envVars:
-      - key: DATABASE_HOST
-        value: db_raiffeisen
-      - key: DATABASE_PORT
-        value: "3306"
-      - key: DATABASE_NAME
-        value: db_raiffeisen
-      - key: DATABASE_USER
+      - key: SPRING_DATASOURCE_URL
+        value: jdbc:mysql://db_raiffeisen:3306/db_raiffeisen?serverTimezone=UTC
+      - key: SPRING_DATASOURCE_USERNAME
         value: root
-      - key: DATABASE_PASSWORD
+      - key: SPRING_DATASOURCE_PASSWORD
         value: root
       - key: SERVER_PORT
         value: "8081"
       - key: SECURITY_JWT_SECRET_KEY
-        sync: false  # 🔒 Secret bleibt sicher
+        sync: false
       - key: SECURITY_JWT_EXPIRATION_TIME
         value: "36000000"
     healthCheckPath: /actuator/health
