@@ -2,7 +2,7 @@ services:
   - name: db_raiffeisen
     type: pserv
     runtime: docker  # ✅ Hier hinzufügen!
-    plan: free
+    plan: starter
     envVars:
       - key: MYSQL_DATABASE
         value: db_raiffeisen
