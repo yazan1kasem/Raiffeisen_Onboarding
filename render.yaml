@@ -44,37 +44,20 @@ services:
     region: frankfurt
     dockerfilePath: Dockerfile
 
-databases:
   - name: db_raiffeisen
     plan: free
-    databaseName: db_raiffeisen
-    user: root
+    envVars:
+      - key: MYSQL_DATABASE
+        value: db_raiffeisen
+      - key: MYSQL_USER
+        value: root
+      - key: MYSQL_PASSWORD
+        value: root
+      - key: MYSQL_ROOT_PASSWORD
+        value: root
+    disk:
+        name: db_raiffeisen
+        MOUNT_PATH: /var/lib/mysql
+        sizeGB: 10
+    repo: https://github.com/render-examples/mysql
 
-    connectionString: jdbc:mysql://localhost:3306/db_raiffeisen
-    password: root
-
-
-spring:
-  - datasource:
-    url: spring.datasource.url=jdbc:mysql://localhost:3306/db_raiffeisen
-    username: root
-    password: root
-    driver-class-name: com.mysql.cj.jdbc.Driver
-  - jpa:
-    hibernate:
-      ddl-auto: create-drop
-    show-sql: true
-    properties:
-      hibernate.dialect: org.hibernate.dialect.MySQL8Dialect
-    open-in-view: false
-  - server:
-    port: 8081
-
-logging:
-  level:
-    org.hibernate.type.descriptor.sql.BasicBinder: trace
-
-security:
-  jwt:
-    secret-key: knPeHS16UXrpv0w4jr+8/8zbV4h8H/9CLn4snkV51EY=
-    expiration-time: 36000000
