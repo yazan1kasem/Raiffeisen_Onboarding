@@ -33,6 +33,7 @@ services:
     healthCheckPath: /actuator/health
     region: frankfurt
     dockerfilePath: Dockerfile
+
   - type: pserv
     name: db-raiffeisen
     runtime: docker
