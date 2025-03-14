@@ -187,15 +187,15 @@ export class DataService {
   }
 
   generateExcel(checklist: UserChecklist): void {
-    this.generateDocument(checklist, 'http://localhost:8081/api/excel/generate', 'xlsx');
+    this.generateDocument(checklist, `${this.baseUrl}/api/excel/generate`, 'xlsx');
   }
 
   generatePdf(checklist: UserChecklist): void {
-    this.generateDocument(checklist, 'http://localhost:8081/api/pdf/generate', 'pdf');
+    this.generateDocument(checklist, `${this.baseUrl}/api/pdf/generate`, 'pdf');
   }
 
   generateWord(checklist: UserChecklist): void {
-    this.generateDocument(checklist, 'http://localhost:8081/api/word/generate', 'docx');
+    this.generateDocument(checklist, `${this.baseUrl}/api/word/generate`, 'docx');
   }
 
   private downloadFile(blob: Blob, filename: string): void {
