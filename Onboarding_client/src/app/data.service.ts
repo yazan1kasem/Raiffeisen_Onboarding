@@ -10,11 +10,11 @@ import { User } from './models/user';
 
 @Injectable({ providedIn: 'root' })
 export class DataService {
-  private apiUrl = 'http://localhost:8081/checklisten';
-  private apiUserChecklistUrl = 'http://localhost:8081/userchecklist';
-  private apiUserUrl = 'http://localhost:8081/user';
-  private Adminurl = 'http://localhost:8081/admin';
-  private superAdminurl = 'http://localhost:8081/superadmin';
+  private baseUrl = process.env['REACT_APP_BACKEND_URL'];
+  private apiUrl = `${this.baseUrl}/checklisten`;
+  private apiUserChecklistUrl = `${this.baseUrl}/userchecklist`;
+  private AdminUrl = `${this.baseUrl}/admin`;
+  private superAdminUrl = `${this.baseUrl}/superadmin`;
 
   constructor(private http: HttpClient, private snackBar: MatSnackBar) {}
 
@@ -59,22 +59,22 @@ export class DataService {
   // -----------------------------------
 
   updatechecklist(checklist: Checklist): Observable<Checklist> {
-    return this.http.put<Checklist>(`${this.Adminurl}/checklist`, checklist, { headers: this.getAuthHeaders() })
+    return this.http.put<Checklist>(`${this.AdminUrl}/checklist`, checklist, { headers: this.getAuthHeaders() })
       .pipe(catchError(this.handleError<Checklist>('updatechecklist')));
   }
 
   changeuserpassword(id: string, password: string): Observable<void> {
-    return this.http.put<void>(`${this.Adminurl}/user/${id}?password=${password}`, { headers: this.getAuthHeaders() })
+    return this.http.put<void>(`${this.AdminUrl}/user/${id}?password=${password}`, { headers: this.getAuthHeaders() })
       .pipe(catchError(this.handleError<void>('changeuserpassword')));
   }
 
   getuserchecklists(): Observable<UserChecklist[]> {
-    return this.http.get<UserChecklist[]>(`${this.Adminurl}/userchecklist`, { headers: this.getAuthHeaders() })
+    return this.http.get<UserChecklist[]>(`${this.AdminUrl}/userchecklist`, { headers: this.getAuthHeaders() })
       .pipe(catchError(this.handleError<UserChecklist[]>('getuserchecklists', [])));
   }
 
   getallusers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.Adminurl}/users`, { headers: this.getAuthHeaders() })
+    return this.http.get<User[]>(`${this.AdminUrl}/users`, { headers: this.getAuthHeaders() })
       .pipe(catchError(this.handleError<User[]>('getallusers', [])));
   }
 
@@ -83,42 +83,42 @@ export class DataService {
   // -----------------------------------
 
   promoteuser(id: string): Observable<void> {
-    return this.http.put<void>(`${this.superAdminurl}/userpromote/${id}`, {}, { headers: this.getAuthHeaders() })
+    return this.http.put<void>(`${this.superAdminUrl}/userpromote/${id}`, {}, { headers: this.getAuthHeaders() })
       .pipe(catchError(this.handleError<void>('promoteuser')));
   }
 
   demoteuser(id: string): Observable<void> {
-    return this.http.put<void>(`${this.superAdminurl}/userdemote/${id}`, {}, { headers: this.getAuthHeaders() })
+    return this.http.put<void>(`${this.superAdminUrl}/userdemote/${id}`, {}, { headers: this.getAuthHeaders() })
       .pipe(catchError(this.handleError<void>('demoteuser')));
   }
 
   deleteuser(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.superAdminurl}/userdelete/${id}`, { headers: this.getAuthHeaders() })
+    return this.http.delete<void>(`${this.superAdminUrl}/userdelete/${id}`, { headers: this.getAuthHeaders() })
       .pipe(catchError(this.handleError<void>('deleteuser')));
   }
 
   deleteuserchecklist(id: string): Observable<void> {
-    return this.http.delete<void>(`${this.superAdminurl}/userchecklistdelete/${id}`, { headers: this.getAuthHeaders() })
+    return this.http.delete<void>(`${this.superAdminUrl}/userchecklistdelete/${id}`, { headers: this.getAuthHeaders() })
       .pipe(catchError(this.handleError<void>('deleteuserchecklist')));
   }
 
   blockUserChecklist(id: string): Observable<void> {
-    return this.http.put<void>(`${this.superAdminurl}/blockuserchecklist/${id}`, {}, { headers: this.getAuthHeaders() })
+    return this.http.put<void>(`${this.superAdminUrl}/blockuserchecklist/${id}`, {}, { headers: this.getAuthHeaders() })
       .pipe(catchError(this.handleError<void>('blockuserchecklist')));
   }
 
   unblockUserChecklist(id: string): Observable<void> {
-    return this.http.put<void>(`${this.superAdminurl}/unblockuserchecklist/${id}`, {}, { headers: this.getAuthHeaders() })
+    return this.http.put<void>(`${this.superAdminUrl}/unblockuserchecklist/${id}`, {}, { headers: this.getAuthHeaders() })
       .pipe(catchError(this.handleError<void>('unblockuserchecklist')));
   }
 
   grantUserAccess(id: string, isActive: boolean): Observable<void> {
-    return this.http.put<void>(`${this.superAdminurl}/users/${id}/grant-access/${isActive}`, { headers: this.getAuthHeaders() })
+    return this.http.put<void>(`${this.superAdminUrl}/users/${id}/grant-access/${isActive}`, { headers: this.getAuthHeaders() })
       .pipe(catchError(this.handleError<void>('grantuseraccess')));
   }
 
   enableuser(id: string, isActive: boolean): Observable<void> {
-    return this.http.put<void>(`${this.superAdminurl}/users/${id}/blockuser/${isActive}`, { headers: this.getAuthHeaders() })
+    return this.http.put<void>(`${this.superAdminUrl}/users/${id}/blockuser/${isActive}`, { headers: this.getAuthHeaders() })
       .pipe(catchError(this.handleError<void>('enableuser')));
   }
 

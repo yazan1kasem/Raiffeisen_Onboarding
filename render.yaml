@@ -10,6 +10,9 @@ services:
       - source: /.*
         destination: /index.html
         type: rewrite
+    envVars:
+      - key: REACT_APP_BACKEND_URL  # Beispiel für React (kann an dein Framework angepasst werden)
+        value: https://onboarding-backend.onrender.com  # Öffentliche URL des Backends
 
   - name: onboarding-backend
     type: web
@@ -19,7 +22,7 @@ services:
     plan: free
     envVars:
       - key: SPRING_DATASOURCE_URL
-        value: jdbc:mysql://db-raiffeisen:3306/db_raiffeisen?serverTimezone=UTC
+        value: jdbc:mysql://db_raiffeisen:3306/db_raiffeisen?serverTimezone=UTC
       - key: SPRING_DATASOURCE_USERNAME
         value: root
       - key: SPRING_DATASOURCE_PASSWORD
