@@ -9,7 +9,7 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-@Table(name="I_Item")
+@Table(name="i_item")
 @Getter
 @Setter
 @AllArgsConstructor
