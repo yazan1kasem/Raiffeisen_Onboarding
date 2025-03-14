@@ -19,7 +19,7 @@ FROM nginx:alpine
 RUN rm -rf /usr/share/nginx/html/*
 
 # 7. Angular-Build in den richtigen Ordner kopieren
-COPY --from=build /app/dist/onboarding-client /usr/share/nginx/html
+COPY --from=build /app/dist/onboarding-client/* /usr/share/nginx/html/
 
 # 8. Kopiere die Nginx-Konfiguration für Angular
 COPY Onboarding_client/nginx.conf /etc/nginx/conf.d/default.conf
