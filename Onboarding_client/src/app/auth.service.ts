@@ -86,7 +86,7 @@ export class AuthService {
   }
 
   getUser(): Observable<User> {
-    return this.http.get<User>(`${this.baseUrl}users/me`, { headers: this.getAuthHeaders() });
+    return this.http.get<User>(`${this.baseUrl}/users/me`, { headers: this.getAuthHeaders() });
   }
 }
 
