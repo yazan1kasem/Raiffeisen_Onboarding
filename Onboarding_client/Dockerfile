@@ -17,6 +17,7 @@ FROM nginx:alpine
 
 # 6. Standard Nginx-HTML-Dateien löschen
 RUN rm -rf /usr/share/nginx/html/*
+RUN rm -f /usr/share/nginx/html/index.nginx-debian.html
 
 # 7. Angular-Build in den richtigen Ordner kopieren
 COPY --from=build /app/dist/onboarding-client/* /usr/share/nginx/html/
