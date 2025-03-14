@@ -4,7 +4,7 @@ services:
     runtime: docker
     repo: https://github.com/yazan1kasem/Raiffeisen_Onboarding.git
     branch: master
-    dockerContext: ./Onboarding_client
+    dockerContext: .
     dockerfilePath: ./Onboarding_client/Dockerfile
     envVars:
       - key: REACT_APP_BACKEND_URL
