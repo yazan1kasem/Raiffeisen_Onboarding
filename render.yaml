@@ -7,8 +7,9 @@ services:
     dockerContext: .
     dockerfilePath: ./Onboarding_client/Dockerfile
     envVars:
-      - key: REACT_APP_BACKEND_URL
-        value: https://onboarding-backend.onrender.com
+      - key: Angular_APP_BACKEND_URL
+        value: ${BACKEND_URL}
+
 
 
   - name: onboarding-backend
@@ -30,8 +31,11 @@ services:
         sync: false
       - key: SECURITY_JWT_EXPIRATION_TIME
         value: "36000000"
+      - key: BACKEND_URL
+        value: ${RENDER_EXTERNAL_URL}
     region: frankfurt
     dockerfilePath: Dockerfile
+
 
   - type: pserv
     name: db_raiffeisen

@@ -6,10 +6,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Checklist } from './models/checklist';
 import { UserChecklist } from './models/user_checklist';
 import { User } from './models/user';
+import {environment} from "../../environment";
 
 @Injectable({ providedIn: 'root' })
 export class DataService {
-  private baseUrl = "https://onboarding-backend-04s9.onrender.com";
+
+  private baseUrl = environment.backendUrl;
   private apiUrl = `${this.baseUrl}/checklisten`;
   private apiUserChecklistUrl = `${this.baseUrl}/userchecklist`;
   private AdminUrl = `${this.baseUrl}/admin`;

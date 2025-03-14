@@ -10,7 +10,11 @@ RUN npm install
 
 # 4. Quellcode kopieren und Build starten
 COPY Onboarding_client/ .
+ARG BACKEND_URL
+ENV REACT_APP_BACKEND_URL=$BACKEND_URL
+
 RUN npm run build
+
 
 # 5. Nginx für das Hosting des Frontends nutzen
 FROM nginx:alpine

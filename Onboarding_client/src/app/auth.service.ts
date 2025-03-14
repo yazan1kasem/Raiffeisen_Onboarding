@@ -4,12 +4,13 @@ import {HttpClient, HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpHe
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import {User} from "./models/user";
+import {environment} from "../../environment";
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl = "https://onboarding-backend-04s9.onrender.com";
+  private baseUrl = environment.backendUrl;
   private apiUrl = `${this.baseUrl}/auth`; // Ersetze mit deiner API-URL
 
   constructor(private http: HttpClient) {}
