@@ -1,13 +1,15 @@
 services:
   - name: onboarding-frontend
     type: web
-    runtime: static
+    runtime: docker
     repo: https://github.com/yazan1kasem/Raiffeisen_Onboarding.git
     branch: master
-    buildCommand: ls && cd Onboarding_client && ls && npm install && ng serve -o
+    dockerContext: ./Onboarding_client
+    dockerfilePath: ./Onboarding_client/Dockerfile
     envVars:
-      - key: REACT_APP_BACKEND_URL  # Beispiel für React (kann an dein Framework angepasst werden)
-        value: https://onboarding-backend.onrender.com  # Öffentliche URL des Backends
+      - key: REACT_APP_BACKEND_URL
+        value: https://onboarding-backend.onrender.com
+
 
   - name: onboarding-backend
     type: web
