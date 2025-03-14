@@ -1,5 +1,5 @@
-# 1. Node.js als Basis zum Bauen der Angular-App
-FROM node:18-alpine AS build
+# 1. Node.js als Basis zum Bauen der Angular-App (jetzt Node.js 20)
+FROM node:20-alpine AS build
 
 # 2. Arbeitsverzeichnis setzen
 WORKDIR /app
@@ -14,7 +14,6 @@ ARG BACKEND_URL
 ENV REACT_APP_BACKEND_URL=$BACKEND_URL
 
 RUN npm run build
-
 
 # 5. Nginx für das Hosting des Frontends nutzen
 FROM nginx:alpine
