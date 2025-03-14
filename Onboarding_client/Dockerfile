@@ -1,27 +1,28 @@
-# Use Node.js as base image
-FROM node:18-alpine AS build
+# 1. Node.js zum Bauen der Angular-App
+FROM node:18 AS build
 
-# Set working directory
+# 2. Arbeitsverzeichnis setzen
 WORKDIR /app
 
-# Copy package.json and package-lock.json first (better caching)
-COPY Onboarding_client/package*.json ./
-
-# Install dependencies
+# 3. Package-Dateien kopieren und Abhängigkeiten installieren
+COPY package*.json ./
 RUN npm install
 
-# Copy the entire frontend code
-COPY Onboarding_client/ .
-
-# Build the Angular app
+# 4. Quellcode kopieren und Build starten
+COPY . .
 RUN npm run build --prod
 
-# Use a lightweight web server to serve the Angular app
+# 5. Nginx für das Hosting des Frontends nutzen
 FROM nginx:alpine
-COPY --from=build /app/dist /usr/share/nginx/html
 
-# Expose port 80 for HTTP traffic
-EXPOSE 80
+# 6. Standard Nginx-Konfiguration entfernen
+RUN rm -rf /usr/share/nginx/html/*
 
-# Start Nginx
+# 7. Angular-Build in das richtige Verzeichnis kopieren
+COPY --from=build /app/dist/onboarding-client /usr/share/nginx/html
+
+# 8. Angular Routing für Nginx konfigurieren
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# 9. Starte den Nginx-Server
 CMD ["nginx", "-g", "daemon off;"]
