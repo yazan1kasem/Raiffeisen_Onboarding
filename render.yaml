@@ -5,7 +5,7 @@ services:
     repo: https://github.com/yazan1kasem/Raiffeisen_Onboarding.git
     branch: master
     buildCommand: ls && cd Onboarding_client && ls && npm install && npm run build
-    staticPublishPath: Onboarding_client/dist/onboarding-client
+    staticPublishPath: dist/onboarding-client/browser/assets/index.html
     routes:
       - source: /.*
         destination: /index.html
