@@ -17,7 +17,7 @@ services:
     runtime: docker
     repo: https://github.com/yazan1kasem/Raiffeisen_Onboarding.git
     branch: master
-    plan: free
+    plan: starter
     envVars:
       - key: SPRING_DATASOURCE_URL
         value: jdbc:mysql://db-raiffeisen:3306/db_raiffeisen?serverTimezone=UTC
