@@ -4,13 +4,12 @@ import { catchError, Observable, of } from 'rxjs';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Checklist } from './models/checklist';
-import { Item } from './models/item';
 import { UserChecklist } from './models/user_checklist';
 import { User } from './models/user';
 
 @Injectable({ providedIn: 'root' })
 export class DataService {
-  private baseUrl = process.env['REACT_APP_BACKEND_URL'];
+  private baseUrl = "https://onboarding-backend-04s9.onrender.com";
   private apiUrl = `${this.baseUrl}/checklisten`;
   private apiUserChecklistUrl = `${this.baseUrl}/userchecklist`;
   private AdminUrl = `${this.baseUrl}/admin`;

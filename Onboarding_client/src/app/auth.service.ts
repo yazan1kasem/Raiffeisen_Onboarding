@@ -9,7 +9,7 @@ import {User} from "./models/user";
   providedIn: 'root',
 })
 export class AuthService {
-  private baseUrl = process.env['REACT_APP_BACKEND_URL'];
+  private baseUrl = "https://onboarding-backend-04s9.onrender.com";
   private apiUrl = `${this.baseUrl}/auth`; // Ersetze mit deiner API-URL
 
   constructor(private http: HttpClient) {}
