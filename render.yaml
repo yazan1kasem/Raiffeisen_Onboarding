@@ -26,7 +26,7 @@ services:
       - key: SPRING_DATASOURCE_PASSWORD
         value: root
       - key: SERVER_PORT
-        value: "8081"
+        value: "8080"
       - key: SECURITY_JWT_SECRET_KEY
         sync: false
       - key: SECURITY_JWT_EXPIRATION_TIME

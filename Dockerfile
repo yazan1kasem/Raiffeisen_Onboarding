@@ -24,7 +24,7 @@ WORKDIR /app
 COPY --from=build /app/target/Onboarding-0.0.1-SNAPSHOT.jar app.jar
 
 # Exponiere den Port 8081 (wie in deiner Render-Konfig)
-EXPOSE 8081
+EXPOSE 8080
 
 # Setze Umgebungsvariablen für Render
 ENV SPRING_PROFILES_ACTIVE=production
