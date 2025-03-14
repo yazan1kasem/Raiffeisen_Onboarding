@@ -6,37 +6,14 @@ services:
     branch: master
     dockerContext: .
     dockerfilePath: ./Onboarding_client/Dockerfile
-    envVars:
-      - key: Angular_APP_BACKEND_URL
-        value: ${BACKEND_URL}
-
-
-
   - name: onboarding-backend
     type: web
     runtime: docker
     repo: https://github.com/yazan1kasem/Raiffeisen_Onboarding.git
     branch: master
     plan: starter
-    envVars:
-      - key: SPRING_DATASOURCE_URL
-        value: jdbc:mysql://db-raiffeisen:3306/db_raiffeisen?serverTimezone=UTC
-      - key: SPRING_DATASOURCE_USERNAME
-        value: root
-      - key: SPRING_DATASOURCE_PASSWORD
-        value: root
-      - key: SERVER_PORT
-        value: "8080"
-      - key: SECURITY_JWT_SECRET_KEY
-        sync: false
-      - key: SECURITY_JWT_EXPIRATION_TIME
-        value: "36000000"
-      - key: BACKEND_URL
-        value: ${RENDER_EXTERNAL_URL}
     region: frankfurt
     dockerfilePath: Dockerfile
-
-
   - type: pserv
     name: db_raiffeisen
     runtime: docker
