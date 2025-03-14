@@ -19,7 +19,7 @@ services:
     plan: free
     envVars:
       - key: SPRING_DATASOURCE_URL
-        value: jdbc:mysql://db-raiffeisen:3306/db-raiffeisen?serverTimezone=UTC
+        value: jdbc:mysql://db_raiffeisen:3306/db_raiffeisen?serverTimezone=UTC
       - key: SPRING_DATASOURCE_USERNAME
         value: root
       - key: SPRING_DATASOURCE_PASSWORD
@@ -34,7 +34,7 @@ services:
     dockerfilePath: Dockerfile
 
   - type: pserv
-    name: db-raiffeisen
+    name: db_raiffeisen
     runtime: docker
     repo: https://github.com/render-examples/mysql
     plan: starter
@@ -48,7 +48,7 @@ services:
       - key: MYSQL_USER
         value: root
       - key: MYSQL_DATABASE
-        value: db-raiffeisen
+        value: db_raiffeisen
     region: frankfurt
     dockerContext: .
     dockerfilePath: ./Dockerfile
