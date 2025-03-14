@@ -4,8 +4,8 @@
 @include mat.core();
 
 // 2. Define your color palettes
-$dark-primary: mat.color(mat.$blue-grey-palette, 700);
-$dark-accent: mat.color(mat.$red-palette, A200);
+$dark-primary: mat.color(mat.$m2-blue-gray-palette, 700);
+$dark-accent: mat.color(mat.$m2-red-palette, A200);
 $dark-warn: mat.color(mat.$red-palette);
 
 // 3. Create the dark theme object using mat.dark-theme
