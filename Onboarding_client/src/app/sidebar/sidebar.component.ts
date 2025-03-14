@@ -1,13 +1,13 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {Router, RouterModule} from "@angular/router";
 import {AuthService} from "../auth.service";
-import {NgClass, NgIf, NgOptimizedImage} from "@angular/common";
+import {NgClass, NgIf} from "@angular/common";
 import {DataService} from "../data.service";
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [RouterModule, NgClass, NgIf, NgOptimizedImage],
+  imports: [RouterModule, NgClass, NgIf],
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })

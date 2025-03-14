@@ -19,9 +19,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatMenu } from '@angular/material/menu';
 import { MatMenuItem } from '@angular/material/menu';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { MatDialogActions } from '@angular/material/dialog';
-import { MatDialogClose } from '@angular/material/dialog';
-import { MatDialogContent } from '@angular/material/dialog';
 import { MatTooltip } from '@angular/material/tooltip';
 
 import { DataService } from '../data.service';
@@ -59,9 +56,6 @@ import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
     MatCardModule,
     MatIconModule,
     MatButtonModule,
-    MatDialogClose,
-    MatDialogContent,
-    MatDialogActions,
     MatMenu,
     MatMenuTrigger,
     MatMenuItem,
