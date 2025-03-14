@@ -22,7 +22,6 @@ RUN rm -rf /usr/share/nginx/html/*
 COPY --from=build /app/dist/onboarding-client /usr/share/nginx/html
 RUN ls
 # 8. Angular Routing für Nginx konfigurieren
-COPY nginx.conf /etc/nginx/conf.d/default.conf
 
 # 9. Starte den Nginx-Server
 CMD ["nginx", "-g", "daemon off;"]
