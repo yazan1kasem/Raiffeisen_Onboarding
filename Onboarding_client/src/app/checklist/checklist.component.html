@@ -14,7 +14,11 @@
       </option>
     </select>
   </div>
-
+  <ng-container *ngIf="loadingChecklist">
+    <div class="loader-container">
+      <mat-spinner></mat-spinner>
+    </div>
+  </ng-container>
   <ul class="checklist-list">
     <li *ngFor="let checklist of filteredChecklists" class="checklist-item" (click)="openChecklist(checklist.id)">
       <span class="checklist-text">

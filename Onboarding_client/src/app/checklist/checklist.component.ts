@@ -4,13 +4,14 @@ import { Checklist } from '../models/checklist';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import {MatProgressSpinner} from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-checklist',
   templateUrl: './checklist.component.html',
   styleUrls: ['./checklist.component.css'],
   standalone: true,
-  imports: [CommonModule, FormsModule]
+  imports: [CommonModule, FormsModule, MatProgressSpinner]
 })
 export class ChecklistComponent implements OnInit {
   checklists: Checklist[] = [];
@@ -36,7 +37,10 @@ export class ChecklistComponent implements OnInit {
       this.filteredChecklists = data;
       // Eindeutige Abteilungen extrahieren
       // Filteroptionen aktualisieren
+      this.loadingChecklist=true;
+
     });
+
     this.updatePositions();
     this.updateDepartments();
     this.abteilungen = [...new Set(this.checklists.map(checklist => checklist.abteilungsname))];
@@ -65,6 +69,7 @@ export class ChecklistComponent implements OnInit {
   }
 
 // Aktualisierte updateDepartments()-Funktion:
+  loadingChecklist: boolean=false;
   updateDepartments(): void {
     if (this.selectedPosition) {
       // Falls eine Position ausgewählt wurde, werden nur die Abteilungen ermittelt,
