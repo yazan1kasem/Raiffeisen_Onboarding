@@ -35,16 +35,14 @@ export class ChecklistComponent implements OnInit {
     this.checklistService.getChecklists().subscribe((data: Checklist[]) => {
       // Gespeicherte Checklisten und Filterliste setzen
       this.checklists = data;
-      this.filteredChecklists = data;
       // Eindeutige Abteilungen extrahieren
       // Filteroptionen aktualisieren
       this.loadingChecklist=false;
-
+      this.abteilungen = [...new Set(data.map(checklist => checklist.abteilungsname))];
     });
-
+    this.filteredChecklists = this.checklists;
     this.updatePositions();
     this.updateDepartments();
-    this.abteilungen = [...new Set(this.checklists.map(checklist => checklist.abteilungsname))];
 
   }
 
