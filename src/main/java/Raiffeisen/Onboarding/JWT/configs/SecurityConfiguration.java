@@ -53,7 +53,11 @@ public class SecurityConfiguration {
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of(
-                "https://onboarding-frontend-ic1y.onrender.com"
+                "https://onboarding-frontend-6lv9.onrender.com",
+                "https://rbionboarding.at",         
+                "https://www.rbionboarding.at",           
+                "http://rbionboarding.at",               
+                "http://www.rbionboarding.at"
         ));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
