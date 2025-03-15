@@ -4,7 +4,7 @@ import random
 import string
 from faker import Faker
 
-BASE_URL = "http://localhost:8081"
+BASE_URL = "https://onboarding-backend-th2g.onrender.com"
 NUM_SIGNUP = 100
 NUM_LOGIN = 100
 NUM_CHECKLIST = 100

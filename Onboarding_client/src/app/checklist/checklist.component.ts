@@ -34,14 +34,13 @@ export class ChecklistComponent implements OnInit {
       // Gespeicherte Checklisten und Filterliste setzen
       this.checklists = data;
       this.filteredChecklists = data;
-
       // Eindeutige Abteilungen extrahieren
-      this.abteilungen = [...new Set(data.map(checklist => checklist.abteilungsname))];
-
       // Filteroptionen aktualisieren
-      this.updatePositions();
-      this.updateDepartments();
     });
+    this.updatePositions();
+    this.updateDepartments();
+    this.abteilungen = [...new Set(this.checklists.map(checklist => checklist.abteilungsname))];
+
   }
 
   onFilterChange(): void {
