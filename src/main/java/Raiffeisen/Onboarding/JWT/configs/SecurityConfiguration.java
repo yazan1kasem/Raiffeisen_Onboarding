@@ -57,7 +57,7 @@ public class SecurityConfiguration {
                 "https://rbionboarding.at",         
                 "https://www.rbionboarding.at",           
                 "http://rbionboarding.at",               
-                "http://www.rbionboarding.at",  
+                "http://www.rbionboarding.at"
         ));
         configuration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
