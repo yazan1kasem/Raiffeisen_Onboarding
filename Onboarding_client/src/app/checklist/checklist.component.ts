@@ -20,6 +20,7 @@ export class ChecklistComponent implements OnInit {
   positions: string[] = [];
   selectedDepartment: string = '';
   selectedPosition: string = '';
+  loadingChecklist: boolean=true;
 
   constructor(
     private checklistService: DataService,
@@ -37,7 +38,7 @@ export class ChecklistComponent implements OnInit {
       this.filteredChecklists = data;
       // Eindeutige Abteilungen extrahieren
       // Filteroptionen aktualisieren
-      this.loadingChecklist=true;
+      this.loadingChecklist=false;
 
     });
 
@@ -69,7 +70,6 @@ export class ChecklistComponent implements OnInit {
   }
 
 // Aktualisierte updateDepartments()-Funktion:
-  loadingChecklist: boolean=false;
   updateDepartments(): void {
     if (this.selectedPosition) {
       // Falls eine Position ausgewählt wurde, werden nur die Abteilungen ermittelt,
