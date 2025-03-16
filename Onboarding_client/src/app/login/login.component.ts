@@ -49,7 +49,11 @@ export class LoginComponent {
         } else if (error.status >= 500) {
           this.errorMessage = "Server Error";
         } else {
-          this.errorMessage = "Ein unbekannter Fehler ist aufgetreten.";
+          if(error.message){
+            this.errorMessage = error.message;
+          }else {
+            this.errorMessage = "Unbekannter Fehler";
+          }
         }
       }
     );

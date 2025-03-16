@@ -1,5 +1,5 @@
 export const environment = {
   production: false,
-  backendUrl: 'https://onboarding-backend-o063.onrender.com'
+  backendUrl: 'http://localhost:8080'
 };
 

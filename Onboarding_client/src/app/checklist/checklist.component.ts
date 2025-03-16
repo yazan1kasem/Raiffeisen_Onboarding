@@ -25,10 +25,11 @@ export class ChecklistComponent implements OnInit {
   constructor(
     private checklistService: DataService,
     private router: Router
-  ) {}
+  ) {
+    this.loadChecklists();
+  }
 
   ngOnInit(): void {
-    this.loadChecklists();
   }
 
   loadChecklists(): void {
@@ -39,10 +40,11 @@ export class ChecklistComponent implements OnInit {
       // Filteroptionen aktualisieren
       this.loadingChecklist=false;
       this.abteilungen = [...new Set(data.map(checklist => checklist.abteilungsname))];
+      this.filteredChecklists = data;
+      this.updatePositions();
+      this.updateDepartments();
     });
-    this.filteredChecklists = this.checklists;
-    this.updatePositions();
-    this.updateDepartments();
+
 
   }
 

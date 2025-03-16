@@ -1,7 +1,5 @@
-package Raiffeisen.Onboarding.PDFGenrator;
+package Raiffeisen.Onboarding.Generatoren;
 
-import Raiffeisen.Onboarding.Entities.CheckList;
-import Raiffeisen.Onboarding.Entities.Item;
 import Raiffeisen.Onboarding.Entities.User_Checklist_Items;
 import Raiffeisen.Onboarding.Entities.User_Checklists;
 import com.itextpdf.kernel.pdf.PdfDocument;
@@ -14,8 +12,6 @@ import org.springframework.stereotype.Service;
 import java.io.ByteArrayOutputStream;
 
 
-import org.apache.poi.xwpf.usermodel.*;
-import org.springframework.web.bind.annotation.*;
 import java.io.IOException;
 
 

@@ -1,8 +1,9 @@
 package Raiffeisen.Onboarding.Controller;
 
 import Raiffeisen.Onboarding.Entities.User_Checklists;
-import Raiffeisen.Onboarding.ExcelGenerator.ExcelGeneratorService;
-import Raiffeisen.Onboarding.WordGenerator.WordGeneratorService;
+import Raiffeisen.Onboarding.Generatoren.ExcelGeneratorService;
+import Raiffeisen.Onboarding.Generatoren.PdfGeneratorService;
+import Raiffeisen.Onboarding.Generatoren.WordGeneratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -62,7 +63,7 @@ public class ConverterController {
         }
     }
     @Autowired
-    private Raiffeisen.Onboarding.PDFGenrator.PdfGeneratorService pdfGeneratorService;
+    private PdfGeneratorService pdfGeneratorService;
 
     @PostMapping("/pdf/generate")
     public ResponseEntity<byte[]> generateChecklistPdf(@RequestBody User_Checklists checklist) {
