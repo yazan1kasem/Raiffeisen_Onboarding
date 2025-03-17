@@ -21,6 +21,7 @@ export class AuthService {
   }
 
   login(username: string, password: string): Observable<any> {
+    localStorage.removeItem('token'); 
     return this.http.post(`${this.apiUrl}/login`, { username, password }).pipe(
       tap((response: any) => {
         localStorage.setItem('token', response.token);// Speichere den JWT-Token im Local Storage
