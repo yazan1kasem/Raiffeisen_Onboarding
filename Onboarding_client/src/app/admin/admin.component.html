@@ -51,7 +51,7 @@
                   <input [(ngModel)]="item.type" placeholder="Typ" maxlength="65" />
                 </td>
                 <td>
-                  <input [(ngModel)]="item.suchbegriff" placeholder="Suchbegriff" />
+                  <input [(ngModel)]="item.suchbegriff" placeholder="Suchbegriff" maxlength="300" />
                 </td>
                 <td>
                   <button mat-button color="warn" (click)="removeItem(checklist, j); $event.stopPropagation()">🗑</button>
