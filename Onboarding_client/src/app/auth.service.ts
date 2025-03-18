@@ -22,7 +22,7 @@ export class AuthService {
 
   login(username: string, password: string): Observable<any> {
     if(localStorage.getItem('token')){
-      localStorage.removeItem('token'); 
+      localStorage.removeItem('token');
     }
     return this.http.post(`${this.apiUrl}/login`, { username, password }).pipe(
       tap((response: any) => {
@@ -65,17 +65,7 @@ export class AuthService {
     return null;
   }
 
-  // New Method: Check if user has a specific role
-  hasRole(requiredRole: string): boolean {
-    const role = this.getRole();
-    return role === requiredRole;
-  }
 
-  // New Method: Check if user has any role in a list of roles
-  hasAnyRole(requiredRoles: string[]): boolean {
-    const role = this.getRole();
-    return requiredRoles.includes(role || '');
-  }
 
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
