@@ -21,8 +21,10 @@ export class SignupComponent {
   confirmPassword: string = '';
   errorMessage: string = '';
   successMessage: string = '';
+  maxUsernameLength: number = 65;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService) {
+  }
 
   onSubmit(): void {
     this.errorMessage = '';
@@ -37,6 +39,16 @@ export class SignupComponent {
 
     if (!this.password) {
       this.errorMessage = 'Passwort ist leer.';
+      return;
+    }
+
+    if (!this.confirmPassword) {
+      this.errorMessage = 'Passwort bestätigen ist leer.';
+      return;
+    }
+
+    if (this.password !== this.confirmPassword) {
+      this.errorMessage = 'Passwort und Passwort bestätigen stimmen nicht überein.';
       return;
     }
 
@@ -55,7 +67,7 @@ export class SignupComponent {
         if (signupError.status === 409) {
           this.errorMessage = 'Benutzername bereits vergeben.';
         } else {
-          this.errorMessage = 'Benutzername bereits vergeben. ';
+          this.errorMessage = 'Benutzername ist zu lang. Max. ' + this.maxUsernameLength + ' Zeichen.';
         }
       }
     });

@@ -91,10 +91,10 @@ export class ChecklistendetailsComponent implements OnInit {
   createUserChecklist(): void {
     this.errorMessage = ''; // Fehlermeldung zurücksetzen
 
-    const titleRegex = /^[a-zA-Z0-9\s]{1,25}$/;
+    const titleRegex = /^[a-zA-Z0-9\s]{1,65}$/;
 
     if (!titleRegex.test(this.ueberschrift)) {
-      this.errorMessage = 'Der Titel darf maximal 25 Zeichen enthalten und keine unerwünschten Zeichen.';
+      this.errorMessage = 'Der Titel darf maximal 65 Zeichen enthalten und keine unerwünschten Zeichen.';
       return;
     }
 
